@@ -9,7 +9,7 @@ const QString Complexe::toString() const {
     //Si le complexe est reel
     if (estunReel) {
          string = QString::number(Re);
-        //Si il y a un dollar pour séparer la partie réelle de la partie imaginaire
+        //Si il y a un dollar pour séparer la partie réelle de la partie imaginaire (partie imaginaire non nulle)
         if (symboleDollar) {
             string += "$" + QString::number(Im);
         }

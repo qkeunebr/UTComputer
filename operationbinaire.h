@@ -1,7 +1,7 @@
 #ifndef OPERATIONBINAIRE_H
 #define OPERATIONBINAIRE_H
 
-#include "litteral.h"
+#include "complexe.h"
 
 class OperationBinaire
 {

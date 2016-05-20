@@ -1,11 +1,6 @@
 #ifndef LITTERAL_H
 #define LITTERAL_H
 
-
-/**
- * Classe abstraite representant une littérale
- */
-
 #include <Qstring>
 
 class Litteral
