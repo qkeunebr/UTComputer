@@ -3,7 +3,6 @@ CONFIG += c++11
 
 HEADERS += \
     fenetre.h \
-    addition.h \
     rationnel.h \
     expression.h \
     complexe.h \
@@ -20,4 +19,5 @@ SOURCES += \
     expression.cpp \
     operationunaire.cpp \
     operationbinaire.cpp \
-    addition.cpp
+    addition.cpp \
+    soustraction.cpp

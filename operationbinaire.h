@@ -2,6 +2,7 @@
 #define OPERATIONBINAIRE_H
 
 #include "complexe.h"
+#include "expression.h"
 
 class OperationBinaire
 {
@@ -10,6 +11,43 @@ class OperationBinaire
         Litteral* second;
     public:
         OperationBinaire(Litteral& l1, Litteral& l2);
+        //Méthode virtuelle permettant d'appeler les opérations et de renvoyer le résultat. Exemple : Addition(...).getResult()
+        virtual Litteral* getResult() const = 0;
+};
+
+
+class Addition : public OperationBinaire {
+    public:
+        Addition(Litteral& l1, Litteral& l2);
+        virtual Litteral* getResult() const;
+    private:
+        //Passer par le constructeur et la méthode getResult() pour faire ces opérations
+        Litteral* addition(const Rationnel& r1, const Rationnel& r2) const;
+        Litteral* addition(const Complexe& c1, const Complexe& c2) const;
+        Litteral* addition(const Complexe& c1, const Rationnel& r1) const;
+        Litteral* addition(const Rationnel& r1, const Complexe& c1) const;
+        Litteral* addition(const Expression& e1, const Expression& e2) const;
+        Litteral* addition(const Expression& e1, const Rationnel& r1) const;
+        Litteral* addition(const Expression& e1, const Complexe& c1) const;
+        Litteral* addition(const Rationnel& r1, const Expression& e1) const;
+        Litteral* addition(const Complexe& c1, const Expression& e1) const;
+};
+
+class Soustraction : public OperationBinaire {
+    public:
+        Soustraction(Litteral& l1, Litteral& l2);
+        virtual Litteral* getResult() const;
+    private:
+        Litteral* soustraction(const Rationnel& r1, const Rationnel& r2) const;
+        Litteral* soustraction(const Complexe& c1, const Complexe& c2) const;
+        Litteral* soustraction(const Complexe& c1, const Rationnel& r1) const;
+        Litteral* soustraction(const Rationnel& r1, const Complexe& c1) const;
+        Litteral* soustraction(const Expression& e1, const Expression& e2) const;
+        Litteral* soustraction(const Expression& e1, const Rationnel& r1) const;
+        Litteral* soustraction(const Expression& e1, const Complexe& c1) const;
+        Litteral* soustraction(const Rationnel& r1, const Expression& e1) const;
+        Litteral* soustraction(const Complexe& c1, const Expression& e1) const;
+
 };
 
 #endif // OPERATIONBINAIRE_H
