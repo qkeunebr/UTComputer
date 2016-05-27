@@ -4,6 +4,10 @@ Complexe::Complexe(float pRe, float pIm) :Re(pRe),Im(pIm),cReRationnel(),cImRati
 
 Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationnel(pIm),Re(0),Im(0), estunReel(false), symboleDollar(pIm.getNumerateur()!=0){}
 
+Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm) : Re(0), Im(0), symboleDollar(pIm.getNumerateur() != 0), cReRationnel(pRe), cImRationnel(pIm), estunReel(false)
+{
+}
+
 const QString Complexe::toString() const {
     QString string;
     //Si le complexe est reel

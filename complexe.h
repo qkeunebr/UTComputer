@@ -20,6 +20,7 @@ private:
 public:
     Complexe(float pRe, float pIm);
     Complexe(Rationnel& pRe, Rationnel& pIm);
+    Complexe(const Rationnel& pRe = Rationnel(), const Rationnel& pIm = Rationnel());
 
     //Accesseurs
     float getRe() const {return Re;}

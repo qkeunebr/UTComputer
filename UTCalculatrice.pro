@@ -8,7 +8,8 @@ HEADERS += \
     complexe.h \
     litteral.h \
     operationunaire.h \
-    operationbinaire.h
+    operationbinaire.h \
+    litteralfactory.h
 
 SOURCES += \
     main.cpp \
@@ -21,4 +22,6 @@ SOURCES += \
     operationbinaire.cpp \
     addition.cpp \
     soustraction.cpp \
-    multiplication.cpp
+    multiplication.cpp \
+    eval.cpp \
+    litteralfactory.cpp

@@ -10,4 +10,12 @@ class OperationUnaire
     public:
         OperationUnaire(Litteral& l);
 };
+
+
+class Eval : public OperationUnaire
+{
+    public:
+        Eval(Litteral& l);
+        //virtual Litteral* getResult() const;
+};
 #endif // OPERATIONUNAIRE_H
