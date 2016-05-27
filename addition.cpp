@@ -41,13 +41,33 @@ Litteral* Addition::addition(const Complexe& c1, const Complexe& c2) const{
 }
 
 
-Litteral* Addition::addition(const Complexe& c1, const Rationnel& r1) const{Litteral* retour; return retour;}
-Litteral* Addition::addition(const Rationnel& r1, const Complexe& c1) const{Litteral* retour; return retour;}
-Litteral* Addition::addition(const Expression& e1, const Expression& e2) const {Litteral* retour; return retour;}
-Litteral* Addition::addition(const Expression& e1, const Rationnel& r1) const{Litteral* retour; return retour;}
-Litteral* Addition::addition(const Expression& e1, const Complexe& c1) const {Litteral* retour; return retour;}
-Litteral* Addition::addition(const Rationnel& r1, const Expression& e1) const{Litteral* retour; return retour;}
-Litteral* Addition::addition(const Complexe& c1, const Expression& e1) const {Litteral* retour; return retour;}
+Litteral* Addition::addition(const Complexe& c1, const Rationnel& r1) const{
+    const Complexe& cTor(r1);
+    return addition(c1,cTor);
+}
+
+
+Litteral* Addition::addition(const Rationnel& r1, const Complexe& c1) const{
+    return addition(c1, r1);
+}
+Litteral* Addition::addition(const Expression& e1, const Expression& e2) const {
+    return new Expression(e1.getExp() + " " + e2.getExp() + " +");
+}
+
+
+Litteral* Addition::addition(const Expression& e1, const Rationnel& r1) const{
+    return new Expression(e1.getExp() + " " + r1.toString() + " +");
+}
+
+Litteral* Addition::addition(const Expression& e1, const Complexe& c1) const {
+     return new Expression(e1.getExp() + " " + c1.toString() + " +");
+}
+Litteral* Addition::addition(const Rationnel& r1, const Expression& e1) const{
+    return new Expression(r1.toString() + " " + e1.getExp() + " +");
+}
+Litteral* Addition::addition(const Complexe& c1, const Expression& e1) const {
+     return new Expression(c1.toString() + " " + e1.getExp() + " +");
+}
 
 Litteral* Addition::getResult() const {
     Expression* expfirst = dynamic_cast<Expression*>(first);
