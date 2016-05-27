@@ -50,4 +50,38 @@ class Soustraction : public OperationBinaire {
 
 };
 
+class Multiplication : public OperationBinaire {
+    public:
+        Multiplication(Litteral& l1, Litteral& l2);
+        virtual Litteral* getResult() const;
+    private:
+        Litteral* multiplication(const Rationnel& r1, const Rationnel& r2) const;
+        Litteral* multiplication(const Complexe& c1, const Complexe& c2) const;
+        Litteral* multiplication(const Complexe& c1, const Rationnel& r1) const;
+        Litteral* multiplication(const Rationnel& r1, const Complexe& c1) const;
+        Litteral* multiplication(const Expression& e1, const Expression& e2) const;
+        Litteral* multiplication(const Expression& e1, const Rationnel& r1) const;
+        Litteral* multiplication(const Expression& e1, const Complexe& c1) const;
+        Litteral* multiplication(const Rationnel& r1, const Expression& e1) const;
+        Litteral* multiplication(const Complexe& c1, const Expression& e1) const;
+
+};
+
+class Division : public OperationBinaire {
+    public:
+        Division(Litteral& l1, Litteral& l2);
+        virtual Litteral* getResult() const;
+    private:
+        Litteral* division(const Rationnel& r1, const Rationnel& r2) const;
+        Litteral* division(const Complexe& c1, const Complexe& c2) const;
+        Litteral* division(const Complexe& c1, const Rationnel& r1) const;
+        Litteral* division(const Rationnel& r1, const Complexe& c1) const;
+        Litteral* division(const Expression& e1, const Expression& e2) const;
+        Litteral* division(const Expression& e1, const Rationnel& r1) const;
+        Litteral* division(const Expression& e1, const Complexe& c1) const;
+        Litteral* division(const Rationnel& r1, const Expression& e1) const;
+        Litteral* division(const Complexe& c1, const Expression& e1) const;
+
+};
+
 #endif // OPERATIONBINAIRE_H

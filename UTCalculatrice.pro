@@ -20,4 +20,5 @@ SOURCES += \
     operationunaire.cpp \
     operationbinaire.cpp \
     addition.cpp \
-    soustraction.cpp
+    soustraction.cpp \
+    multiplication.cpp
