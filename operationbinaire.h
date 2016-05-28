@@ -38,6 +38,7 @@ class Soustraction : public OperationBinaire {
         Soustraction(Litteral& l1, Litteral& l2);
         virtual Litteral* getResult() const;
     private:
+        //Passer par le constructeur et la méthode getResult() pour faire ces opérations
         Litteral* soustraction(const Rationnel& r1, const Rationnel& r2) const;
         Litteral* soustraction(const Complexe& c1, const Complexe& c2) const;
         Litteral* soustraction(const Complexe& c1, const Rationnel& r1) const;
@@ -55,6 +56,7 @@ class Multiplication : public OperationBinaire {
         Multiplication(Litteral& l1, Litteral& l2);
         virtual Litteral* getResult() const;
     private:
+        //Passer par le constructeur et la méthode getResult() pour faire ces opérations
         Litteral* multiplication(const Rationnel& r1, const Rationnel& r2) const;
         Litteral* multiplication(const Complexe& c1, const Complexe& c2) const;
         Litteral* multiplication(const Complexe& c1, const Rationnel& r1) const;
@@ -72,6 +74,7 @@ class Division : public OperationBinaire {
         Division(Litteral& l1, Litteral& l2);
         virtual Litteral* getResult() const;
     private:
+        //Passer par le constructeur et la méthode getResult() pour faire ces opérations
         Litteral* division(const Rationnel& r1, const Rationnel& r2) const;
         Litteral* division(const Complexe& c1, const Complexe& c2) const;
         Litteral* division(const Complexe& c1, const Rationnel& r1) const;
