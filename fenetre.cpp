@@ -4,7 +4,7 @@ Fenetre::Fenetre():son(true){
 
     this->resize(420, 280); //...
 
-    cont = Controller::getController();
+    cont = new Controller;
 
     QWidget *tabWidget = new QWidget;
     QTabWidget *tab = new QTabWidget(tabWidget);
@@ -24,8 +24,6 @@ Fenetre::Fenetre():son(true){
     vLayoutCalc->addWidget(entree);
 
     // ----------------- Pile
-    controleur = Controller::getController();
-
     message = new QLineEdit();
     vuePile = new QTableWidget();
     commande = new QLineEdit();
@@ -50,7 +48,7 @@ Fenetre::Fenetre():son(true){
     //vuePile->setRowCount(pile->getNbItemsToAffiche());
 
     QStringList numberList;
-    for(unsigned int i = controleur->getPile()->getNbItemsToAffiche();i>0;i--)
+    for(unsigned int i = cont->getPile()->getNbItemsToAffiche();i>0;i--)
     {
         QString str = QString::number(i);
         str+=" :";
@@ -60,18 +58,17 @@ Fenetre::Fenetre():son(true){
     }
 
     vuePile->setVerticalHeaderLabels(numberList);
-    vuePile->setFixedHeight(controleur->getPile()->getNbItemsToAffiche()*vuePile->rowHeight(0)+2);
+    vuePile->setFixedHeight(cont->getPile()->getNbItemsToAffiche()*vuePile->rowHeight(0)+2);
 
 /*
     vuePile->resizeRowsToContents();
-
     int height = (vuePile->model()->rowCount() - 1) + vuePile->horizontalHeader()->height();
     for(int row = 0; row < vuePile->model()->rowCount(); row++)
     height = height + vuePile->rowHeight(row);
     vuePile->setMaximumHeight(height);
 */
 
-    QObject::connect(controleur->getPile(), SLOT(modificationEtat()), this, SLOT(refresh()));
+    QObject::connect(cont->getPile(), SLOT(modificationEtat()), this, SLOT(refresh()));
     QObject::connect(commande, SIGNAL(returnPressed()), this, SLOT(getNextCommande()));
 
     couche->addWidget(message);
@@ -81,7 +78,7 @@ Fenetre::Fenetre():son(true){
     vuePile->show();
     commande->show();
 
-    controleur->getPile()->setMessage("Bienvenue");
+    cont->getPile()->setMessage("Bienvenue");
     commande->setFocus(Qt::OtherFocusReason);
 
     vLayoutCalc->addLayout(couche);
