@@ -33,7 +33,6 @@ Q_OBJECT
     QTableWidget* vuePile;
     QLineEdit* commande;
     QVBoxLayout* couche;
-    Controller* controleur;
 public slots :
     void checkClavierStateChanged(int state){
         if(state)   calcButton->show();
