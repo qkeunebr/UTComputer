@@ -17,7 +17,7 @@ class Pile : public QObject {
     unsigned int nbAffiche;
 public:
     Pile():items(nullptr),nb(0),nbMax(0),message(""),nbAffiche(4){}
-    ~Pile();
+    ~Pile(){}
     void push(Litteral& e);
     void pop();
     bool estVide() const { return nb==0; }
@@ -59,19 +59,24 @@ signals:
 };
 
 class Controller{
-    static Controller *inst;
     Pile* pile;
 
+
+/*    struct Handler{
+        friend class Controller;
+        Controller* instance;
+        Handler():instance(nullptr){}
+        // destructeur appelé à la fin du programme
+        ~Handler(){ delete instance; }
+    };
+    static Handler handler;*/
+public :
     Controller(){
         pile = new Pile();
     }
-
-public :
-    static Controller* getController(){
-        if(Controller::inst==nullptr) Controller::inst = new Controller();
-        return Controller::inst;
-    }
-
+/*    static Controller& getInstance();
+    static void libererInstance();
+*/
     Pile* getPile(){
         return pile;
     }
