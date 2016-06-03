@@ -31,6 +31,21 @@ class Addition : public OperationBinaire {
         Litteral* addition(const Expression& e1, const Complexe& c1) const;
         Litteral* addition(const Rationnel& r1, const Expression& e1) const;
         Litteral* addition(const Complexe& c1, const Expression& e1) const;
+        float add(const float& re1, const float& re2) const;
+        int add(const int& en1, const int& en2) const;
+        float add(const int& en1, const float& re1) const;
+        float add(const float& re1, const int& en1) const;
+        Litteral* addition(const Expression& e1, const float& re1) const;
+        Litteral* addition(const Expression& e1, const int& en1) const;
+        Litteral* addition(const Complexe& c1, const int& en1) const;
+        Litteral* addition(const int& en1, const Complexe& c1) const;
+        Litteral* addition(const Complexe& c1, const float& ere1) const;
+        Litteral* addition(const float& re1, const Complexe& c1) const;
+        Litteral* addition(const Rationnel& r1, const float& re1) const;
+        Litteral* addition(const float& re1, const Rationnel& r1) const;
+        Litteral* addition(const Rationnel& r1, const int& en1) const;
+        Litteral* addition(const int& en1, const Rationnel& r1) const;
+
 };
 
 class Soustraction : public OperationBinaire {

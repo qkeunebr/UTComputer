@@ -1,10 +1,10 @@
 #include "complexe.h"
 
-Complexe::Complexe(float pRe, float pIm) :Re(pRe),Im(pIm),cReRationnel(),cImRationnel(), estunReel(true), symboleDollar(Im!=0){}
+Complexe::Complexe(float pRe, float pIm) :Re(pRe),Im(pIm),cReRationnel(),cImRationnel(), estunReel(true), symboleDollar(Im!=0), Litteral(0){}
 
-Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationnel(pIm),Re(0),Im(0), estunReel(false), symboleDollar(pIm.getNumerateur()!=0){}
+Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationnel(pIm),Re(0),Im(0), estunReel(false), symboleDollar(pIm.getNumerateur()!=0), Litteral(0){}
 
-Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm) : Re(0), Im(0), symboleDollar(pIm.getNumerateur() != 0), cReRationnel(pRe), cImRationnel(pIm), estunReel(false)
+Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm) : Re(0), Im(0), symboleDollar(pIm.getNumerateur() != 0), cReRationnel(pRe), cImRationnel(pIm), estunReel(false), Litteral(0)
 {
 }
 

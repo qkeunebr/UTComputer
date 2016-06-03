@@ -22,15 +22,15 @@ Litteral* Division::division(const Complexe& c1, const Complexe& c2) const{
            }
            else {
            //c2 est un Rationnel
-               result = new Complexe(Rationnel(((c1.getRe()*(float)c2.getReRationnel().getDenominateur()), (float)c2.getReRationnel().getNumerateur()),
-                                     Rationnel(((c1.getIm()*(float)c2.getImRationnel().getDenominateur()), (float)c2.getImRationnel().getNumerateur()));
+               result = new Complexe(Rationnel(((c1.getRe()*(float)c2.getReRationnel().getDenominateur()), (float)c2.getReRationnel().getNumerateur())),
+                                     Rationnel(((c1.getIm()*(float)c2.getImRationnel().getDenominateur()), (float)c2.getImRationnel().getNumerateur())));
            }
      }
      else {
         //c1 est un Rationnel
            if (c2.estReel()) {
-                result = new Complexe(Rationnel(((c2.getRe()*(float)c1.getReRationnel().getDenominateur()), (float)c1.getReRationnel().getNumerateur()),
-                                      Rationnel(((c2.getIm()*(float)c1.getImRationnel().getDenominateur()), (float)c1.getImRationnel().getNumerateur()));
+                result = new Complexe(Rationnel(((c2.getRe()*(float)c1.getReRationnel().getDenominateur()), (float)c1.getReRationnel().getNumerateur())),
+                                      Rationnel(((c2.getIm()*(float)c1.getImRationnel().getDenominateur()), (float)c1.getImRationnel().getNumerateur())));
            }
            //c1 et c2 sont Rationnel
            else {
