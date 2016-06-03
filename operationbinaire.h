@@ -81,6 +81,10 @@ class Multiplication : public OperationBinaire {
         Litteral* multiplication(const Expression& e1, const Complexe& c1) const;
         Litteral* multiplication(const Rationnel& r1, const Expression& e1) const;
         Litteral* multiplication(const Complexe& c1, const Expression& e1) const;
+        float mult(const float& re1, const float& re2) const;
+        int mult(const int& en1, const int& en2) const;
+        float mult(const int& en1, const float& re1) const;
+        float mult (const float& re1, const int& en1) const;
 
 };
 
@@ -100,6 +104,23 @@ class Division : public OperationBinaire {
         Litteral* division(const Rationnel& r1, const Expression& e1) const;
         Litteral* division(const Complexe& c1, const Expression& e1) const;
 
+};
+
+class DivisionEntiere : public OperationBinaire {
+    public:
+        DivisionEntiere(Litteral& l1, Litteral& l2);
+        virtual Litteral* getResult() const;
+    private:
+        //Passer par le constructeur et la méthode getResult() pour faire ces opérations
+        Litteral* divisionentiere(const Rationnel& r1, const Rationnel& r2) const;
+        Litteral* divisionentiere(const Complexe& c1, const Complexe& c2) const;
+        Litteral* divisionentiere(const Complexe& c1, const Rationnel& r1) const;
+        Litteral* divisionentiere(const Rationnel& r1, const Complexe& c1) const;
+        Litteral* divisionentiere(const Expression& e1, const Expression& e2) const;
+        Litteral* divisionentiere(const Expression& e1, const Rationnel& r1) const;
+        Litteral* divisionentiere(const Expression& e1, const Complexe& c1) const;
+        Litteral* divisionentiere(const Rationnel& r1, const Expression& e1) const;
+        Litteral* divisionentiere(const Complexe& c1, const Expression& e1) const;
 };
 
 #endif // OPERATIONBINAIRE_H

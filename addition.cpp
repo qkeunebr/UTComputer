@@ -495,7 +495,6 @@ Litteral* Addition::getResult() const {
                        }
 
                     }
-
                 }
             }
         }

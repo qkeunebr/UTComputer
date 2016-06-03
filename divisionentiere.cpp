@@ -1,48 +1,48 @@
 /**
- * \file division.cpp
- * \brief Operation Division
+ * \file divisionentiere.cpp
+ * \brief Operation DivisionEntiere
  * \author Quentin Keunebroek
  * \version 1.0
  * \date 3 juin 2016
  *
- * Opération Division pour tout type de Littérale.
+ * Opération DivisionEntiere pour tout type de Littérale.
  *
  */
 
 #include "operationbinaire.h"
 
 /**
- * \fn Division::Division(Litteral& l1, Litteral& l2)
- * \brief Fonction de construction de l'objet Division.
+ * \fn DivisionEntiere::divisionentiere(Litteral& l1, Litteral& l2)
+ * \brief Fonction de construction de l'objet divisionentiere.
  *
  * \param Deux objets de type littérale.
  * \return Opération binaire composée de deux littérales.
  */
-Division::Division(Litteral& l1, Litteral& l2) : OperationBinaire(l1,l2)
+DivisionEntiere::DivisionEntiere(Litteral& l1, Litteral& l2) : OperationBinaire(l1,l2)
 {
 }
 
 /**
- * \fn Litteral* Division::division(const Rationnel& r1, const Rationnel& r2) const
- * \brief Fonction pour effectuer la division entre deux objets rationnels.
+ * \fn Litteral* divisionentiere::divisionentiere(const Rationnel& r1, const Rationnel& r2) const
+ * \brief Fonction pour effectuer la divisionentiere entre deux objets rationnels.
  *
  * \param Deux objets de type Rationnel.
  * \return Littéral de type Rationnel.
  */
-Litteral* Division::division(const Rationnel& r1, const Rationnel& r2) const{
+Litteral* DivisionEntiere::divisionentiere(const Rationnel& r1, const Rationnel& r2) const{
     Litteral* result;
     result = new Rationnel(r1.getNumerateur()*r2.getDenominateur(), r1.getDenominateur() * r2.getNumerateur());
     return result;
 }
 
 /**
- * \fn Litteral* Division::division(const Complexe& c1, const Complexe& c2) const
- * \brief Fonction pour effectuer la division entre deux objets complexes.
+ * \fn Litteral* divisionentiere::divisionentiere(const Complexe& c1, const Complexe& c2) const
+ * \brief Fonction pour effectuer la divisionentiere entre deux objets complexes.
  *
  * \param Deux objets de type Complexe.
  * \return Littéral de type Complexe.
  */
-Litteral* Division::division(const Complexe& c1, const Complexe& c2) const{
+Litteral* DivisionEntiere::divisionentiere(const Complexe& c1, const Complexe& c2) const{
     Litteral* result;
     if (c1.estReel()) {
         //c1 est un réel
@@ -73,15 +73,15 @@ Litteral* Division::division(const Complexe& c1, const Complexe& c2) const{
 }
 
 /**
- * \fn Litteral* Division::division(const Complexe& c1, const Rationnel& r1) const
- * \brief Fonction pour effectuer la division entre un objet complexe et un objet rationnel.
+ * \fn Litteral* divisionentiere::divisionentiere(const Complexe& c1, const Rationnel& r1) const
+ * \brief Fonction pour effectuer la divisionentiere entre un objet complexe et un objet rationnel.
  *
  * \param Un objet de type Complexe et un objet de type Rationnel.
  * \return Littéral de type Complexe.
  */
-Litteral* Division::division(const Complexe& c1, const Rationnel& r1) const{
+Litteral* DivisionEntiere::divisionentiere(const Complexe& c1, const Rationnel& r1) const{
     const Complexe& cTor(r1);
-    return division(c1,cTor);
+    return divisionentiere(c1,cTor);
 }
 
 /**
@@ -91,90 +91,90 @@ Litteral* Division::division(const Complexe& c1, const Rationnel& r1) const{
  * \param Un objet de type Rationnel et un objet de type Complexe.
  * \return Littéral de type Complexe.
  */
-Litteral* Division::division(const Rationnel& r1, const Complexe& c1) const{
-     return division(c1, r1);
+Litteral* DivisionEntiere::divisionentiere(const Rationnel& r1, const Complexe& c1) const{
+     return divisionentiere(c1, r1);
 }
 
 /**
- * \fn Litteral* Division::division(const Expression& e1, const Expression& e2) const
- * \brief Fonction pour effectuer la division entre deux objets Expression.
+ * \fn Litteral* divisionentiere::divisionentiere(const Expression& e1, const Expression& e2) const
+ * \brief Fonction pour effectuer la divisionentiere entre deux objets Expression.
  *
  * \param Deux objets de type Expression.
  * \return Littéral de type Expression.
  */
-Litteral* Division::division(const Expression& e1, const Expression& e2) const {
+Litteral* DivisionEntiere::divisionentiere(const Expression& e1, const Expression& e2) const {
     return new Expression(e1.getExp() + " " + e2.getExp() + " /");
 }
 
 /**
- * \fn Litteral* Division::division(const Expression& e1, const Rationnel& r1) const
- * \brief Fonction pour effectuer la division entre un objet Expression et un objet Rationnel.
+ * \fn Litteral* divisionentiere::divisionentiere(const Expression& e1, const Rationnel& r1) const
+ * \brief Fonction pour effectuer la divisionentiere entre un objet Expression et un objet Rationnel.
  *
  * \param Un objet de type Expression et un objet de type Rationnel.
  * \return Littéral de type Expression.
  */
-Litteral* Division::division(const Expression& e1, const Rationnel& r1) const{
+Litteral* DivisionEntiere::divisionentiere(const Expression& e1, const Rationnel& r1) const{
     return new Expression(e1.getExp() + " " + r1.toString() + " /");
 }
 
 /**
- * \fn Litteral* Division::division(const Expression& e1, const Complexe& c1) const
- * \brief Fonction pour effectuer la division entre un objet Expression et un objet Complexe.
+ * \fn Litteral* divisionentiere::divisionentiere(const Expression& e1, const Complexe& c1) const
+ * \brief Fonction pour effectuer la divisionentiere entre un objet Expression et un objet Complexe.
  *
  * \param Un objet de type Expression et un objet de type Complexe.
  * \return Littéral de type Expression.
  */
-Litteral* Division::division(const Expression& e1, const Complexe& c1) const {
+Litteral* DivisionEntiere::divisionentiere(const Expression& e1, const Complexe& c1) const {
     return new Expression(e1.getExp() + " " + c1.toString() + " /");
 }
 
 /**
- * \fn Litteral* Division::division(const Rationnel& r1, const Expression& e1) const
- * \brief Fonction pour effectuer la division entre un objet Rationnel et un objet Expression.
+ * \fn Litteral* divisionentiere::divisionentiere(const Rationnel& r1, const Expression& e1) const
+ * \brief Fonction pour effectuer la divisionentiere entre un objet Rationnel et un objet Expression.
  *
  * \param Un objet de type Rationnel et un objet de type Expression.
  * \return Littéral de type Expression.
  */
-Litteral* Division::division(const Rationnel& r1, const Expression& e1) const{
+Litteral* DivisionEntiere::divisionentiere(const Rationnel& r1, const Expression& e1) const{
     return new Expression(r1.toString() + " " + e1.getExp() + " /");
 }
 
 /**
- * \fn Litteral* Division::division(const Complexe& c1, const Expression& e1) const
- * \brief Fonction pour effectuer la division entre un objet Complexe et un objet Expression.
+ * \fn Litteral* divisionentiere::divisionentiere(const Complexe& c1, const Expression& e1) const
+ * \brief Fonction pour effectuer la divisionentiere entre un objet Complexe et un objet Expression.
  *
  * \param Un objet de type Complexe et un objet de type Expression.
  * \return Littéral de type Expression.
  */
-Litteral* Division::division(const Complexe& c1, const Expression& e1) const {
+Litteral* DivisionEntiere::divisionentiere(const Complexe& c1, const Expression& e1) const {
     return new Expression(c1.toString() + " " + e1.getExp() + " /");
 }
 
 /**
- * \fn Litteral* Division::getResult() const
- * \brief Fonction qui appelle les différentes méthodes division selon le type de Littérale considéré
+ * \fn Litteral* divisionentiere::getResult() const
+ * \brief Fonction qui appelle les différentes méthodes divisionentiere selon le type de Littérale considéré
  *
  *
  * \return Objet de type littéral.
  */
-Litteral* Division::getResult() const {
+Litteral* DivisionEntiere::getResult() const {
     Expression* expfirst = dynamic_cast<Expression*>(first);
     if (expfirst != NULL){
         //first est une expression
         Expression* expsecond = dynamic_cast<Expression*>(second);
         if (expsecond != NULL){
             // second est une expression
-            return division(*expfirst, *expsecond);
+            return divisionentiere(*expfirst, *expsecond);
         }
         else {
             Complexe* complexesecond = dynamic_cast<Complexe*>(second);
             if (complexesecond != NULL) {
                 // second est un complexe
-                return division(*expfirst, *complexesecond);
+                return divisionentiere(*expfirst, *complexesecond);
             }
             else {
                 // second est un rationnel
-                return division(*expfirst, *((Rationnel*)second));
+                return divisionentiere(*expfirst, *((Rationnel*)second));
             }
         }
     }
@@ -186,16 +186,16 @@ Litteral* Division::getResult() const {
             Expression* expsecond = dynamic_cast<Expression*>(second);
             if (expsecond != NULL) {
                 // second est une expression
-                return division(*complexefirst, *expsecond);
+                return divisionentiere(*complexefirst, *expsecond);
             }
             else {
                 Complexe* complexesecond = dynamic_cast<Complexe*>(second);
                 if (complexesecond != NULL){
                     //second est un complexe
-                    return division(*complexefirst, *complexesecond);
+                    return divisionentiere(*complexefirst, *complexesecond);
                 }
                 else{
-                    return division(*complexefirst, *((Rationnel*)second));
+                    return divisionentiere(*complexefirst, *((Rationnel*)second));
                 }
            }
         }
@@ -204,16 +204,16 @@ Litteral* Division::getResult() const {
             Expression* expsecond = dynamic_cast<Expression*>(second);
             if (expsecond != NULL) {
                 // second est une expression
-                return division(*((Rationnel*)first), *expsecond);
+                return divisionentiere(*((Rationnel*)first), *expsecond);
             }
             else {
                 Complexe* complexesecond = dynamic_cast<Complexe*>(second);
                 if (complexesecond != NULL){
                     //second est un complexe
-                    return division(*((Rationnel*)first), *complexesecond);
+                    return divisionentiere(*((Rationnel*)first), *complexesecond);
                 }
                 else{
-                    return division(*((Rationnel*)first), *((Rationnel*)second));
+                    return divisionentiere(*((Rationnel*)first), *((Rationnel*)second));
                 }
            }
         }
