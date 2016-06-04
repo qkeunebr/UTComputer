@@ -4,82 +4,49 @@
 #include "litteral.h"
 #include <QString>
 #include <QObject>
-#include <QTextStream>
+#include <stack>
+#include "operationbinaire.h"
 
-class Pile : public QObject {
+class Pile : public QObject  {
     Q_OBJECT
 
-    Litteral* items;
-    unsigned int nb;
-    unsigned int nbMax;
+    std::stack<Litteral*> sta;
     QString message;
-    void agrandissementCapacite();
     unsigned int nbAffiche;
 public:
-    Pile():items(nullptr),nb(0),nbMax(0),message(""),nbAffiche(4){}
-    ~Pile(){}
-    void push(Litteral& e);
-    void pop();
-    bool estVide() const { return nb==0; }
-    unsigned int taille() const { return nb; }
-    void affiche(QTextStream& f) const;
-    Litteral& top() const;
-    void setNbItemsToAffiche(unsigned int n) { nb=n; }
+    Pile():sta(),message(""),nbAffiche(4){}
+    void pushMod(Litteral& e);
+    void popMod();
+    void push(Litteral& e){sta.push(&e);}
+    void pop(){ sta.pop();}
+    int size(){return sta.size();}
+    Litteral* top(){return sta.top();}
+//    QStack<Litteral*>::Iterator begin(){return sta.begin();}
+//    QStack<Litteral*>::Iterator end(){return sta.end();}
+//    const Litteral* value(int i){return sta.value(i);}
+    void setNbItemsToAffiche(unsigned int n) { nbAffiche=n; }
     unsigned int getNbItemsToAffiche() const { return nbAffiche; }
     void setMessage(const QString& m) { message=m; modificationEtat(); }
     QString getMessage() const { return message; }
-    class iterator {
-        Litteral* current;
-        iterator(Litteral* u):current(u){}
-        friend class Pile;
-    public:
-        iterator():current(nullptr){}
-        Litteral& operator*() const { return *current; }
-        bool operator!=(iterator it) const { return current!=it.current; }
-        iterator& operator++(){ --current; return *this; }
-    };
-    iterator begin() { return iterator(items+nb-1); }
-    iterator end() { return iterator(items-1); }
-
-    class const_iterator {
-        Litteral* current;
-        const_iterator(Litteral* u):current(u){}
-        friend class Pile;
-    public:
-        const_iterator():current(nullptr){}
-        const Litteral& operator*() const { return *current; }
-        bool operator!=(const_iterator it) const { return current!=it.current; }
-        const_iterator& operator++(){ --current; return *this; }
-    };
-    const_iterator begin() const { return const_iterator(items+nb-1); }
-    const_iterator end() const { return const_iterator(items-1); }
-
 signals:
     void modificationEtat();
 };
 
 class Controller{
-    Pile* pile;
-
-
-/*    struct Handler{
-        friend class Controller;
-        Controller* instance;
-        Handler():instance(nullptr){}
-        // destructeur appelé à la fin du programme
-        ~Handler(){ delete instance; }
-    };
-    static Handler handler;*/
+    Pile pile;
 public :
-    Controller(){
-        pile = new Pile();
-    }
-/*    static Controller& getInstance();
-    static void libererInstance();
-*/
-    Pile* getPile(){
-        return pile;
-    }
-};
+    Controller():pile(){}
 
+    Pile* getPile(){
+        return &pile;
+    }
+    void commande(const QString& c);
+
+
+    bool estUnOperateurUnaire(const QString s);
+    bool estUnOperateurBinaire(const QString s);
+    bool estUnEntier(const QString s);
+    bool estUnFloat(const QString s);
+
+};
 #endif // CONTROLLER_H

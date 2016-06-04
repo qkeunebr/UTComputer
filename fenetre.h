@@ -7,13 +7,26 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QTabWidget>
+#include <QTableWidget>
+#include <QTableWidgetItem>
 #include <QCheckBox>
 #include <QWidget>
 #include <iostream>
 #include <windows.h>
 #include <QTableWidget>
 #include <QHeaderView>
+#include <QCloseEvent>
+#include <QSessionManager>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QSettings>
+#include <QAction>
+#include <QMenuBar>
+#include <QMenu>
+#include <QToolBar>
+#include <QStatusBar>
+#include <QTextStream>
+#include <QDesktopWidget>
 #include "controller.h"
 #include "litteral.h"
 
@@ -21,8 +34,7 @@
 class Fenetre : public QMainWindow {
 Q_OBJECT
     Controller* cont;
-    QLineEdit* entree;
-    //Un attribut qui contient l'application/l'objet auquelle on fait appel
+
 
     //Attribut affichage clavier
     QWidget* calcButton;
@@ -42,6 +54,8 @@ public slots :
     void checkSonStateChanged(int state){
         son = state;
     }
+    void refresh();
+    void getNextCommande();
 
     void pushB1();
     void pushB2();
@@ -75,6 +89,29 @@ public slots :
 public :
 
     Fenetre();
+    void loadFile(const QString &filename);
+protected :
+    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+private slots:
+    void newFile();
+    void open();
+    bool save();
+    bool saveAs();
+    void documentWasModified();
+//    void commitData(QSessionManager &);
+
+private:
+    void createActions();
+    void createStatusBar();
+    void readSettings();
+    void writeSettings();
+    bool maybeSave();
+    bool saveFile(const QString &fileName);
+    void setCurrentFile(const QString &fileName);
+    QString strippedName(const QString &fullFileName);
+
+    QString curFile;
+
 };
 
 
