@@ -2,4 +2,4 @@
 #include <QString>
 
 
-Expression::Expression(QString e) : exp(e), Litteral(0){}
+Expression::Expression(QString e) : exp(e){}

@@ -29,8 +29,18 @@ Addition::Addition(Litteral& l1, Litteral& l2) : OperationBinaire(l1, l2){}
  */
 Litteral* Addition::addition(const Rationnel& r1, const Rationnel& r2) const{
     Litteral* result;
-    Rationnel r(r1.getNumerateur()*r2.getDenominateur()+r2.getNumerateur()*r1.getDenominateur(), r1.getDenominateur()*r2.getDenominateur());
-    result = new Rationnel(r.getNumerateur()/r.getDenominateur());
+    if (r1.getDenominateur() == 1){
+        //r1 est un entier
+        if (r2.getDenominateur() == 1){
+            //r2 est aussi un entier
+            result =  new Rationnel(r1.getNumerateur()+r2.getNumerateur(),1);
+        }
+        else{
+            result =  new Rationnel((r1.getNumerateur()*r2.getDenominateur())+r2.getNumerateur(), r2.getDenominateur());
+        }
+    }
+    else
+        result = new Rationnel((r1.getNumerateur()*r2.getDenominateur())+(r1.getDenominateur()*r2.getNumerateur()), r1.getDenominateur()+r2.getDenominateur());
     return result;
 }
 
@@ -43,27 +53,88 @@ Litteral* Addition::addition(const Rationnel& r1, const Rationnel& r2) const{
  */
 Litteral* Addition::addition(const Complexe& c1, const Complexe& c2) const{
     Litteral* result;
-    if (c1.estReel()) {
-        //c1 est un réel
-           if (c2.estReel()) {
-               //c2 est aussi un réel
-               result = new Complexe(c1.getRe() + c2.getRe(), c1.getIm() + c2.getIm());
+    if (!c1.getSymboleDollar()){
+        //c1 est un réel (partie imaginaire nulle)
+        if(!c2.getSymboleDollar()){
+            //c2 est un réel (partie imaginaire nulle)
+            result = new Complexe(c1.getReReel()+c2.getReReel(),0.0);
+        }
+        else if (c2.estReel()) {
+            //c2 est aussi composé de réels
+            result = new Complexe(c1.getReReel() + c2.getReReel(), c2.getImReel());
+
+        }
+        else  if (c2.estEntier())
+            //c2 est composé d'entiers
+        {
+             result = new Complexe(c1.getReReel() + (float)c2.getReEntier(), (float)c2.getImEntier());
+        }
+        else{
+        //c2 composé de Rationnels
+            result = new Complexe(Rationnel((((int)c1.getReReel()*c2.getReRationnel().getDenominateur())+c2.getReRationnel().getNumerateur()), c2.getReRationnel().getDenominateur()),
+                                  Rationnel((c2.getImRationnel().getNumerateur()), c2.getImRationnel().getDenominateur()));
+        }
+
+    }
+    else if (c1.estReel()) {
+            //c1 est composée de réels
+            if(!c2.getSymboleDollar()){
+                //c2 est un réel (partie imaginaire nulle)
+                result = new Complexe(c1.getReReel() + c2.getReReel(), c1.getImReel());
+            }
+            else if (c2.estReel()) {
+               //c2 est aussi composé de réels
+               result = new Complexe(c1.getReReel() + c2.getReReel(), c1.getImReel()+c2.getImReel());
 
            }
-           else {
-           //c2 est un Rationnel
-               result = new Complexe(Rationnel(((c1.getRe()*(float)c2.getReRationnel().getDenominateur())+(float)c2.getReRationnel().getNumerateur()), (float)c2.getReRationnel().getDenominateur()),
-                                     Rationnel(((c1.getIm()*(float)c2.getImRationnel().getDenominateur())+(float)c2.getImRationnel().getNumerateur()), (float)c2.getImRationnel().getDenominateur()));
+           else  if (c2.estEntier())
+               //c2 est composé d'entiers
+           {
+                result = new Complexe(c1.getReReel() + (float)c2.getReEntier(), c1.getImReel() + (float)c2.getImEntier());
+           }
+           else{
+           //c2 composé de Rationnels
+               result = new Complexe(Rationnel((((int)c1.getReReel()*c2.getReRationnel().getDenominateur())+c2.getReRationnel().getNumerateur()), c2.getReRationnel().getDenominateur()),
+                                     Rationnel((((int)c1.getImReel()*c2.getImRationnel().getDenominateur())+c2.getImRationnel().getNumerateur()), c2.getImRationnel().getDenominateur()));
            }
      }
-     else {
-        //c1 est un Rationnel
+     else if (c1.estEntier()){
+        //c1 est composé d'entiers
+            if(!c2.getSymboleDollar()){
+                //c2 est un réel (partie imaginaire nulle)
+                result = new Complexe((float)c1.getReEntier() + c2.getReReel(), (float)c1.getImEntier());
+            }
+            else if(c2.estEntier()){
+                //c2 est composé d'entiers
+                result = new Complexe(c1.getReEntier() + c2.getReEntier(), c1.getImEntier() + c2.getImEntier());
+            }
+            else if (c2.estReel()){
+                //c2 est est composé de réels
+                 result = new Complexe(c1.getReReel() + (float)c2.getReEntier(), c1.getImReel() + (float)c2.getImEntier());
+            }
+            else {
+                //c2 est est composé de Rationnels
+                result = new Complexe(Rationnel(((c1.getReEntier()*c2.getReRationnel().getDenominateur())+c2.getReRationnel().getNumerateur()), c2.getReRationnel().getDenominateur()),
+                                      Rationnel(((c1.getImEntier()*c2.getImRationnel().getDenominateur())+c2.getImRationnel().getNumerateur()), c2.getImRationnel().getDenominateur()));
+            }
+     }
+     else{
+           //c1 est est composé de Rationnels
+            if(!c2.getSymboleDollar()){
+                //c2 est un réel (partie imaginaire nulle)
+               result = new Complexe(Rationnel(c1.getReRationnel().getNumerateur() + (int)c2.getReReel()*c1.getReRationnel().getDenominateur(), c1.getReRationnel().getDenominateur()),
+                                     Rationnel(c1.getImRationnel().getNumerateur() + (int)c2.getImReel()*c1.getImRationnel().getDenominateur(), c1.getImRationnel().getDenominateur()));
+            }
            if (c2.estReel()) {
-                result = new Complexe(Rationnel(((c2.getRe()*(float)c1.getReRationnel().getDenominateur())+(float)c1.getReRationnel().getNumerateur()), (float)c1.getReRationnel().getDenominateur()),
-                                      Rationnel(((c2.getIm()*(float)c1.getImRationnel().getDenominateur())+(float)c1.getImRationnel().getNumerateur()), (float)c1.getImRationnel().getDenominateur()));
+               result = new Complexe(Rationnel(c1.getReRationnel().getNumerateur() + (int)c2.getReReel()*c1.getReRationnel().getDenominateur(), c1.getReRationnel().getDenominateur()),
+                                     Rationnel(c1.getImRationnel().getNumerateur() + (int)c2.getImReel()*c1.getImRationnel().getDenominateur(), c1.getImRationnel().getDenominateur()));
            }
-           //c1 et c2 sont Rationnel
+           else if (c1.estEntier()){
+               result = new Complexe(Rationnel(((c1.getReEntier()*c2.getReRationnel().getDenominateur())+c2.getReRationnel().getNumerateur()), c2.getReRationnel().getDenominateur()),
+                                     Rationnel(((c1.getImEntier()*c2.getImRationnel().getDenominateur())+c2.getImRationnel().getNumerateur()), c2.getImRationnel().getDenominateur()));
+           }
            else {
+                //c1 et c2 sont composés de Rationnels
                 result = new Complexe(Rationnel(c1.getReRationnel().getNumerateur()*c2.getReRationnel().getDenominateur()+c2.getReRationnel().getNumerateur()*c1.getReRationnel().getDenominateur(), c1.getReRationnel().getDenominateur()*c2.getReRationnel().getDenominateur()),
                                       Rationnel(c1.getImRationnel().getNumerateur()*c2.getImRationnel().getDenominateur()+c2.getImRationnel().getNumerateur()*c1.getImRationnel().getDenominateur(), c1.getImRationnel().getDenominateur()*c2.getImRationnel().getDenominateur()));
            }
@@ -81,164 +152,6 @@ Litteral* Addition::addition(const Complexe& c1, const Complexe& c2) const{
 Litteral* Addition::addition(const Complexe& c1, const Rationnel& r1) const{
     const Complexe& cTor(r1);
     return addition(c1,cTor);
-}
-
-/**
- * \fn float Addition::add(const float& re1, const float& re2) const
- * \brief Fonction pour effectuer l'addition entre deux variables réelles.
- *
- * \param Deux variables de type float.
- * \return Variable de type float.
- */
-float Addition::add(const float& re1, const float& re2) const{
-    return re1+re2;
-}
-
-/**
- * \fn int Addition::add(const int& en1, const int& en2) const
- * \brief Fonction pour effectuer l'addition entre deux variables integer.
- *
- * \param Deux variables de type integer.
- * \return Variable de type integer.
- */
-int Addition::add(const int& en1, const int& en2) const{
-    return en1+en2;
-}
-
-/**
- * \fn float Addition::add(const int& en1, const float& re1) const
- * \brief Fonction pour effectuer l'addition entre une variable integer et une variable réelle.
- *
- * \param Une variable de type integer et une variable de type float.
- * \return Variable de type float.
- */
-float Addition::add(const int& en1, const float& re1) const{
-    return (float)en1+re1;
-}
-
-/**
- * \fn float Addition::add(const float& re1, const int& en1) const
- * \brief Fonction pour effectuer l'addition entre une variable réelle et une variable integer.
- *
- * \param Une variable de type float et une variable de type integer.
- * \return Variable de type float.
- */
-float Addition::add(const float& re1, const int& en1) const{
-    return add(en1, re1);
-}
-
-/**
- * \fn Litteral* Addition::addition(const Expression& e1, const float& re1) const
- * \brief Fonction pour effectuer l'addition entre une littérale Expression et une variable réelle.
- *
- * \param Un objet de type Expression et une variable de type float.
- * \return Littérale de type Expression.
- */
-Litteral* Addition::addition(const Expression& e1, const float& re1) const{
-    return new Expression(e1.getExp() + " " + QString::number(re1) + " +");
-}
-
-/**
- * \fn Litteral* Addition::addition(const Expression& e1, const int& en1) const
- * \brief Fonction pour effectuer l'addition entre une littérale Expression et une variable integer.
- *
- * \param Un objet de type Expression et une variable de type integer.
- * \return Littérale de type Expression.
- */
-Litteral* Addition::addition(const Expression& e1, const int& en1) const{
-    return new Expression(e1.getExp() + " " + QString::number(en1) + " +");
-}
-
-/**
- * \fn Litteral* Addition::addition(const Complexe& c1, const int& en1) const
- * \brief Fonction pour effectuer l'addition entre une littérale Complexe et une variable integer.
- *
- * \param Un objet de type Complexe et une variable de type integer.
- * \return Littérale de type Complexe.
- */
-Litteral* Addition::addition(const Complexe& c1, const int& en1) const{
-    Litteral* result = new Complexe(c1.getRe()+en1, c1.getIm());
-    return result;
-}
-
-/**
- * \fn Litteral* Addition::addition(const int& en1, const Complexe& c1) const
- * \brief Fonction pour effectuer l'addition entre une variable integer et une littérale Complexe.
- *
- * \param Une variable de type integer et un objet de type Complexe.
- * \return Littérale de type Complexe.
- */
-Litteral* Addition::addition(const int& en1, const Complexe& c1) const{
-   return addition(c1, en1);
-}
-
-/**
- * \fn Litteral* Addition::addition(const Complexe& c1, const float& re1) const
- * \brief Fonction pour effectuer l'addition entre une littérale Complexe et une variable réelle.
- *
- * \param Un objet de type Complexe et une variable de type float.
- * \return Littérale de type Complexe.
- */
-Litteral* Addition::addition(const Complexe& c1, const float& re1) const{
-    Litteral* result = new Complexe(c1.getRe()+re1, c1.getIm());
-    return result;
-}
-
-/**
- * \fn Litteral* Addition::addition(const float& re1, const Complexe& c1) const
- * \brief Fonction pour effectuer l'addition entre une variable réelle et une littérale Complexe.
- *
- * \param Une variable de type float et un objet de type Complexe.
- * \return Littérale de type Complexe.
- */
-Litteral* Addition::addition(const float& re1, const Complexe& c1) const{
-   return addition(c1, re1);
-}
-
-/**
- * \fn Litteral* Addition::addition(const Rationnel& r1, const float& re1) const
- * \brief Fonction pour effectuer l'addition entre une littérale Rationnel et une variable réelle.
- *
- * \param Un objet de type Rationnel et une variable de type float.
- * \return Littérale de type Rationnel.
- */
-Litteral* Addition::addition(const Rationnel& r1, const float& re1) const{
-    Litteral* result= new Rationnel (r1.getNumerateur()+(re1*r1.getDenominateur()), r1.getDenominateur());
-    return result;
-}
-
-/**
- * \fn Litteral* Addition::addition(const float& re1, const Rationnel& r1) const
- * \brief Fonction pour effectuer l'addition entre une variable réelle et une littérale Rationnel.
- *
- * \param Une variable de type float et un objet de type Rationnel.
- * \return Littérale de type Rationnel.
- */
-Litteral* Addition::addition(const float& re1, const Rationnel& r1) const{
-    return addition(r1, re1);
-}
-
-/**
- * \fn Litteral* Addition::addition(const Rationnel& r1, const int& en1) const
- * \brief Fonction pour effectuer l'addition entre une littérale Rationnel et une variable integer.
- *
- * \param Un objet de type Rationnel et une variable de type integer.
- * \return Littérale de type Rationnel.
- */
-Litteral* Addition::addition(const Rationnel& r1, const int& en1) const{
-    Litteral* result= new Rationnel (r1.getNumerateur()+(en1*r1.getDenominateur()), r1.getDenominateur());
-    return result;
-}
-
-/**
- * \fn Litteral* Addition::addition(const int& en1, const Rationnel& r1) const
- * \brief Fonction pour effectuer l'addition entre une variable integer et une littérale Rationnel.
- *
- * \param Une variable de type integer et un objet de type Rationnel.
- * \return Littérale de type Rationnel.
- */
-Litteral* Addition::addition(const int& en1, const Rationnel& r1) const{
-    return addition(r1, en1);
 }
 
 
@@ -333,22 +246,8 @@ Litteral* Addition::getResult() const {
             }
             else {
                 Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second);
-                if(rationnelsecond!=NULL){
                     // second est un rationnel
                     return addition(*expfirst, *((Rationnel*)second));
-                }
-                else{
-                    float* reelsecond = (float*)(second);
-                    if(reelsecond!=NULL){
-                        // second est un reel
-                        return addition(*expfirst, *((float*)second));
-                    }
-                    else{
-                        //second est un entier
-                        return addition(*expfirst, *((int*)second));
-                    }
-                }
-
             }
         }
     }
@@ -370,24 +269,11 @@ Litteral* Addition::getResult() const {
                 }
                 else{
                     Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second);
-                    if(rationnelsecond!=NULL){
                         // second est un rationnel
                         return addition(*complexefirst, *((Rationnel*)second));
-                    }
-                    else{
-                        float* reelsecond = (float*)(second);
-                        if(reelsecond!=NULL){
-                            // second est un reel
-                            return addition(*complexefirst, *((float*)second));
-                        }
-                        else{
-                            //second est un entier
-                            return addition(*complexefirst, *((int*)second));
-                        }
-                    }
                 }
-           }
-        }
+            }
+         }
         else{
             Rationnel* rationnelfirst = dynamic_cast<Rationnel*>(first);
             if (rationnelfirst != NULL){
@@ -404,99 +290,14 @@ Litteral* Addition::getResult() const {
                         return addition(*rationnelfirst, *complexesecond);
                     }
                     else{
-                        Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second);
-                        if(rationnelsecond!=NULL){
+                        Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second); 
                             // second est un rationnel
                            return addition(*rationnelfirst, *((Rationnel*)second));
-                        }
-                        else{
-                            float* reelsecond = (float*)(second);
-                            if(reelsecond!=NULL){
-                                // second est un reel
-                                return addition(*rationnelfirst, *((float*)second));
-                            }
-                            else{
-                                //second est un entier
-                                return addition(*rationnelfirst, *((int*)second));
-                            }
-                        }
                     }
                }
             }
-            else{
-                float reelfirst = first->getFloat();
-                if(reelfirst!=NULL){
-                    Expression* expsecond = dynamic_cast<Expression*>(second);
-                    if (expsecond != NULL) {
-                        // second est une expression
-                        return addition(reelfirst, *expsecond);
-                    }
-                    else {
-                        Complexe* complexesecond = dynamic_cast<Complexe*>(second);
-                        if (complexesecond != NULL){
-                            //second est un complexe
-                            return addition(reelfirst, *complexesecond);
-                        }
-                        else{
-                            Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second);
-                            if(rationnelsecond!=NULL){
-                                // second est un rationnel
-                               return addition(reelfirst, *((Rationnel*)second));
-                            }
-                            else{
-                                float reelsecond = (second->getFloat());
-                                if(reelsecond!=NULL){
-                                    // second est un reel
-                                    Litteral* result = new Litteral(add(reelfirst, reelsecond));
-                                    return result;
-                                }
-                                else{
-                                    //second est un entier
-                                    Litteral* result = new Litteral(add(reelfirst, reelsecond));
-                                    return result;
-                                }
-                            }
-                        }
-                   }
-                }
-                else{
-                        //first est un entier
-                        Expression* expsecond = dynamic_cast<Expression*>(second);
-                        if (expsecond != NULL) {
-                            // second est une expression
-                            return addition(*((int*)first), *expsecond);
-                        }
-                        else {
-                            Complexe* complexesecond = dynamic_cast<Complexe*>(second);
-                            if (complexesecond != NULL){
-                                //second est un complexe
-                                return addition(*((int*)first), *complexesecond);
-                            }
-                            else{
-                                Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second);
-                                if(rationnelsecond!=NULL){
-                                    // second est un rationnel
-                                   return addition(*((int*)first), *((Rationnel*)second));
-                                }
-                                else{
-                                    float reelsecond = (second->getFloat());
-                                    if(reelsecond!=NULL){
-                                        // second est un reel
-                                        Litteral* result= new Litteral(add((first->getInt()), reelsecond));
-                                        return result;
-                                    }
-                                    else{
-                                        //second est un entier
-                                        Litteral* result= new Litteral(add((first->getInt()), reelsecond));
-                                        return result;
-                                    }
-                                }
-                            }
-                       }
 
-                    }
-                }
-            }
+          }
         }
-    }
+     }
 

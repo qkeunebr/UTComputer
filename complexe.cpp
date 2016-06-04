@@ -18,7 +18,16 @@
  * \param Deux variables de type float.
  * \return Objet de type Complexe.
  */
-Complexe::Complexe(float pRe, float pIm) :Re(pRe),Im(pIm),cReRationnel(),cImRationnel(), estunReel(true), symboleDollar(Im!=0), Litteral(0){}
+Complexe::Complexe(int pRe, int pIm) :cReRationnel(),cImRationnel(), estunReel(false), symboleDollar(false), estunEntier(true), ReEntier(pRe), ImEntier(pIm), ReReel(), ImReel(){}
+
+/**
+ * \fn Complexe::Complexe(float pRe, float pIm)
+ * \brief Constructeur de la classe Complexe.
+ *
+ * \param Deux variables de type float.
+ * \return Objet de type Complexe.
+ */
+Complexe::Complexe(float pRe, float pIm) :ReReel(pRe), ImReel(pIm), ReEntier(), ImEntier(), cReRationnel(),cImRationnel(), estunReel(true), symboleDollar(pIm!=0), estunEntier(false){}
 
 /**
  * \fn Complexe::Complexe(Rationnel& pRe, Rationnel& pIm)
@@ -27,7 +36,7 @@ Complexe::Complexe(float pRe, float pIm) :Re(pRe),Im(pIm),cReRationnel(),cImRati
  * \param Deux objets de type Rationnel.
  * \return Objet de type Complexe.
  */
-Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationnel(pIm),Re(0),Im(0), estunReel(false), symboleDollar(pIm.getNumerateur()!=0), Litteral(0){}
+Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationnel(pIm), estunReel(false), estunEntier((pRe.getDenominateur()==1)&&(pIm.getDenominateur()==1)), symboleDollar(false),ReEntier(), ImEntier(),ReReel(), ImReel(){}
 
 /**
  * \fn Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm)
@@ -36,7 +45,7 @@ Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationne
  * \param Deux objets de type const Rationnel.
  * \return Objet de type Complexe.
  */
-Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm) : Re(0), Im(0), symboleDollar(pIm.getNumerateur() != 0), cReRationnel(pRe), cImRationnel(pIm), estunReel(false), Litteral(0)
+Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm) : cReRationnel(pRe),cImRationnel(pIm), estunReel(false), estunEntier((pRe.getDenominateur()==1)&&(pIm.getDenominateur()==1)), symboleDollar(false),ReEntier(), ImEntier(),ReReel(), ImReel()
 {
 }
 
@@ -50,19 +59,26 @@ Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm) : Re(0), Im(0), s
 const QString Complexe::toString() const {
     QString string;
     //Si le complexe est reel
-    if (estunReel) {
-         string = QString::number(Re);
+    if (estunReel || estunEntier) {
+         string = QString::number(ReReel);
         //Si il y a un dollar pour séparer la partie réelle de la partie imaginaire (partie imaginaire non nulle)
         if (symboleDollar) {
-            string += "$" + QString::number(Im);
+            string += "$" + QString::number(ImReel);
         }
     }
-    else {
+    else if (estunEntier){
+       string = QString::number(ReEntier);
+       //Si il y a un dollar pour séparer la partie réelle de la partie imaginaire (partie imaginaire non nulle)
+       if (symboleDollar) {
+           string += "$" + QString::number(ImEntier);
+       }
+    }
+    else{
         //Le complexe est un rationnel
         string = cReRationnel.toString();
         if (symboleDollar) {
             string += "$" + cImRationnel.toString();
         }
-    }
+        }
     return string;
 }
