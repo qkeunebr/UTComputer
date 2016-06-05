@@ -654,32 +654,32 @@ void Fenetre::pushBDiv(){
 }
 
 void Fenetre::pushBNeg(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"");
+    Fenetre::commande->setText(Fenetre::commande->text()+"NEG");
     //Beep(523,250);
 }
 
 void Fenetre::pushBNum(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"");
+    Fenetre::commande->setText(Fenetre::commande->text()+"NUM");
     //Beep(523,250);
 }
 
 void Fenetre::pushBDen(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"");
+    Fenetre::commande->setText(Fenetre::commande->text()+"DEN");
     //Beep(523,250);
 }
 
 void Fenetre::pushBCompl(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"");
+    Fenetre::commande->setText(Fenetre::commande->text()+"$");
     //Beep(523,250);
 }
 
 void Fenetre::pushBRe(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"");
+    Fenetre::commande->setText(Fenetre::commande->text()+"RE");
     //Beep(523,250);
 }
 
 void Fenetre::pushBIm(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"");
+    Fenetre::commande->setText(Fenetre::commande->text()+"IM");
     //Beep(523,250);
 }
 
