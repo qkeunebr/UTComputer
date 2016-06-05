@@ -3,18 +3,22 @@
 #include <ostream>
 
 void Pile::pushMod(Litteral& e){
-    sta.push(&e);
+    push(e);
     setMessage("Push "+e.toString());
 }
 
 void Pile::popMod(){
-    sta.pop();
+    pop();
     setMessage("Pop");
 
 }
 
 bool Controller::estUnOperateurUnaire(const QString s){
-       if(s=="") return true;
+    if (s=="RE")  return true;
+    if (s=="IM")  return true;
+    if (s=="NEG")  return true;
+    if (s=="NUM")  return true;
+    if (s=="DEN")  return true;
        return false;
 }
 
@@ -23,12 +27,7 @@ bool Controller::estUnOperateurBinaire(const QString s){
     if (s=="-") return true;
     if (s=="*") return true;
     if (s=="/") return true;
-    if (s=="NEG")  return true;
-    if (s=="NUM")  return true;
-    if (s=="DEN")  return true;
     if (s=="$")  return true;
-    if (s=="RE")  return true;
-    if (s=="IM")  return true;
     if (s=="=")  return true;
     if (s=="!=")  return true;
     if (s==">=")  return true;
@@ -55,12 +54,11 @@ bool Controller::estUnFloat(const QString s){
 
 void Controller::commande(const QString& c){
     if (estUnEntier(c)){
-        Rationnel* ra = new Rationnel(c.toInt());
-     pile.pushMod(*ra);
+        Rationnel rat(c.toInt());
+     pile.pushMod(rat);
    }
    else if(estUnFloat(c)){
-        Complexe* c1 = new Complexe(c.toFloat(),0.0);
-      pile.pushMod(*c1);
+       pile.pushMod(Complexe(c.toFloat(),0.0));
    }
 
        else  if (estUnOperateurBinaire(c)){
@@ -71,31 +69,20 @@ void Controller::commande(const QString& c){
                 pile.popMod();
                 Litteral* res;
                 if (c=="+") {
-                    pile.setMessage("before");
-
                     pile.push(*(Addition(*v1, *v2).getResult()));
-                    pile.setMessage(pile.top()->toString());
-
                 }
                 if (c=="-") {
-
                     pile.push(*(Soustraction(*v1, *v2).getResult()));
-                    pile.setMessage(pile.top()->toString());
                 }
                 if (c=="*") {
-
                     pile.push(*(Multiplication(*v1, *v2).getResult()));
-                    pile.setMessage(pile.top()->toString());
                 }
                 if (c=="/") {
                     pile.push(*(Division(*v1, *v2).getResult()));
-                    pile.setMessage(pile.top()->toString());
                 }
-                if (c=="$"){
+                if(c=="$") {
                     pile.push(*(Dollar(*v1, *v2).getResult()));
-                    pile.setMessage(pile.top()->toString());
                 }
- //               pile.pushMod(*res);
             }else{
                 pile.setMessage("Erreur : pas assez d'arguments");
             }
