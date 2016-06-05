@@ -4,6 +4,13 @@
 #include "complexe.h"
 #include "expression.h"
 
+/**
+ * Classe representant une OperationBinaire generique et les elements communs des opérations de l'application
+ * Les methodes sont virtuelles pures et permettent la manipulation d'opérations en dehors de la classe sans
+ * connaitre leur type exact
+ */
+
+
 class OperationBinaire
 {
     protected:

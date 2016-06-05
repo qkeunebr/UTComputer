@@ -18,7 +18,7 @@
  * \param Deux variables de type float.
  * \return Objet de type Complexe.
  */
-Complexe::Complexe(int pRe, int pIm) :cReRationnel(),cImRationnel(), estunReel(false), symboleDollar(false), estunEntier(true), ReEntier(pRe), ImEntier(pIm), ReReel(), ImReel(){}
+Complexe::Complexe(int pRe, int pIm) :cReRationnel(),cImRationnel(), estunReel(false), symboleDollar(true), estunEntier(true), ReEntier(pRe), ImEntier(pIm), ReReel(), ImReel(){}
 
 /**
  * \fn Complexe::Complexe(float pRe, float pIm)
@@ -27,7 +27,7 @@ Complexe::Complexe(int pRe, int pIm) :cReRationnel(),cImRationnel(), estunReel(f
  * \param Deux variables de type float.
  * \return Objet de type Complexe.
  */
-Complexe::Complexe(float pRe, float pIm) :ReReel(pRe), ImReel(pIm), ReEntier(), ImEntier(), cReRationnel(),cImRationnel(), estunReel(true), symboleDollar(pIm!=0), estunEntier(false){}
+Complexe::Complexe(float pRe, float pIm) :ReReel(pRe), ImReel(pIm), ReEntier(), ImEntier(), cReRationnel(),cImRationnel(), estunReel(true), symboleDollar(pIm!=0.0), estunEntier(false){}
 
 /**
  * \fn Complexe::Complexe(Rationnel& pRe, Rationnel& pIm)
@@ -36,7 +36,7 @@ Complexe::Complexe(float pRe, float pIm) :ReReel(pRe), ImReel(pIm), ReEntier(), 
  * \param Deux objets de type Rationnel.
  * \return Objet de type Complexe.
  */
-Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationnel(pIm), estunReel(false), estunEntier((pRe.getDenominateur()==1)&&(pIm.getDenominateur()==1)), symboleDollar(false),ReEntier(), ImEntier(),ReReel(), ImReel(){}
+Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationnel(pIm), estunReel(false), estunEntier((pRe.getDenominateur()==1)&&(pIm.getDenominateur()==1)), symboleDollar(true),ReEntier(), ImEntier(),ReReel(), ImReel(){}
 
 /**
  * \fn Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm)
@@ -45,7 +45,7 @@ Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationne
  * \param Deux objets de type const Rationnel.
  * \return Objet de type Complexe.
  */
-Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm) : cReRationnel(pRe),cImRationnel(pIm), estunReel(false), estunEntier((pRe.getDenominateur()==1)&&(pIm.getDenominateur()==1)), symboleDollar(false),ReEntier(), ImEntier(),ReReel(), ImReel()
+Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm) : cReRationnel(pRe),cImRationnel(pIm), estunReel(false), estunEntier((pRe.getDenominateur()==1)&&(pIm.getDenominateur()==1)), symboleDollar(true),ReEntier(), ImEntier(),ReReel(), ImReel()
 {
 }
 
