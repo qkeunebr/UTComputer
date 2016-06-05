@@ -12,7 +12,7 @@
 #include <QCheckBox>
 #include <QWidget>
 #include <iostream>
-#include <windows.h>
+//#include <windows.h>
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QCloseEvent>

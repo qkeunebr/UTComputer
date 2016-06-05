@@ -28,4 +28,10 @@ SOURCES += \
     litteralfactory.cpp\
     controller.cpp\
     division.cpp\
-    dollar.cpp
+    dollar.cpp\
+    neg.cpp\
+    num.cpp\
+    im.cpp\
+    re.cpp\
+    den.cpp\
+

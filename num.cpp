@@ -7,7 +7,7 @@
  * \param Un objet de type littérale.
  * \return Opération unaire composée d'une unique litterale.
  */
-Neg::Num(Litteral& l):unique(l){}
+Num::Num(Litteral& l):OperationUnaire(l){}
 
 /**
  * \fn Litteral* Num::num(const Rationnel& r) const
@@ -17,12 +17,13 @@ Neg::Num(Litteral& l):unique(l){}
  * \return Litteral de type Rationnel.
  */
 Litteral* Num::num(const Rationnel& r) const{
+    Litteral* result;
     if(r.getDenominateur()==1){
         //r est un entier
-        return r;
+        result = new Rationnel(r.getNumerateur(),1);
     }
     else{
-        return Rationnel(r.getNumerateur(), 1);
+        result = new Rationnel(r.getNumerateur(), 1);
     }
 }
 

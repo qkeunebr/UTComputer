@@ -58,7 +58,8 @@ void Controller::commande(const QString& c){
      pile.pushMod(rat);
    }
    else if(estUnFloat(c)){
-       pile.pushMod(Complexe(c.toFloat(),0.0));
+        Complexe c1(c.toFloat(),0.0);
+       pile.pushMod(c1);
    }
 
        else  if (estUnOperateurBinaire(c)){

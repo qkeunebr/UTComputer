@@ -7,7 +7,7 @@
  * \param Un objet de type littérale.
  * \return Opération unaire composée d'une unique litterale.
  */
-IM::IM(Litteral& l):unique(l){}
+IM::IM(Litteral& l):OperationUnaire(l){}
 
 /**
  * \fn Litteral*  IM::im(const Complexe& c) const
@@ -17,21 +17,22 @@ IM::IM(Litteral& l):unique(l){}
  * \return Litteral de type Complexe.
  */
 Litteral*  IM::im(const Complexe& c) const{
+    Litteral* result;
     if(!c.getSymboleDollar()){
         //partie imaginaire nulle
-        return Complexe(0.0, c.getImReel());
+        result = new Complexe(0.0, c.getImReel());
     }
-    else if (c.estReel){
+    else if (c.estReel()){
         //c est composé de réels
-        return Complexe(0.0, c.getImReel());
+        result = new Complexe(0.0, c.getImReel());
     }
     else if(c.estEntier()){
         //c est composé d'entiers
-        return Complexe(0, c.getImEntier());
+        result = new Complexe(0, c.getImEntier());
     }
     else{
         //c est un Rationnel
-        return Complexe(Rationnel(1,1),
+        result = new Complexe(Rationnel(1,1),
                         Rationnel(c.getImRationnel().getNumerateur(), c.getImRationnel().getDenominateur()));
     }
 }

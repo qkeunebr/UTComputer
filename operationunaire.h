@@ -62,6 +62,6 @@ class IM : public OperationUnaire
         IM(Litteral& l);
         virtual Litteral* getResult() const;
     private:
-        Litteral* re(const Complexe& c) const;
+        Litteral* im(const Complexe& c) const;
 };
 #endif // OPERATIONUNAIRE_H

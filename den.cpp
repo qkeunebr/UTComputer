@@ -7,7 +7,7 @@
  * \param Un objet de type littérale.
  * \return Opération unaire composée d'une unique litterale.
  */
-Den::Den(Litteral& l):unique(l){}
+Den::Den(Litteral& l):OperationUnaire(l){}
 
 /**
  * \fn Litteral* Num::num(const Rationnel& r) const
@@ -16,13 +16,14 @@ Den::Den(Litteral& l):unique(l){}
  * \param Un objet de type Rationnel.
  * \return Litteral de type Rationnel.
  */
-Litteral* Den::num(const Rationnel& r) const{
+Litteral* Den::den(const Rationnel& r) const{
+    Litteral* result;
     if(r.getDenominateur()==1){
         //r est un entier
-        return r;
+        result = new Rationnel(r.getNumerateur(), 1);
     }
     else{
-        return Rationnel(r.getDenominateur(), 1);
+        result = new  Rationnel(r.getDenominateur(), 1);
     }
 }
 
@@ -37,7 +38,7 @@ Litteral* Den::getResult() const {
             Rationnel* rationnelunique = dynamic_cast<Rationnel*>(unique);
                 if(rationnelunique!=NULL){
                     // unique est un rationnel
-                    return num(*rationnelunique);
+                    return den(*rationnelunique);
                 }
                 else{
                     throw "Litteral invalide";

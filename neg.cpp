@@ -7,7 +7,7 @@
  * \param Un objet de type littérale.
  * \return Opération unaire composée d'une unique litterale.
  */
-Neg::Neg(Litteral& l):unique(l){}
+Neg::Neg(Litteral& l):OperationUnaire(l){}
 
 /**
  * \fn Litteral*  Neg::neg(const Complexe& c) const
@@ -17,21 +17,22 @@ Neg::Neg(Litteral& l):unique(l){}
  * \return Litteral de type Complexe.
  */
 Litteral*  Neg::neg(const Complexe& c) const{
+    Litteral* result;
     if(!c.getSymboleDollar()){
         //partie imaginaire nulle
-        return Complexe(-c.getReReel(),0.0);
+        result = new Complexe(-c.getReReel(),0.0);
     }
-    else if (c.estReel){
+    else if (c.estReel()){
         //c est composé de réels
-        return Complexe(-c.getReReel(), -c.getImReel());
+        result = new Complexe(-c.getReReel(), -c.getImReel());
     }
     else if(c.estEntier()){
         //c est composé d'entiers
-        return Complexe(-c.getReEntier(), -c.getImEntier());
+        result = new Complexe(-c.getReEntier(), -c.getImEntier());
     }
     else{
         //c est un Rationnel
-        return Complexe(Rationnel(-c.getReRationnel().getNumerateur(), c.getReRationnel().getDenominateur()),
+        result = new Complexe(Rationnel(-c.getReRationnel().getNumerateur(), c.getReRationnel().getDenominateur()),
                         Rationnel(-c.getImRationnel().getNumerateur(), c.getImRationnel().getDenominateur()));
     }
 }
@@ -44,12 +45,13 @@ Litteral*  Neg::neg(const Complexe& c) const{
  * \return Litteral de type Rationnel.
  */
 Litteral* Neg::neg(const Rationnel& r) const{
+    Litteral* result;
     if(r.getDenominateur()==1){
         //r est un entier
-        return Rationnel(-r.getNumerateur(), 1);
+        result = new Rationnel(-r.getNumerateur(), 1);
     }
     else{
-        return Rationnel(-r.getNumerateur(), r.getDenominateur());
+        result = new Rationnel(-r.getNumerateur(), r.getDenominateur());
     }
 }
 

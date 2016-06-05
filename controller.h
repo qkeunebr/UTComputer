@@ -6,6 +6,7 @@
 #include <QObject>
 #include <stack>
 #include "operationbinaire.h"
+#include "operationunaire.h"
 
 class Pile : public QObject  {
     Q_OBJECT
