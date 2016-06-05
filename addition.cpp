@@ -40,7 +40,7 @@ Litteral* Addition::addition(const Rationnel& r1, const Rationnel& r2) const{
         }
     }
     else
-        result = new Rationnel((r1.getNumerateur()*r2.getDenominateur())+(r1.getDenominateur()*r2.getNumerateur()), r1.getDenominateur()+r2.getDenominateur());
+        result = new Rationnel((r1.getNumerateur()*r2.getDenominateur())+(r1.getDenominateur()*r2.getNumerateur()), r1.getDenominateur()*r2.getDenominateur());
     return result;
 }
 
