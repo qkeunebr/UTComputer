@@ -1,70 +1,140 @@
 /**
  * \file division.cpp
- * \brief Operation Division
+ * \brief Operation division
  * \author Quentin Keunebroek
  * \version 1.0
  * \date 3 juin 2016
  *
- * Opération Division pour tout type de Littérale.
+ * Opération division pour tout type de Littérale.
  *
  */
 
 #include "operationbinaire.h"
 
 /**
- * \fn Division::Division(Litteral& l1, Litteral& l2)
- * \brief Fonction de construction de l'objet Division.
+ * \fn Division::division(Litteral& l1, Litteral& l2)
+ * \brief Fonction de construction de l'objet division.
  *
  * \param Deux objets de type littérale.
  * \return Opération binaire composée de deux littérales.
  */
-Division::Division(Litteral& l1, Litteral& l2) : OperationBinaire(l1,l2)
-{
-}
+Division::Division(Litteral& l1, Litteral& l2) : OperationBinaire(l1, l2){}
 
 /**
  * \fn Litteral* Division::division(const Rationnel& r1, const Rationnel& r2) const
- * \brief Fonction pour effectuer la division entre deux objets rationnels.
+ * \brief Fonction pour effectuer l'division entre deux objets rationnels.
  *
  * \param Deux objets de type Rationnel.
  * \return Littéral de type Rationnel.
  */
-Litteral* Division::division(const Rationnel& r1, const Rationnel& r2) const{
+Litteral* division::division(const Rationnel& r1, const Rationnel& r2) const{
     Litteral* result;
-    result = new Rationnel(r1.getNumerateur()*r2.getDenominateur(), r1.getDenominateur() * r2.getNumerateur());
+    if (r1.getDenominateur() == 1){
+        //r1 est un entier
+        if (r2.getDenominateur() == 1){
+            //r2 est aussi un entier
+            result =  new Rationnel(r1.getNumerateur()/r2.getNumerateur(),1);
+        }
+        else{
+            result =  new Rationnel(r1.getNumerateur()*r2.getDenominateur(), r2.getNumerateur());
+        }
+    }
+    else
+        result = new Rationnel((r1.getNumerateur()*r2.getDenominateur()), r1.getDenominateur()*r2.getNumerateur());
     return result;
 }
 
 /**
  * \fn Litteral* Division::division(const Complexe& c1, const Complexe& c2) const
- * \brief Fonction pour effectuer la division entre deux objets complexes.
+ * \brief Fonction pour effectuer l'division entre deux objets complexes.
  *
  * \param Deux objets de type Complexe.
  * \return Littéral de type Complexe.
  */
 Litteral* Division::division(const Complexe& c1, const Complexe& c2) const{
     Litteral* result;
-    if (c1.estReel()) {
-        //c1 est un réel
-           if (c2.estReel()) {
-               //c2 est aussi un réel
-               result = new Complexe(c1.getRe()/c2.getRe(), c1.getIm()/c2.getIm());
+    if (!c1.getSymboleDollar()){
+        //c1 est un réel (partie imaginaire nulle)
+        if(!c2.getSymboleDollar()){
+            //c2 est un réel (partie imaginaire nulle)
+            result = new Complexe(c1.getReReel()/c2.getReReel(),0.0);
+        }
+        else if (c2.estReel()) {
+            //c2 est aussi composé de réels
+            result = new Complexe(c1.getReReel() / c2.getReReel(), c2.getImReel());
+
+        }
+        else  if (c2.estEntier())
+            //c2 est composé d'entiers
+        {
+             result = new Complexe(c1.getReReel() / (float)c2.getReEntier(), (float)c2.getImEntier());
+        }
+        else{
+        //c2 composé de Rationnels
+            result = new Complexe(Rationnel(((int)c1.getReReel()*c2.getReRationnel().getDenominateur()), c2.getReRationnel().getNumerateur()),
+                                  Rationnel((c2.getImRationnel().getNumerateur()), c2.getImRationnel().getDenominateur()));
+        }
+
+    }
+    else if (c1.estReel()) {
+            //c1 est composée de réels
+            if(!c2.getSymboleDollar()){
+                //c2 est un réel (partie imaginaire nulle)
+                result = new Complexe(c1.getReReel() / c2.getReReel(), c1.getImReel());
+            }
+            else if (c2.estReel()) {
+               //c2 est aussi composé de réels
+               result = new Complexe(c1.getReReel() / c2.getReReel(), c1.getImReel()/c2.getImReel());
 
            }
-           else {
-           //c2 est un Rationnel
-               result = new Complexe(Rationnel(((c1.getRe()*(float)c2.getReRationnel().getDenominateur()), (float)c2.getReRationnel().getNumerateur())),
-                                     Rationnel(((c1.getIm()*(float)c2.getImRationnel().getDenominateur()), (float)c2.getImRationnel().getNumerateur())));
+           else  if (c2.estEntier())
+               //c2 est composé d'entiers
+           {
+                result = new Complexe(c1.getReReel() / (float)c2.getReEntier(), c1.getImReel() / (float)c2.getImEntier());
+           }
+           else{
+           //c2 composé de Rationnels
+               result = new Complexe(Rationnel((((int)c1.getReReel()*c2.getReRationnel().getDenominateur())), c2.getReRationnel().getNumerateur()),
+                                     Rationnel((((int)c1.getImReel()*c2.getImRationnel().getDenominateur()), c2.getImRationnel().getNumerateur())));
            }
      }
-     else {
-        //c1 est un Rationnel
+     else if (c1.estEntier()){
+        //c1 est composé d'entiers
+            if(!c2.getSymboleDollar()){
+                //c2 est un réel (partie imaginaire nulle)
+                result = new Complexe((float)c1.getReEntier() / c2.getReReel(), (float)c1.getImEntier());
+            }
+            else if(c2.estEntier()){
+                //c2 est composé d'entiers
+                result = new Complexe(c1.getReEntier() / c2.getReEntier(), c1.getImEntier() / c2.getImEntier());
+            }
+            else if (c2.estReel()){
+                //c2 est est composé de réels
+                 result = new Complexe((float)c1.getReEntier() / c2.getReReel(), (float)c1.getImEntier() / c2.getImReel());
+            }
+            else {
+                //c2 est est composé de Rationnels
+                result = new Complexe(Rationnel(((c1.getReEntier()*c2.getReRationnel().getDenominateur())), c2.getReRationnel().getNumerateur()),
+                                      Rationnel(((c1.getImEntier()*c2.getImRationnel().getDenominateur())), c2.getImRationnel().getNumerateur()));
+            }
+     }
+     else{
+           //c1 est est composé de Rationnels
+            if(!c2.getSymboleDollar()){
+                //c2 est un réel (partie imaginaire nulle)
+               result = new Complexe(Rationnel(c1.getReRationnel().getNumerateur(), c1.getReRationnel().getDenominateur()*(int)c2.getReReel()),
+                                     Rationnel(c1.getImRationnel().getNumerateur(), c1.getImRationnel().getDenominateur()));
+            }
            if (c2.estReel()) {
-                result = new Complexe(Rationnel(((c2.getRe()*(float)c1.getReRationnel().getDenominateur()), (float)c1.getReRationnel().getNumerateur())),
-                                      Rationnel(((c2.getIm()*(float)c1.getImRationnel().getDenominateur()), (float)c1.getImRationnel().getNumerateur())));
+               result = new Complexe(Rationnel(c1.getReRationnel().getNumerateur(), c1.getReRationnel().getDenominateur()*(int)c2.getReReel()),
+                                     Rationnel(c1.getImRationnel().getNumerateur(), c1.getImRationnel().getDenominateur()*(int)c2.getImReel()));
            }
-           //c1 et c2 sont Rationnel
+           else if (c2.estEntier()){
+               result = new Complexe(Rationnel(((c1.getReRationnel().getNumerateur())), c1.getReRationnel().getDenominateur()*c2.getReEntier()),
+                                     Rationnel(((c1.getImRationnel().getNumerateur()), c1.getImRationnel().getDenominateur()*c2.getImEntier())));
+           }
            else {
+                //c1 et c2 sont composés de Rationnels
                 result = new Complexe(Rationnel(c1.getReRationnel().getNumerateur()*c2.getReRationnel().getDenominateur(), c1.getReRationnel().getDenominateur()*c2.getReRationnel().getNumerateur()),
                                       Rationnel(c1.getImRationnel().getNumerateur()*c2.getImRationnel().getDenominateur(), c1.getImRationnel().getDenominateur()*c2.getImRationnel().getNumerateur()));
            }
@@ -74,7 +144,7 @@ Litteral* Division::division(const Complexe& c1, const Complexe& c2) const{
 
 /**
  * \fn Litteral* Division::division(const Complexe& c1, const Rationnel& r1) const
- * \brief Fonction pour effectuer la division entre un objet complexe et un objet rationnel.
+ * \brief Fonction pour effectuer l'division entre un objet complexe et un objet rationnel.
  *
  * \param Un objet de type Complexe et un objet de type Rationnel.
  * \return Littéral de type Complexe.
@@ -84,20 +154,21 @@ Litteral* Division::division(const Complexe& c1, const Rationnel& r1) const{
     return division(c1,cTor);
 }
 
+
 /**
- * \fn Litteral* Addition::addition(const Rationnel& r1, const Complexe& c1) const
- * \brief Fonction pour effectuer l'addition entre un objet rationnel et un objet complexe.
+ * \fn Litteral* Division::division(const Rationnel& r1, const Complexe& c1) const
+ * \brief Fonction pour effectuer l'division entre un objet rationnel et un objet complexe.
  *
  * \param Un objet de type Rationnel et un objet de type Complexe.
  * \return Littéral de type Complexe.
  */
 Litteral* Division::division(const Rationnel& r1, const Complexe& c1) const{
-     return division(c1, r1);
+    return division(c1, r1);
 }
 
 /**
  * \fn Litteral* Division::division(const Expression& e1, const Expression& e2) const
- * \brief Fonction pour effectuer la division entre deux objets Expression.
+ * \brief Fonction pour effectuer l'division entre deux objets Expression.
  *
  * \param Deux objets de type Expression.
  * \return Littéral de type Expression.
@@ -108,7 +179,7 @@ Litteral* Division::division(const Expression& e1, const Expression& e2) const {
 
 /**
  * \fn Litteral* Division::division(const Expression& e1, const Rationnel& r1) const
- * \brief Fonction pour effectuer la division entre un objet Expression et un objet Rationnel.
+ * \brief Fonction pour effectuer l'division entre un objet Expression et un objet Rationnel.
  *
  * \param Un objet de type Expression et un objet de type Rationnel.
  * \return Littéral de type Expression.
@@ -119,18 +190,18 @@ Litteral* Division::division(const Expression& e1, const Rationnel& r1) const{
 
 /**
  * \fn Litteral* Division::division(const Expression& e1, const Complexe& c1) const
- * \brief Fonction pour effectuer la division entre un objet Expression et un objet Complexe.
+ * \brief Fonction pour effectuer l'division entre un objet Expression et un objet Complexe.
  *
  * \param Un objet de type Expression et un objet de type Complexe.
  * \return Littéral de type Expression.
  */
 Litteral* Division::division(const Expression& e1, const Complexe& c1) const {
-    return new Expression(e1.getExp() + " " + c1.toString() + " /");
+     return new Expression(e1.getExp() + " " + c1.toString() + " /");
 }
 
 /**
  * \fn Litteral* Division::division(const Rationnel& r1, const Expression& e1) const
- * \brief Fonction pour effectuer la division entre un objet Rationnel et un objet Expression.
+ * \brief Fonction pour effectuer l'division entre un objet Rationnel et un objet Expression.
  *
  * \param Un objet de type Rationnel et un objet de type Expression.
  * \return Littéral de type Expression.
@@ -141,14 +212,15 @@ Litteral* Division::division(const Rationnel& r1, const Expression& e1) const{
 
 /**
  * \fn Litteral* Division::division(const Complexe& c1, const Expression& e1) const
- * \brief Fonction pour effectuer la division entre un objet Complexe et un objet Expression.
+ * \brief Fonction pour effectuer l'division entre un objet Complexe et un objet Expression.
  *
  * \param Un objet de type Complexe et un objet de type Expression.
  * \return Littéral de type Expression.
  */
 Litteral* Division::division(const Complexe& c1, const Expression& e1) const {
-    return new Expression(c1.toString() + " " + e1.getExp() + " /");
+     return new Expression(c1.toString() + " " + e1.getExp() + " /");
 }
+
 
 /**
  * \fn Litteral* Division::getResult() const
@@ -173,8 +245,9 @@ Litteral* Division::getResult() const {
                 return division(*expfirst, *complexesecond);
             }
             else {
-                // second est un rationnel
-                return division(*expfirst, *((Rationnel*)second));
+                Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second);
+                    // second est un rationnel
+                    return division(*expfirst, *((Rationnel*)second));
             }
         }
     }
@@ -195,27 +268,36 @@ Litteral* Division::getResult() const {
                     return division(*complexefirst, *complexesecond);
                 }
                 else{
-                    return division(*complexefirst, *((Rationnel*)second));
+                    Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second);
+                        // second est un rationnel
+                        return division(*complexefirst, *((Rationnel*)second));
                 }
-           }
-        }
-        else{
-            //first est un rationnel
-            Expression* expsecond = dynamic_cast<Expression*>(second);
-            if (expsecond != NULL) {
-                // second est une expression
-                return division(*((Rationnel*)first), *expsecond);
             }
-            else {
-                Complexe* complexesecond = dynamic_cast<Complexe*>(second);
-                if (complexesecond != NULL){
-                    //second est un complexe
-                    return division(*((Rationnel*)first), *complexesecond);
+         }
+        else{
+            Rationnel* rationnelfirst = dynamic_cast<Rationnel*>(first);
+            if (rationnelfirst != NULL){
+                //first est un rationnel
+                Expression* expsecond = dynamic_cast<Expression*>(second);
+                if (expsecond != NULL) {
+                    // second est une expression
+                    return division(*rationnelfirst, *expsecond);
                 }
-                else{
-                    return division(*((Rationnel*)first), *((Rationnel*)second));
-                }
-           }
+                else {
+                    Complexe* complexesecond = dynamic_cast<Complexe*>(second);
+                    if (complexesecond != NULL){
+                        //second est un complexe
+                        return division(*rationnelfirst, *complexesecond);
+                    }
+                    else{
+                        Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second);
+                            // second est un rationnel
+                           return division(*rationnelfirst, *((Rationnel*)second));
+                    }
+               }
+            }
+
+          }
         }
-    }
-}
+     }
+
