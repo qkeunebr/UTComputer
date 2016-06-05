@@ -27,7 +27,7 @@ Division::Division(Litteral& l1, Litteral& l2) : OperationBinaire(l1, l2){}
  * \param Deux objets de type Rationnel.
  * \return Littéral de type Rationnel.
  */
-Litteral* division::division(const Rationnel& r1, const Rationnel& r2) const{
+Litteral* Division::division(const Rationnel& r1, const Rationnel& r2) const{
     Litteral* result;
     if (r1.getDenominateur() == 1){
         //r1 est un entier

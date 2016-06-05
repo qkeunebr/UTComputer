@@ -1,8 +1,8 @@
 #include "operationunaire.h"
 
-Eval::Eval(Litteral& l) : OperationUnaire(l)
+/*Eval::Eval(Litteral& l) : OperationUnaire(l)
 {
-}
+}*/
 
 /*Litteral* Eval::getResult() const {
     Expression* exp = dynamic_cast<Expression*>(unique);
