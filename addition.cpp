@@ -110,7 +110,7 @@ Litteral* Addition::addition(const Complexe& c1, const Complexe& c2) const{
             }
             else if (c2.estReel()){
                 //c2 est est composé de réels
-                 result = new Complexe(c1.getReReel() + (float)c2.getReEntier(), c1.getImReel() + (float)c2.getImEntier());
+                result = new Complexe((float)c1.getReEntier() + c2.getReReel(), (float)c1.getImEntier() + c2.getImReel());
             }
             else {
                 //c2 est est composé de Rationnels
@@ -123,15 +123,15 @@ Litteral* Addition::addition(const Complexe& c1, const Complexe& c2) const{
             if(!c2.getSymboleDollar()){
                 //c2 est un réel (partie imaginaire nulle)
                result = new Complexe(Rationnel(c1.getReRationnel().getNumerateur() + (int)c2.getReReel()*c1.getReRationnel().getDenominateur(), c1.getReRationnel().getDenominateur()),
-                                     Rationnel(c1.getImRationnel().getNumerateur() + (int)c2.getImReel()*c1.getImRationnel().getDenominateur(), c1.getImRationnel().getDenominateur()));
+                                     Rationnel(c1.getImRationnel().getNumerateur(), c1.getImRationnel().getDenominateur()));
             }
            if (c2.estReel()) {
                result = new Complexe(Rationnel(c1.getReRationnel().getNumerateur() + (int)c2.getReReel()*c1.getReRationnel().getDenominateur(), c1.getReRationnel().getDenominateur()),
                                      Rationnel(c1.getImRationnel().getNumerateur() + (int)c2.getImReel()*c1.getImRationnel().getDenominateur(), c1.getImRationnel().getDenominateur()));
            }
-           else if (c1.estEntier()){
-               result = new Complexe(Rationnel(((c1.getReEntier()*c2.getReRationnel().getDenominateur())+c2.getReRationnel().getNumerateur()), c2.getReRationnel().getDenominateur()),
-                                     Rationnel(((c1.getImEntier()*c2.getImRationnel().getDenominateur())+c2.getImRationnel().getNumerateur()), c2.getImRationnel().getDenominateur()));
+           else if (c2.estEntier()){
+               result = new Complexe(Rationnel(((c2.getReEntier()*c1.getReRationnel().getDenominateur())+c1.getReRationnel().getNumerateur()), c1.getReRationnel().getDenominateur()),
+                                     Rationnel(((c2.getImEntier()*c2.getImRationnel().getDenominateur())+c1.getImRationnel().getNumerateur()), c1.getImRationnel().getDenominateur()));
            }
            else {
                 //c1 et c2 sont composés de Rationnels
