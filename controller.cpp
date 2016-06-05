@@ -90,6 +90,21 @@ void Controller::commande(const QString& c){
         else if(estUnOperateurUnaire(c)){
             if (pile.size()>=1) {
                 Litteral* val = pile.top();
+                if(c=="RE") {
+                    pile.push(*(RE(*val).getResult()));
+                }
+                if(c=="IM") {
+                    pile.push(*(IM(*val).getResult()));
+                }
+                if(c=="DEN") {
+                    pile.push(*(Den(*val).getResult()));
+                }
+                if(c=="NEG") {
+                    pile.push(*(Neg(*val).getResult()));
+                }
+                if(c=="NUM") {
+                    pile.push(*(Num(*val).getResult()));
+                }
             }
             else{
                 pile.setMessage("Erreur : pas assez d'arguments");
