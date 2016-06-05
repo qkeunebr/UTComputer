@@ -130,8 +130,8 @@ Litteral* Soustraction::soustraction(const Complexe& c1, const Complexe& c2) con
                                      Rationnel(c1.getImRationnel().getNumerateur() - (int)c2.getImReel()*c1.getImRationnel().getDenominateur(), c1.getImRationnel().getDenominateur()));
            }
            else if (c2.estEntier()){
-               result = new Complexe(Rationnel(((c2.getReEntier()*c1.getReRationnel().getDenominateur())-c1.getReRationnel().getNumerateur()), c1.getReRationnel().getDenominateur()),
-                                     Rationnel(((c2.getImEntier()*c2.getImRationnel().getDenominateur())-c1.getImRationnel().getNumerateur()), c1.getImRationnel().getDenominateur()));
+               result = new Complexe(Rationnel((c1.getReRationnel().getNumerateur()-(c2.getReEntier()*c1.getReRationnel().getDenominateur())), c1.getReRationnel().getDenominateur()),
+                                     Rationnel((c1.getImRationnel().getNumerateur()- (c2.getImEntier()*c2.getImRationnel().getDenominateur())), c1.getImRationnel().getDenominateur()));
            }
            else {
                 //c1 et c2 sont composés de Rationnels
