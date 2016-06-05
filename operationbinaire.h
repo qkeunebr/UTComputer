@@ -111,4 +111,13 @@ class DivisionEntiere : public OperationBinaire {
         Litteral* divisionentiere(const Complexe& c1, const Expression& e1) const;
 };
 
+class Dollar : public OperationBinaire
+{
+    public:
+        Dollar(Litteral& l);
+        virtual Litteral* getResult() const;
+    private:
+        Litteral* dollar(const Complexe& c) const;
+};
+
 #endif // OPERATIONBINAIRE_H

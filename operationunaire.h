@@ -47,15 +47,6 @@ class Den : public OperationUnaire
         Litteral* den(const Rationnel &r1) const;
 };
 
-class Dollar : public OperationUnaire
-{
-    public:
-        Dollar(Litteral& l);
-        virtual Litteral* getResult() const;
-    private:
-        Litteral* dollar(const Complexe& c) const;
-};
-
 class RE : public OperationUnaire
 {
     public:
