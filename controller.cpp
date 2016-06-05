@@ -55,10 +55,12 @@ bool Controller::estUnFloat(const QString s){
 
 void Controller::commande(const QString& c){
     if (estUnEntier(c)){
-     pile.pushMod(Rationnel(c.toInt()));
+        Rationnel* ra = new Rationnel(c.toInt());
+     pile.pushMod(*ra);
    }
    else if(estUnFloat(c)){
-       pile.pushMod(Complexe(c.toFloat(),0.0));
+        Complexe* c1 = new Complexe(c.toFloat(),0.0);
+      pile.pushMod(*c1);
    }
 
        else  if (estUnOperateurBinaire(c)){
@@ -72,20 +74,26 @@ void Controller::commande(const QString& c){
                     pile.setMessage("before");
 
                     pile.push(*(Addition(*v1, *v2).getResult()));
-                    pile.setMessage("after");
+                    pile.setMessage(pile.top()->toString());
 
                 }
                 if (c=="-") {
-                    Soustraction sous(*v1, *v2);
-                    res = sous.getResult();
+
+                    pile.push(*(Soustraction(*v1, *v2).getResult()));
+                    pile.setMessage(pile.top()->toString());
                 }
                 if (c=="*") {
-                    Multiplication mult(*v1, *v2);
-                    res = mult.getResult();
+
+                    pile.push(*(Multiplication(*v1, *v2).getResult()));
+                    pile.setMessage(pile.top()->toString());
                 }
                 if (c=="/") {
-                    Division div(*v1, *v2);
-                    res = div.getResult();
+                    pile.push(*(Division(*v1, *v2).getResult()));
+                    pile.setMessage(pile.top()->toString());
+                }
+                if (c=="$"){
+                    pile.push(*(Dollar(*v1, *v2).getResult()));
+                    pile.setMessage(pile.top()->toString());
                 }
  //               pile.pushMod(*res);
             }else{

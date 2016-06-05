@@ -114,10 +114,10 @@ class DivisionEntiere : public OperationBinaire {
 class Dollar : public OperationBinaire
 {
     public:
-        Dollar(Litteral& l);
+        Dollar(Litteral& l1, Litteral& l2);
         virtual Litteral* getResult() const;
     private:
-        Litteral* dollar(const Complexe& c) const;
+        Litteral* dollar(const Complexe& c1, const Complexe& c2) const;
 };
 
 #endif // OPERATIONBINAIRE_H

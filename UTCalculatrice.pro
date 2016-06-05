@@ -26,4 +26,6 @@ SOURCES += \
     multiplication.cpp \
     eval.cpp \
     litteralfactory.cpp\
-    controller.cpp
+    controller.cpp\
+    division.cpp\
+    dollar.cpp
