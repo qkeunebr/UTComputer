@@ -55,10 +55,10 @@ bool Controller::estUnFloat(const QString s){
 
 void Controller::commande(const QString& c){
     if (estUnEntier(c)){
-     pile.pushMod(Litteral(c.toInt()));
+     pile.pushMod(Rationnel(c.toInt()));
    }
    else if(estUnFloat(c)){
-       pile.pushMod(Litteral(c.toFloat()));
+       pile.pushMod(Complexe(c.toFloat(),0.0));
    }
 
        else  if (estUnOperateurBinaire(c)){
@@ -69,8 +69,10 @@ void Controller::commande(const QString& c){
                 pile.popMod();
                 Litteral* res;
                 if (c=="+") {
-                    Addition add(*v1, *v2);
-                    res = add.getResult();
+                    pile.setMessage("before");
+
+                    pile.push(*(Addition(*v1, *v2).getResult()));
+                    pile.setMessage("after");
 
                 }
                 if (c=="-") {
@@ -85,7 +87,7 @@ void Controller::commande(const QString& c){
                     Division div(*v1, *v2);
                     res = div.getResult();
                 }
-                pile.pushMod(*res);
+ //               pile.pushMod(*res);
             }else{
                 pile.setMessage("Erreur : pas assez d'arguments");
             }
