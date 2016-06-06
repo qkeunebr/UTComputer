@@ -13,6 +13,19 @@ void Pile::popMod(){
 
 }
 
+QString Pile::getStackAff(){
+
+    QString res("|| ");
+/*    for(QVector<Litteral*>::Iterator it = stack.end() ; it != stack.begin() ; ++it){
+        Litteral* temp = it;
+        if(temp!=NULL)
+            res.append(temp->toString());
+        res.append(" || ");
+    }
+    */
+    return res;
+}
+
 bool Controller::estUnOperateurUnaire(const QString s){
     if (s=="RE")  return true;
     if (s=="IM")  return true;
@@ -52,38 +65,87 @@ bool Controller::estUnFloat(const QString s){
    return ok;
 }
 
+bool Controller::estUnComplexe(const QString s){
+    if (s.contains('$')){
+        QStringList part = s.split("$");
+        if(part.size() == 2){
+            if(estUnEntier(part.at(0)) && estUnEntier(part.at(1)))
+                return true;
+            if(estUnFloat(part.at(0)) && estUnFloat(part.at(1)))
+                return true;
+        }
+    }
+    return false;
+}
+
+bool Controller::estUneExpression(const QString s){
+    if(s.size()>0 && s.at(0)=="'" && s.at(s.size() - 1)=="'") return true;
+    return false;
+}
+
+bool Controller::estUnProgramme(const QString s){
+    if(s.size()>0 && s.at(0)=="[" && s.at(s.size() - 1)=="]") return true;
+    return false;
+}
+
+bool Controller::estUnAtomeProgramme(const QString s){
+    if(progM.contains(s)){
+        return true;
+    }
+    return false;
+}
+
+bool Controller::estUneVariable(const QString s){
+    if(varM.contains(s)){
+        return true;
+    }
+    return false;
+}
+
 void Controller::commande(const QString& c){
     if (estUnEntier(c)){
-        Rationnel rat(c.toInt());
-     pile.pushMod(rat);
+     pile.pushMod(Rationnel(c.toInt()));
    }
    else if(estUnFloat(c)){
-        Complexe c1(c.toFloat(),0.0);
-       pile.pushMod(c1);
+       pile.pushMod(Complexe(c.toFloat(),0.0));
    }
-
-       else  if (estUnOperateurBinaire(c)){
+   else if(estUnComplexe(c)){
+        QStringList part = c.split("$");
+        if(part.size() == 2){
+            if(estUnEntier(part.first()) && estUnEntier(part.last()))
+                pile.pushMod(Complexe(part.first().toInt(), part.last().toInt()));
+            if(estUnFloat(part.first()) && estUnFloat(part.last()))
+                pile.pushMod(Complexe(part.first().toFloat(), part.last().toFloat()));
+        }
+    }
+   else  if (estUnOperateurBinaire(c)){
             if (pile.size()>=2) {
                 Litteral* v2= pile.top();
-                pile.popMod();
+                pile.pop();
                 Litteral* v1=pile.top();
-                pile.popMod();
-                Litteral* res;
+                pile.pop();
+                QString op;
                 if (c=="+") {
                     pile.push(*(Addition(*v1, *v2).getResult()));
+                    op="Addition";
                 }
                 if (c=="-") {
                     pile.push(*(Soustraction(*v1, *v2).getResult()));
+                    op="Soustraction";
                 }
                 if (c=="*") {
                     pile.push(*(Multiplication(*v1, *v2).getResult()));
+                    op="Multiplication";
                 }
                 if (c=="/") {
                     pile.push(*(Division(*v1, *v2).getResult()));
+                    op="Division";
                 }
                 if(c=="$") {
                     pile.push(*(Dollar(*v1, *v2).getResult()));
+                    op="Complexe";
                 }
+                pile.setMessage(op+v1->toString()+" and "+v2->toString());
             }else{
                 pile.setMessage("Erreur : pas assez d'arguments");
             }
@@ -111,6 +173,15 @@ void Controller::commande(const QString& c){
                 pile.setMessage("Erreur : pas assez d'arguments");
             }
 
-        }else pile.setMessage("Erreur : commande inconnue");
+    }   else if(estUneExpression(c)){
+        //Traduire en commande normale puis changeCommande
+    }   else if(estUnAtomeProgramme(c)){
+        emit changeCommande(progM.getProgramme(c));
+    }   else if(estUnProgramme(c)){
+        emit changeCommande(c.left(1).right(1));
+    }   else if(estUneVariable(c)){
+        pile.pushMod(varM.getVariable(c).getValue());
+    }
+    else pile.setMessage("Erreur : commande inconnue");
 
 }
