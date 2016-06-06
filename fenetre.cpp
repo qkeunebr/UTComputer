@@ -31,7 +31,8 @@ Fenetre::Fenetre():son(true){
     message = new QLineEdit("");
 
     // ----------------- Pile
-    vuePile = new QTableWidget();
+//    vuePile = new QTableWidget();
+    vuePile = new QLineEdit();
     commande = new QLineEdit();
     couche = new QVBoxLayout();
 
@@ -44,19 +45,20 @@ Fenetre::Fenetre():son(true){
     message->setPalette(palette);
 
     //Pile non modifiable + Aspect
-    vuePile->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    vuePile->setReadOnly(true);
+//    vuePile->setEditTriggers(QAbstractItemView::NoEditTriggers);
     vuePile->setStyleSheet("background: darkcyan; color: white");
-    vuePile->verticalHeader()->setVisible(false);
+//    vuePile->verticalHeader()->setVisible(false);
 //    vuePile->verticalHeader()->setStyleSheet("color:black");
-    vuePile->horizontalHeader()->setVisible(false);
-    vuePile->horizontalHeader()->setStretchLastSection(true);
+//    vuePile->horizontalHeader()->setVisible(false);
+//    vuePile->horizontalHeader()->setStretchLastSection(true);
 
     //A changer pour afficher plus de ligne
-    vuePile->setRowCount(cont->getPile()->getNbItemsToAffiche());
-    vuePile->setColumnCount(2);
+//    vuePile->setRowCount(cont->getPile()->getNbItemsToAffiche());
+//    vuePile->setColumnCount(2);
 
 //    QStringList numberList;
-    for(unsigned int i = cont->getPile()->getNbItemsToAffiche();i>0;i--)
+/*    for(unsigned int i = cont->getPile()->getNbItemsToAffiche();i>0;i--)
     {
         QString str = QString::number(i);
         str+=" :";
@@ -66,8 +68,9 @@ Fenetre::Fenetre():son(true){
     }
 
 //    vuePile->setVerticalHeaderLabels(numberList);
-    vuePile->setFixedHeight(30*cont->getPile()->getNbItemsToAffiche()/*vuePile->rowHeight(0)+2*/);
-
+    vuePile->setFixedHeight(30*cont->getPile()->getNbItemsToAffiche()/*vuePile->rowHeight(0)+2);
+*/
+    vuePile->setText(cont->getPile()->getStackAff());
 /*
     vuePile->resizeRowsToContents();
     int height = (vuePile->model()->rowCount() - 1) + vuePile->horizontalHeader()->height();
@@ -88,6 +91,7 @@ Fenetre::Fenetre():son(true){
 
     cont->getPile()->setMessage("Bienvenue");
     commande->setFocus(Qt::OtherFocusReason);
+    connect(cont,SIGNAL(changeCommande(QString)),this,SLOT(setCommande(QString)));
 
     vLayoutCalc->addLayout(couche);
     // ---------------------------------------------
@@ -97,6 +101,91 @@ Fenetre::Fenetre():son(true){
 */
     QHBoxLayout *hLayoutPad = new QHBoxLayout;
     vLayoutCalc->addLayout(hLayoutPad);
+
+        // ------------ Systeme
+    QVBoxLayout *vLayoutSys = new QVBoxLayout;
+    hLayoutPad->addLayout(vLayoutSys);
+
+    QPushButton* bEntree = new QPushButton("Entree");
+    bEntree->show();
+    vLayoutSys->addWidget(bEntree);
+    connect(bEntree,SIGNAL(clicked()), this, SLOT(pushBEntree()));
+
+    QPushButton* bSpace = new QPushButton("Espace");
+    bSpace->show();
+    vLayoutSys->addWidget(bSpace);
+    connect(bSpace,SIGNAL(clicked()), this, SLOT(pushBSpace()));
+
+    QPushButton* bCorr = new QPushButton("Correction");
+    bCorr->show();
+    vLayoutSys->addWidget(bCorr);
+    connect(bCorr,SIGNAL(clicked()), this, SLOT(pushBCorr()));
+
+    QPushButton* bEdit = new QPushButton("Edit");
+    bEdit->show();
+    vLayoutSys->addWidget(bEdit);
+    connect(bEdit,SIGNAL(clicked()), this, SLOT(pushBEdit()));
+
+    QPushButton* bEval = new QPushButton("Eval");
+    bEval->show();
+    vLayoutSys->addWidget(bEval);
+    connect(bEval,SIGNAL(clicked()), this, SLOT(pushBEval()));
+
+    QPushButton* bForget = new QPushButton("Forget");
+    bForget->show();
+    vLayoutSys->addWidget(bForget);
+    connect(bForget,SIGNAL(clicked()), this, SLOT(pushBForget()));
+
+    QPushButton* bSto = new QPushButton("Sto");
+    bSto->show();
+    vLayoutSys->addWidget(bSto);
+    connect(bSto,SIGNAL(clicked()), this, SLOT(pushBSto()));
+
+    QPushButton* bIft = new QPushButton("Ift");
+    bIft->show();
+    vLayoutSys->addWidget(bIft);
+    connect(bIft,SIGNAL(clicked()), this, SLOT(pushBIft()));
+
+    QPushButton* bDup = new QPushButton("Dup");
+    bDup->show();
+    vLayoutSys->addWidget(bDup);
+    connect(bDup,SIGNAL(clicked()), this, SLOT(pushBDup()));
+
+    QPushButton* bDrop = new QPushButton("Drop");
+    bDrop->show();
+    vLayoutSys->addWidget(bDrop);
+    connect(bDrop,SIGNAL(clicked()), this, SLOT(pushBDrop()));
+
+    QPushButton* bSwap = new QPushButton("Swap");
+    bSwap->show();
+    vLayoutSys->addWidget(bSwap);
+    connect(bSwap,SIGNAL(clicked()), this, SLOT(pushBSwap()));
+
+    QPushButton* bLastOp = new QPushButton("LastOp");
+    bLastOp->show();
+    vLayoutSys->addWidget(bLastOp);
+    connect(bLastOp,SIGNAL(clicked()), this, SLOT(pushBLastOp()));
+
+    QPushButton* bLastArgs = new QPushButton("LastArgs");
+    bLastArgs->show();
+    vLayoutSys->addWidget(bLastArgs);
+    connect(bLastArgs,SIGNAL(clicked()), this, SLOT(pushBLastArgs()));
+
+    QPushButton* bUndo = new QPushButton("Undo");
+    bUndo->show();
+    vLayoutSys->addWidget(bUndo);
+    connect(bUndo,SIGNAL(clicked()), this, SLOT(pushBUndo()));
+
+    QPushButton* bRedo = new QPushButton("Redo");
+    bRedo->show();
+    vLayoutSys->addWidget(bRedo);
+    connect(bRedo,SIGNAL(clicked()), this, SLOT(pushBRedo()));
+
+    QPushButton* bClear = new QPushButton("Clear");
+    bClear->show();
+    vLayoutSys->addWidget(bClear);
+    connect(bClear,SIGNAL(clicked()), this, SLOT(pushBClear()));
+
 
         // ------------ Chiffre
         QVBoxLayout *vLayoutNum  = new QVBoxLayout;
@@ -295,7 +384,6 @@ Fenetre::Fenetre():son(true){
     QVBoxLayout *vLayoutListVar = new QVBoxLayout(variable);
 
     //Boucle for qui parcours les variables
-
 
 
 
@@ -524,7 +612,8 @@ void Fenetre::refresh()
 
     //Display pile
     message->setText(cont->getPile()->getMessage());
-
+    vuePile->setText(cont->getPile()->getStackAff());
+/*
     vuePile->setRowCount(cont->getPile()->getNbItemsToAffiche());
 
     for(unsigned int i = cont->getPile()->getNbItemsToAffiche();i>0;i--)
@@ -536,7 +625,8 @@ void Fenetre::refresh()
 
     unsigned int nbAff = cont->getPile()->getNbItemsToAffiche();
 //    unsigned int nbAff = 0;
-    int ind;
+    int indAff, indPile;
+
 /*  -----------------------    Essai avec l'iterator de QStack
     for(QStack<Litteral*>::Iterator it = cont->getPile()->begin(); it!=cont->getPile()->end() ;++it,nbAff++){
         if(nbAff < cont->getPile()->getNbItemsToAffiche()){
@@ -544,11 +634,36 @@ void Fenetre::refresh()
             vuePile->item(cont->getPile()->getNbItemsToAffiche()-1-nbAff,0)->setText(temp->toString());
         }
     }
-*//*  ---------------------    Essai avec .value de QStack
-    for(unsigned int i=cont->getPile()->getNbItemsToAffiche(); i>0; i--) {
-        if ( i<= cont->getPile()->size()) vuePile->setItem(cont->getPile()->getNbItemsToAffiche()-i , 1, new QTableWidgetItem(cont->getPile()->value(cont->getPile()->size()-i)->toString()));
+
+*//*  ---------------------    Essai 2
+    QString s;
+
+    unsigned int size = cont->getPile()->size();
+            unsigned int aff = cont->getPile()->getNbItemsToAffiche();
+    unsigned int maxtest = std::min<unsigned int>( size, aff);
+    for(unsigned int i = 0 ; i < maxtest ; i++){
+        s = cont->getPile()->at(i)->toString();
+        QTableWidgetItem* temp = new QTableWidgetItem(s);
+        vuePile->setItem(cont->getPile()->getNbItemsToAffiche()-i , 1, temp);
     }
-    *//*        -------------------- Essai de transvaser au fur et à mesure ce que l'on veut afficher dans un autre stack (ne marche ni avec std::stack, ni QStack
+  */  /* ---------------------------------- Essai 1
+       unsigned int i=1;
+
+     while(i <= cont->getPile()->getNbItemsToAffiche()) {
+        if ( i <= cont->getPile()->size()) {
+
+            indAff = cont->getPile()->getNbItemsToAffiche()-i;
+            indPile = cont->getPile()->size()-i;
+            if(indPile < cont->getPile()->size() && indPile>=0){
+            Litteral * lit = cont->getPile()->at(indPile);
+            QString stringTemp = lit->toString();
+            QTableWidgetItem* temp = new QTableWidgetItem(stringTemp);
+            vuePile->setItem(indAff , 1, temp);
+            }
+        }
+        i++;
+    }
+    /*        -------------------- Essai de transvaser au fur et à mesure ce que l'on veut afficher dans un autre stack (ne marche ni avec std::stack, ni QStack
     std::stack<Litteral>* temp = new std::stack<Litteral>();
     while( nbAff > 0 )
     {
@@ -565,8 +680,12 @@ void Fenetre::refresh()
         cont->getPile()->push((temp->top()));
         temp->pop();
     }
-    */
+*/
 
+}
+void Fenetre::setCommande(QString s)
+{
+    commande->setText(s);
 }
 
 void Fenetre::getNextCommande()
@@ -577,6 +696,11 @@ void Fenetre::getNextCommande()
     QString com;
     do{
         stream>>com;
+        if(com.contains("[")){
+            while(!com.contains("]")){
+                stream>>com;
+            }
+        }
         if(com!="") cont->commande(com);
     }while(com!="");
     commande->clear();
@@ -584,146 +708,219 @@ void Fenetre::getNextCommande()
 
 void Fenetre::pushB1(){
     Fenetre::commande->setText(Fenetre::commande->text()+"1");
-    //Beep(523,250);
+    Beep(523,250);
 
 }
 
 void Fenetre::pushB2(){
     Fenetre::commande->setText(Fenetre::commande->text()+"2");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushB3(){
     Fenetre::commande->setText(Fenetre::commande->text()+"3");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushB4(){
     Fenetre::commande->setText(Fenetre::commande->text()+"4");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushB5(){
     Fenetre::commande->setText(Fenetre::commande->text()+"5");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushB6(){
     Fenetre::commande->setText(Fenetre::commande->text()+"6");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushB7(){
     Fenetre::commande->setText(Fenetre::commande->text()+"7");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushB8(){
     Fenetre::commande->setText(Fenetre::commande->text()+"8");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushB9(){
     Fenetre::commande->setText(Fenetre::commande->text()+"9");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushB0(){
     Fenetre::commande->setText(Fenetre::commande->text()+"0");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBPlus(){
     Fenetre::commande->setText(Fenetre::commande->text()+"+");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBMoins(){
     Fenetre::commande->setText(Fenetre::commande->text()+"-");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBFois(){
     Fenetre::commande->setText(Fenetre::commande->text()+"*");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBDiv(){
     Fenetre::commande->setText(Fenetre::commande->text()+"/");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBNeg(){
     Fenetre::commande->setText(Fenetre::commande->text()+"NEG");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBNum(){
     Fenetre::commande->setText(Fenetre::commande->text()+"NUM");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBDen(){
     Fenetre::commande->setText(Fenetre::commande->text()+"DEN");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBCompl(){
     Fenetre::commande->setText(Fenetre::commande->text()+"$");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBRe(){
     Fenetre::commande->setText(Fenetre::commande->text()+"RE");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBIm(){
     Fenetre::commande->setText(Fenetre::commande->text()+"IM");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBEg(){
     Fenetre::commande->setText(Fenetre::commande->text()+"==");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBNEg(){
     Fenetre::commande->setText(Fenetre::commande->text()+"!=");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBEgSup(){
     Fenetre::commande->setText(Fenetre::commande->text()+"=>");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBEgInf(){
     Fenetre::commande->setText(Fenetre::commande->text()+"=<");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBInf(){
     Fenetre::commande->setText(Fenetre::commande->text()+"<");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBSup(){
     Fenetre::commande->setText(Fenetre::commande->text()+">");
-    //Beep(523,250);
+    Beep(523,250);
 }
 
 void Fenetre::pushBAnd(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"&&");
-    //Beep(523,250);
+    Fenetre::commande->setText(Fenetre::commande->text()+"AND");
+    Beep(523,250);
 }
 
 void Fenetre::pushBOr(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"||");
-    //Beep(523,250);
+    Fenetre::commande->setText(Fenetre::commande->text()+"OR");
+    Beep(523,250);
 }
 
 void Fenetre::pushBNot(){
+    Fenetre::commande->setText(Fenetre::commande->text()+"NOT");
+    Beep(523,250);
+}
+
+void Fenetre::pushBSpace(){
+    Fenetre::commande->setText(Fenetre::commande->text()+" ");
+    Beep(523,250);
+}
+
+void Fenetre::pushBEntree(){
+    emit commande->returnPressed();
+}
+
+void Fenetre::pushBCorr(){
+    Fenetre::commande->setText(Fenetre::commande->text().remove(Fenetre::commande->text().size()-1,1));
+    Beep(523,250);
+}
+
+void Fenetre::pushBEdit(){
+
+}
+
+void Fenetre::pushBEval(){
+
+}
+
+void Fenetre::pushBForget(){
+
+}
+
+void Fenetre::pushBSto(){
+    Fenetre::commande->setText(Fenetre::commande->text()+" ");
+    Beep(523,250);
+}
+
+void Fenetre::pushBIft(){
+    Fenetre::commande->setText(Fenetre::commande->text()+"IFT");
+    Beep(523,250);
+}
+
+void Fenetre::pushBDup(){
+    Fenetre::commande->setText(Fenetre::commande->text()+"DUP");
+    Beep(523,250);
+}
+
+void Fenetre::pushBDrop(){
+    Fenetre::commande->setText(Fenetre::commande->text()+"DROP");
+    Beep(523,250);
+}
+
+void Fenetre::pushBSwap(){
+    Fenetre::commande->setText(Fenetre::commande->text()+"SWAP");
+    Beep(523,250);
+}
+
+void Fenetre::pushBLastOp(){
     Fenetre::commande->setText(Fenetre::commande->text()+"");
-    //Beep(523,250);
+    Beep(523,250);
+}
+
+void Fenetre::pushBLastArgs(){
+    Fenetre::commande->setText(Fenetre::commande->text()+"");
+    Beep(523,250);
+}
+
+void Fenetre::pushBUndo(){
+
+}
+
+void Fenetre::pushBRedo(){
+
+}
+
+void Fenetre::pushBClear(){
+    cont->getPile()->clear();
 }
