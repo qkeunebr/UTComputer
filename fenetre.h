@@ -1,6 +1,7 @@
 #ifndef FENETRE_H
 #define FENETRE_H
 
+#include <algorithm>
 #include <QMainWindow>
 #include <QApplication>
 #include <QLineEdit>
@@ -12,7 +13,8 @@
 #include <QCheckBox>
 #include <QWidget>
 #include <iostream>
-//#include <windows.h>
+#include <exception>
+#include <windows.h>
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QCloseEvent>
@@ -29,6 +31,7 @@
 #include <QDesktopWidget>
 #include "controller.h"
 #include "litteral.h"
+#include "variable.h"
 
 
 class Fenetre : public QMainWindow {
@@ -42,7 +45,8 @@ Q_OBJECT
     bool son;
 
     QLineEdit* message;
-    QTableWidget* vuePile;
+//    QTableWidget* vuePile;
+    QLineEdit* vuePile;
     QLineEdit* commande;
     QVBoxLayout* couche;
 public slots :
@@ -56,6 +60,7 @@ public slots :
     }
     void refresh();
     void getNextCommande();
+    void setCommande(QString s);
 
     void pushB1();
     void pushB2();
@@ -86,6 +91,23 @@ public slots :
     void pushBOr();
     void pushBAnd();
     void pushBNot();
+
+    void pushBEntree();
+    void pushBSpace();
+    void pushBCorr();
+    void pushBEdit();
+    void pushBEval();
+    void pushBForget();
+    void pushBSto();
+    void pushBIft();
+    void pushBDup();
+    void pushBDrop();
+    void pushBSwap();
+    void pushBLastOp();
+    void pushBLastArgs();
+    void pushBUndo();
+    void pushBRedo();
+    void pushBClear();
 public :
 
     Fenetre();
