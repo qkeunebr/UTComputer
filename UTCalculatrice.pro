@@ -10,7 +10,8 @@ HEADERS += \
     operationunaire.h \
     operationbinaire.h \
     litteralfactory.h\
-    controller.h
+    controller.h \
+    variable.h
 
 SOURCES += \
     main.cpp \
@@ -34,4 +35,5 @@ SOURCES += \
     im.cpp\
     re.cpp\
     den.cpp\
+    variable.cpp
 
