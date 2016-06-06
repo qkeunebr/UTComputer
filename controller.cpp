@@ -1,187 +1,72 @@
-#include "controller.h"
-#include <iostream>
-#include <ostream>
+#ifndef CONTROLLER_H
+#define CONTROLLER_H
 
-void Pile::pushMod(Litteral& e){
-    push(e);
-    setMessage("Push "+e.toString());
-}
+#include "litteral.h"
+#include <QString>
+#include <QObject>
+#include <QVector>
+#include "operationbinaire.h"
+#include "variable.h"
 
-void Pile::popMod(){
-    pop();
-    setMessage("Pop");
+class Pile : public QObject  {
+    Q_OBJECT
 
-}
+    QVector<Litteral*> stack;
+    QString message;
+    unsigned int nbAffiche;
+public:
+    Pile():stack(),message(""),nbAffiche(4){}
+    void pushMod(Litteral& e);
+    void popMod();
+    void push(Litteral& e){stack.push_back(&e);}
+    void pop(){ stack.pop_back();}
+    unsigned int size(){return stack.size();}
+    void clear(){stack.clear();}
+    QString getStackAff();
+    Litteral* top(){return stack.last();}
+    Litteral* at(int i){return stack.at(i);}
+//    QStack<Litteral*>::Iterator begin(){return sta.begin();}
+//    QStack<Litteral*>::Iterator end(){return sta.end();}
+//    const Litteral* value(int i){return sta.value(i);}
+    void setNbItemsToAffiche(unsigned int n) { nbAffiche=n; }
+    unsigned int getNbItemsToAffiche() const { return nbAffiche; }
+    void setMessage(const QString& m) { message=m; modificationEtat(); }
+    QString getMessage() const { return message; }
+signals:
+    void modificationEtat();
+};
 
-QString Pile::getStackAff(){
+class Controller : public QObject{
+    Q_OBJECT
 
-    QString res("|| ");
-/*    for(QVector<Litteral*>::Iterator it = stack.end() ; it != stack.begin() ; ++it){
-        Litteral* temp = it;
-        if(temp!=NULL)
-            res.append(temp->toString());
-        res.append(" || ");
+    Pile pile;
+    VariableManager varM;
+    ProgrammeManager progM;
+public :
+    Controller():pile(){varM = VariableManager::getInstance(); progM = ProgrammeManager::getInstance();}
+
+    Pile* getPile(){
+        return &pile;
     }
-    */
-    return res;
-}
-
-bool Controller::estUnOperateurUnaire(const QString s){
-    if (s=="RE")  return true;
-    if (s=="IM")  return true;
-    if (s=="NEG")  return true;
-    if (s=="NUM")  return true;
-    if (s=="DEN")  return true;
-       return false;
-}
-
-bool Controller::estUnOperateurBinaire(const QString s){
-    if (s=="+") return true;
-    if (s=="-") return true;
-    if (s=="*") return true;
-    if (s=="/") return true;
-    if (s=="$")  return true;
-    if (s=="=")  return true;
-    if (s=="!=")  return true;
-    if (s==">=")  return true;
-    if (s=="<=")  return true;
-    if (s=="<")  return true;
-    if (s==">")  return true;
-    if (s=="AND")  return true;
-    if (s=="OR")  return true;
-    if (s=="NOT")  return true;
-    return false;
-}
-
-bool Controller::estUnEntier(const QString s){
-   bool ok;
-   s.toInt(&ok);
-   return ok;
-}
-
-bool Controller::estUnFloat(const QString s){
-   bool ok;
-   s.toFloat(&ok);
-   return ok;
-}
-
-bool Controller::estUnComplexe(const QString s){
-    if (s.contains('$')){
-        QStringList part = s.split("$");
-        if(part.size() == 2){
-            if(estUnEntier(part.at(0)) && estUnEntier(part.at(1)))
-                return true;
-            if(estUnFloat(part.at(0)) && estUnFloat(part.at(1)))
-                return true;
-        }
+    void commande(const QString& c);
+    VariableManager* getVariableManager(){
+        return &varM;
     }
-    return false;
-}
-
-bool Controller::estUneExpression(const QString s){
-    if(s.size()>0 && s.at(0)=="'" && s.at(s.size() - 1)=="'") return true;
-    return false;
-}
-
-bool Controller::estUnProgramme(const QString s){
-    if(s.size()>0 && s.at(0)=="[" && s.at(s.size() - 1)=="]") return true;
-    return false;
-}
-
-bool Controller::estUnAtomeProgramme(const QString s){
-    if(progM.contains(s)){
-        return true;
+    ProgrammeManager* getProgrammeManager(){
+        return &progM;
     }
-    return false;
-}
 
-bool Controller::estUneVariable(const QString s){
-    if(varM.contains(s)){
-        return true;
-    }
-    return false;
-}
 
-void Controller::commande(const QString& c){
-    if (estUnEntier(c)){
-     pile.pushMod(Rationnel(c.toInt()));
-   }
-   else if(estUnFloat(c)){
-       pile.pushMod(Complexe(c.toFloat(),0.0));
-   }
-   else if(estUnComplexe(c)){
-        QStringList part = c.split("$");
-        if(part.size() == 2){
-            if(estUnEntier(part.first()) && estUnEntier(part.last()))
-                pile.pushMod(Complexe(part.first().toInt(), part.last().toInt()));
-            if(estUnFloat(part.first()) && estUnFloat(part.last()))
-                pile.pushMod(Complexe(part.first().toFloat(), part.last().toFloat()));
-        }
-    }
-   else  if (estUnOperateurBinaire(c)){
-            if (pile.size()>=2) {
-                Litteral* v2= pile.top();
-                pile.pop();
-                Litteral* v1=pile.top();
-                pile.pop();
-                QString op;
-                if (c=="+") {
-                    pile.push(*(Addition(*v1, *v2).getResult()));
-                    op="Addition";
-                }
-                if (c=="-") {
-                    pile.push(*(Soustraction(*v1, *v2).getResult()));
-                    op="Soustraction";
-                }
-                if (c=="*") {
-                    pile.push(*(Multiplication(*v1, *v2).getResult()));
-                    op="Multiplication";
-                }
-                if (c=="/") {
-                    pile.push(*(Division(*v1, *v2).getResult()));
-                    op="Division";
-                }
-                if(c=="$") {
-                    pile.push(*(Dollar(*v1, *v2).getResult()));
-                    op="Complexe";
-                }
-                pile.setMessage(op+v1->toString()+" and "+v2->toString());
-            }else{
-                pile.setMessage("Erreur : pas assez d'arguments");
-            }
-    }
-        else if(estUnOperateurUnaire(c)){
-            if (pile.size()>=1) {
-                Litteral* val = pile.top();
-                if(c=="RE") {
-                    pile.push(*(RE(*val).getResult()));
-                }
-                if(c=="IM") {
-                    pile.push(*(IM(*val).getResult()));
-                }
-                if(c=="DEN") {
-                    pile.push(*(Den(*val).getResult()));
-                }
-                if(c=="NEG") {
-                    pile.push(*(Neg(*val).getResult()));
-                }
-                if(c=="NUM") {
-                    pile.push(*(Num(*val).getResult()));
-                }
-            }
-            else{
-                pile.setMessage("Erreur : pas assez d'arguments");
-            }
-
-    }   else if(estUneExpression(c)){
-        //Traduire en commande normale puis changeCommande
-    }   else if(estUnAtomeProgramme(c)){
-        emit changeCommande(progM.getProgramme(c));
-    }   else if(estUnProgramme(c)){
-        emit changeCommande(c.left(1).right(1));
-    }   else if(estUneVariable(c)){
-        pile.pushMod(varM.getVariable(c).getValue());
-    }
-    else pile.setMessage("Erreur : commande inconnue");
-
-}
+    bool estUnOperateurUnaire(const QString s);
+    bool estUnOperateurBinaire(const QString s);
+    bool estUnEntier(const QString s);
+    bool estUnFloat(const QString s);
+    bool estUnComplexe(const QString s);
+    bool estUneExpression(const QString s);
+    bool estUnAtomeProgramme(const QString s);
+    bool estUnProgramme(const QString s);
+    bool estUneVariable(const QString s);
+signals:
+    void changeCommande(QString);
+};
+#endif // CONTROLLER_H
