@@ -64,4 +64,14 @@ class IM : public OperationUnaire
     private:
         Litteral* im(const Complexe& c) const;
 };
+
+class OperateurLogiqueUnaire : public OperationUnaire
+{
+public:
+    OperateurLogiqueUnaire(Litteral& l1);
+    virtual Litteral* getResult() const;
+private:
+    Litteral* NOT(const Rationnel& r1) const;
+};
+
 #endif // OPERATIONUNAIRE_H

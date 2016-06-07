@@ -392,7 +392,6 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
          result = new Rationnel(0,0);
      return result;
  }
-
  Litteral* OU(const Rationnel& c1, const Rationnel& c2) const{
      Litteral* result;
      if(c1.getNumerateur()==c2.getDenominateur() || (c2.getNumerateur()==c2.getDenominateur())){

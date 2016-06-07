@@ -35,5 +35,7 @@ SOURCES += \
     im.cpp\
     re.cpp\
     den.cpp\
-    variable.cpp
+    variable.cpp \
+    operateurlogique.cpp \
+    operateurlogiqueunaire.cpp
 
