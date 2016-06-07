@@ -4,24 +4,27 @@
 #include "litteral.h"
 #include <QString>
 #include <QObject>
-#include <stack>
+#include <QVector>
 #include "operationbinaire.h"
-#include "operationunaire.h"
+#include "variable.h"
 
 class Pile : public QObject  {
     Q_OBJECT
 
-    std::stack<Litteral*> sta;
+    QVector<Litteral*> stack;
     QString message;
     unsigned int nbAffiche;
 public:
-    Pile():sta(),message(""),nbAffiche(4){}
+    Pile():stack(),message(""),nbAffiche(4){}
     void pushMod(Litteral& e);
     void popMod();
-    void push(Litteral& e){sta.push(&e);}
-    void pop(){ sta.pop();}
-    int size(){return sta.size();}
-    Litteral* top(){return sta.top();}
+    void push(Litteral& e){stack.push_back(&e);}
+    void pop(){ stack.pop_back();}
+    unsigned int size(){return stack.size();}
+    void clear(){stack.clear();}
+    QString getStackAff();
+    Litteral* top(){return stack.last();}
+    Litteral* at(int i){return stack.at(i);}
 //    QStack<Litteral*>::Iterator begin(){return sta.begin();}
 //    QStack<Litteral*>::Iterator end(){return sta.end();}
 //    const Litteral* value(int i){return sta.value(i);}
@@ -29,25 +32,69 @@ public:
     unsigned int getNbItemsToAffiche() const { return nbAffiche; }
     void setMessage(const QString& m) { message=m; modificationEtat(); }
     QString getMessage() const { return message; }
+    Pile& operator=(Pile p){
+        stack = p.stack;
+        message = p.message;
+        nbAffiche = p.nbAffiche;
+    }
+    Pile(const Pile& p){
+        stack = p.stack;
+        message = p.message;
+        nbAffiche = p.nbAffiche;
+    }
+
 signals:
     void modificationEtat();
 };
 
-class Controller{
+class Controller : public QObject{
+    Q_OBJECT
+
     Pile pile;
+    VariableManager varM;
+    ProgrammeManager progM;
+    Pile pileSave;
+    VariableManager varMSave;
+    ProgrammeManager progMSave;
+    QString lastop;
+    QString lastargs;
 public :
-    Controller():pile(){}
+    Controller():pile(){varM = VariableManager::getInstance(); progM = ProgrammeManager::getInstance();}
 
     Pile* getPile(){
         return &pile;
     }
     void commande(const QString& c);
+    VariableManager* getVariableManager(){
+        return &varM;
+    }
+    ProgrammeManager* getProgrammeManager(){
+        return &progM;
+    }
+
+    void save(){
+        pileSave = pile;
+        varMSave = varM;
+        progMSave = progM;
+    }
+    void load(){
+        pile = pileSave;
+        varM = varMSave;
+        progM = progMSave;
+    }
 
 
     bool estUnOperateurUnaire(const QString s);
     bool estUnOperateurBinaire(const QString s);
+    bool operateurRestant(const QString s);
     bool estUnEntier(const QString s);
     bool estUnFloat(const QString s);
-
+    bool estUnComplexe(const QString s);
+    bool estUneExpression(const QString s);
+    bool estUnAtomeProgramme(const QString s);
+    bool estUnProgramme(const QString s);
+    bool estUneVariable(const QString s);
+signals:
+    void changeCommande(QString);
 };
 #endif // CONTROLLER_H
