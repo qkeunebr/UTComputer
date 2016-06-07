@@ -867,19 +867,22 @@ void Fenetre::pushBCorr(){
 }
 
 void Fenetre::pushBEdit(){
-
+    Fenetre::commande->setText(Fenetre::commande->text()+"EDIT");
+    Beep(523,250);
 }
 
 void Fenetre::pushBEval(){
-
+    Fenetre::commande->setText(Fenetre::commande->text()+"EVAL");
+    Beep(523,250);
 }
 
 void Fenetre::pushBForget(){
-
+    Fenetre::commande->setText(Fenetre::commande->text()+"FORGET");
+    Beep(523,250);
 }
 
 void Fenetre::pushBSto(){
-    Fenetre::commande->setText(Fenetre::commande->text()+" ");
+    Fenetre::commande->setText(Fenetre::commande->text()+"STO");
     Beep(523,250);
 }
 
@@ -904,21 +907,23 @@ void Fenetre::pushBSwap(){
 }
 
 void Fenetre::pushBLastOp(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"");
+    Fenetre::commande->setText(Fenetre::commande->text()+"LASTOP");
     Beep(523,250);
 }
 
 void Fenetre::pushBLastArgs(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"");
+    Fenetre::commande->setText(Fenetre::commande->text()+"LASTARGS");
     Beep(523,250);
 }
 
 void Fenetre::pushBUndo(){
-
+    Fenetre::commande->setText(Fenetre::commande->text()+"UNDO");
+    Beep(523,250);
 }
 
 void Fenetre::pushBRedo(){
-
+    Fenetre::commande->setText(Fenetre::commande->text()+"REDO");
+    Beep(523,250);
 }
 
 void Fenetre::pushBClear(){
