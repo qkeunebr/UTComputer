@@ -84,7 +84,7 @@ public :
         progM = progMSave;
     }
 
-
+    bool estUnOperateurLogique(const QString s);
     bool estUnOperateurUnaire(const QString s);
     bool estUnOperateurBinaire(const QString s);
     bool operateurRestant(const QString s);
