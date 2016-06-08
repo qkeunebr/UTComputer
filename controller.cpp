@@ -252,12 +252,12 @@ void Controller::commande(const QString& c){
                     op="Complexe";
                 }
                 if(c=="STO"){
-                    if(*v1->toString()=="temp"){
-                        progM.removeVariable(*v1->toString());
-                        progM.addVariable(*v2->toString(), *v1->toString());
+                    if(v1->toString()=="temp"){
+                        progM.removeProgramme(progM.getProgramme(v1->toString()));
+                        progM.addProgramme(v2->toString(), v1->toString());
                     }
-                    varM.removeVariable(*v2->toString());
-                    varM.addVariable(*v2->toString(), *v1->toString());
+                    varM.removeVariable(varM.getVariable(v2->toString()));
+                    varM.addVariable(v2->toString(), *v1);
                 }
                 if(c=="IFT") {
 
@@ -315,7 +315,7 @@ void Controller::commande(const QString& c){
 
         //Traduire en commande normale puis changeCommande
     }   else if(estUnAtomeProgramme(c)){
-        changeCommande(progM.getProgramme(c));
+        changeCommande(progM.getProgramme(c).getName());
     }   else if(estUnProgramme(c)){
         pile.setMessage("Programme : "+c.mid(1,c.size()-2));
         progM.addProgramme("temp", c.mid(1,c.size()-2));
