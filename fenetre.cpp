@@ -461,9 +461,9 @@ QWidget* Fenetre::createVarView(){
     entValueVar = new QLineEdit();
 
     vLayoutListVar->addWidget(nom);
-    vLayoutListVar->addWidget(entNomProg);
+    vLayoutListVar->addWidget(entNomVar);
     vLayoutListVar->addWidget(value);
-    vLayoutListVar->addWidget(entValueProg);
+    vLayoutListVar->addWidget(entValueVar);
 
     QPushButton* BCreer = new QPushButton("Créer");
     BCreer->show();
@@ -1347,7 +1347,7 @@ void Fenetre::pushBClear(){
 }
 
 void Fenetre::pushBCreerVar(){
-    Fenetre::commande->setText(entValueVar->text().toStdString()+" '"+entNomVar+"' STO");
+    Fenetre::commande->setText(entValueVar->text()+" '"+entNomVar->text()+"' STO");
     getNextCommande();
 
 }
