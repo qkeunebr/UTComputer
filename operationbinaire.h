@@ -126,20 +126,20 @@ public:
     OperateurLogique(Litteral& l1, Litteral& l2);
     virtual Litteral* getResult() const;
 private:
-    Litteral* egal(const Complexe& c1, const Complexe& c2) const;
-    Litteral* egal(const Rationnel& r1, const Rationnel& r2) const;
-    Litteral* diff(const Complexe& c1, const Complexe& c2) const;
-    Litteral* diff(const Rationnel& r1, const Rationnel& r2) const;
-    Litteral* inf(const Complexe& c1, const Complexe& c2) const;
-    Litteral* inf(const Rationnel& r1, const Rationnel& r2) const;
-    Litteral* sup(const Complexe& c1, const Complexe& c2) const;
-    Litteral* sup(const Rationnel& r1, const Rationnel& r2) const;
-    Litteral* infeg(const Complexe& c1, const Complexe& c2) const;
-    Litteral* infeg(const Rationnel& r1, const Rationnel& r2) const;
-    Litteral* supeg(const Complexe& c1, const Complexe& c2) const;
-    Litteral* supeg(const Rationnel& r1, const Rationnel& r2) const;
-    Litteral* ET(const Rationnel& c1, const Rationnel& c2) const;
-    Litteral* OU(const Rationnel& c1, const Rationnel& c2) const;
+    Litteral* egal(const Complexe& c1, const Complexe& c2) ;
+    Litteral* egal(const Rationnel& r1, const Rationnel& r2) ;
+    Litteral* diff(const Complexe& c1, const Complexe& c2) ;
+    Litteral* diff(const Rationnel& r1, const Rationnel& r2) ;
+    Litteral* inf(const Complexe& c1, const Complexe& c2) ;
+    Litteral* inf(const Rationnel& r1, const Rationnel& r2) ;
+    Litteral* sup(const Complexe& c1, const Complexe& c2) ;
+    Litteral* sup(const Rationnel& r1, const Rationnel& r2) ;
+    Litteral* infeg(const Complexe& c1, const Complexe& c2) ;
+    Litteral* infeg(const Rationnel& r1, const Rationnel& r2) ;
+    Litteral* supeg(const Complexe& c1, const Complexe& c2) ;
+    Litteral* supeg(const Rationnel& r1, const Rationnel& r2) ;
+    Litteral* ET(const Rationnel& c1, const Rationnel& c2) ;
+    Litteral* OU(const Rationnel& c1, const Rationnel& c2) ;
 
 };
 

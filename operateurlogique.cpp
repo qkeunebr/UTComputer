@@ -2,7 +2,7 @@
 
 OperateurLogique::OperateurLogique(Litteral &l1, Litteral &l2):OperationBinaire(l1,l2){}
 
-Litteral* egal(const Complexe& c1, const Complexe& c2) const{
+Litteral* egal(const Complexe& c1, const Complexe& c2){
     Litteral* result;
     if(!(c1.getSymboleDollar())){
         //c1 est réel
@@ -45,7 +45,7 @@ Litteral* egal(const Complexe& c1, const Complexe& c2) const{
             result = new Rationnel(0,0);
         }
         else{
-            if(c1.getReRationnel()==c1.getReRationnel() && (c1.getImRationnel()==c2.getImRationnel())){
+            if(c1.getReRationnel().getNumerateur()==c1.getReRationnel().getNumerateur() && c1.getReRationnel().getDenominateur()==c1.getReRationnel().getDenominateur() && (c1.getImRationnel().getNumerateur()==c2.getImRationnel().getNumerateur()) && (c1.getImRationnel().getDenominateur()==c2.getImRationnel().getDenominateur()) ){
               result = new Rationnel(1,1);
             }
             else
@@ -55,7 +55,7 @@ Litteral* egal(const Complexe& c1, const Complexe& c2) const{
     return result;
 }
 
-Litteral* egal(const Rationnel& r1, const Rationnel& r2) const{
+Litteral* egal(const Rationnel& r1, const Rationnel& r2){
     Litteral* result;
     if((r1.getNumerateur()==r2.getNumerateur()) && (r1.getDenominateur()==r2.getDenominateur())){
         result = new Rationnel(1,1);
@@ -65,7 +65,7 @@ Litteral* egal(const Rationnel& r1, const Rationnel& r2) const{
     return result;
 }
 
-Litteral* diff(const Complexe& c1, const Complexe& c2) const{
+Litteral* diff(const Complexe& c1, const Complexe& c2){
     Litteral* result;
     if(!(c1.getSymboleDollar())){
         //c1 est réel
@@ -108,7 +108,7 @@ Litteral* diff(const Complexe& c1, const Complexe& c2) const{
             result = new Rationnel(1,1);
         }
         else{
-            if(c1.getReRationnel()==c1.getReRationnel() && (c1.getImRationnel()==c2.getImRationnel())){
+            if(c1.getReRationnel().getNumerateur()==c1.getReRationnel().getNumerateur() && c1.getReRationnel().getDenominateur()==c1.getReRationnel().getDenominateur() && (c1.getImRationnel().getNumerateur()==c2.getImRationnel().getNumerateur()) && (c1.getImRationnel().getDenominateur()==c2.getImRationnel().getDenominateur()) ){
               result = new Rationnel(0,0);
             }
             else
@@ -118,7 +118,7 @@ Litteral* diff(const Complexe& c1, const Complexe& c2) const{
     return result;
 }
 
-Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
+Litteral* diff(const Rationnel& r1, const Rationnel& r2){
     Litteral* result;
     if((r1.getNumerateur()==r2.getNumerateur()) && (r1.getDenominateur()==r2.getDenominateur())){
         result = new Rationnel(0,0);
@@ -128,7 +128,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
     return result;
 }
 
- Litteral* sup(const Complexe& c1, const Complexe& c2) const{
+ Litteral* sup(const Complexe& c1, const Complexe& c2){
      Litteral* result;
      if(!(c1.getSymboleDollar())){
          //c1 est réel
@@ -171,7 +171,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
              result = new Rationnel(0,0);
          }
          else{
-             if(c1.getReRationnel()>c1.getReRationnel() && (c1.getImRationnel()>c2.getImRationnel())){
+             if(c1.getReRationnel().getNumerateur()>c1.getReRationnel().getNumerateur() && c1.getReRationnel().getDenominateur()>c1.getReRationnel().getDenominateur() && (c1.getImRationnel().getNumerateur()>c2.getImRationnel().getNumerateur()) && (c1.getImRationnel().getDenominateur()>c2.getImRationnel().getDenominateur()) ){
                result = new Rationnel(1,1);
              }
              else
@@ -181,7 +181,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
      return result;
  }
 
- Litteral* sup(const Rationnel& r1, const Rationnel& r2) const{
+ Litteral* sup(const Rationnel& r1, const Rationnel& r2){
      Litteral* result;
      if((r1.getNumerateur()>r2.getNumerateur()) && (r1.getDenominateur()>r2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -191,7 +191,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
      return result;
  }
 
- Litteral* supeg(const Rationnel& r1, const Rationnel& r2) const{
+ Litteral* supeg(const Rationnel& r1, const Rationnel& r2){
      Litteral* result;
      if((r1.getNumerateur()>=r2.getNumerateur()) && (r1.getDenominateur()>=r2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -203,7 +203,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
 
 
 
- Litteral* supeg(const Complexe& c1, const Complexe& c2) const{
+ Litteral* supeg(const Complexe& c1, const Complexe& c2){
      Litteral* result;
      if(!(c1.getSymboleDollar())){
          //c1 est réel
@@ -246,7 +246,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
              result = new Rationnel(0,0);
          }
          else{
-             if(c1.getReRationnel()>=c1.getReRationnel() && (c1.getImRationnel()>=c2.getImRationnel())){
+             if(c1.getReRationnel().getNumerateur()>=c1.getReRationnel().getNumerateur() && c1.getReRationnel().getDenominateur()>=c1.getReRationnel().getDenominateur() && (c1.getImRationnel().getNumerateur()>=c2.getImRationnel().getNumerateur()) && (c1.getImRationnel().getDenominateur()>=c2.getImRationnel().getDenominateur()) ){
                result = new Rationnel(1,1);
              }
              else
@@ -256,7 +256,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
      return result;
  }
 
- Litteral* inf(const Complexe& c1, const Complexe& c2) const{
+ Litteral* inf(const Complexe& c1, const Complexe& c2) {
      Litteral* result;
      if(!(c1.getSymboleDollar())){
          //c1 est réel
@@ -299,7 +299,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
              result = new Rationnel(0,0);
          }
          else{
-             if(c1.getReRationnel()<c1.getReRationnel() && (c1.getImRationnel()<c2.getImRationnel())){
+             if(c1.getReRationnel().getNumerateur()<c1.getReRationnel().getNumerateur() && c1.getReRationnel().getDenominateur()<c1.getReRationnel().getDenominateur() && (c1.getImRationnel().getNumerateur()<c2.getImRationnel().getNumerateur()) && (c1.getImRationnel().getDenominateur()<c2.getImRationnel().getDenominateur()) ){
                result = new Rationnel(1,1);
              }
              else
@@ -309,7 +309,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
      return result;
  }
 
- Litteral* infeg(const Complexe& c1, const Complexe& c2) const{
+ Litteral* infeg(const Complexe& c1, const Complexe& c2){
      Litteral* result;
      if(!(c1.getSymboleDollar())){
          //c1 est réel
@@ -352,7 +352,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
              result = new Rationnel(0,0);
          }
          else{
-             if(c1.getReRationnel()<=c1.getReRationnel() && (c1.getImRationnel()<=c2.getImRationnel())){
+             if(c1.getReRationnel().getNumerateur()<=c1.getReRationnel().getNumerateur() && c1.getReRationnel().getDenominateur()<=c1.getReRationnel().getDenominateur() && (c1.getImRationnel().getNumerateur()<=c2.getImRationnel().getNumerateur()) && (c1.getImRationnel().getDenominateur()<=c2.getImRationnel().getDenominateur()) ){
                result = new Rationnel(1,1);
              }
              else
@@ -363,7 +363,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
  }
 
 
- Litteral* sup(const Rationnel& r1, const Rationnel& r2) const{
+ Litteral* inf(const Rationnel& r1, const Rationnel& r2){
      Litteral* result;
      if((r1.getNumerateur()<r2.getNumerateur()) && (r1.getDenominateur()<r2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -373,7 +373,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
      return result;
  }
 
- Litteral* supeg(const Rationnel& r1, const Rationnel& r2) const{
+ Litteral* infeg(const Rationnel& r1, const Rationnel& r2){
      Litteral* result;
      if((r1.getNumerateur()<=r2.getNumerateur()) && (r1.getDenominateur()<=r2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -383,7 +383,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
      return result;
  }
 
- Litteral* ET(const Rationnel& c1, const Rationnel& c2) const{
+ Litteral* ET(const Rationnel& c1, const Rationnel& c2){
      Litteral* result;
      if(c1.getNumerateur()==c2.getDenominateur() && (c2.getNumerateur()==c2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -392,7 +392,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2) const{
          result = new Rationnel(0,0);
      return result;
  }
- Litteral* OU(const Rationnel& c1, const Rationnel& c2) const{
+ Litteral* OU(const Rationnel& c1, const Rationnel& c2) {
      Litteral* result;
      if(c1.getNumerateur()==c2.getDenominateur() || (c2.getNumerateur()==c2.getDenominateur())){
          result = new Rationnel(1,1);
