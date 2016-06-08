@@ -36,6 +36,7 @@ public:
         stack = p.stack;
         message = p.message;
         nbAffiche = p.nbAffiche;
+        return *this;
     }
     Pile(const Pile& p){
         stack = p.stack;
@@ -57,7 +58,7 @@ class Controller : public QObject{
     VariableManager varMSave;
     ProgrammeManager progMSave;
     QString lastop;
-    QString lastargs;
+    QVector<Litteral*> lastargs;
 public :
     Controller():pile(){varM = VariableManager::getInstance(); progM = ProgrammeManager::getInstance();}
 
@@ -94,7 +95,7 @@ public :
     bool estUnAtomeProgramme(const QString s);
     bool estUnProgramme(const QString s);
     bool estUneVariable(const QString s);
-signals:
+ signals:
     void changeCommande(QString);
 };
 #endif // CONTROLLER_H
