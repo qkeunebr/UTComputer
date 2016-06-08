@@ -4,6 +4,19 @@
 #include <QVector>
 #include <QString>
 
+/**
+ * \file variable.h
+ * \brief Variable et Programme
+ * \author Robin Trouvé
+ * \version 1.0
+ * \date 3 juin 2016
+ *
+ * \details Contient les classes \class Variable et \class Programme que hérite de \class Litteral litteral.h ainsi que
+ * leurs managers.
+ *
+ */
+
+
 class Variable : public Litteral {
     QString nom;
     Litteral* valeur;
@@ -12,7 +25,7 @@ class Variable : public Litteral {
 public :
     Litteral& getValue() const {return *valeur;}
     const QString& getName() const {return nom;}
-    const QString toString() const { return QString(nom+" : "+valeur->toString());}
+    const QString toString() const { return QString(nom);}
     bool operator== (const Variable& var2){return this->getName() == var2.getName();}
     Variable():nom(QString("")){}
 };
@@ -42,16 +55,21 @@ class Programme : public Litteral {
     QString nom;
     QString valeur;
     int limiteAffichage;
-    Programme(QString n, QString l, int lim):nom(n),valeur(l),limiteAffichage(lim){}
+    Programme(QString n, QString l, int lim=10):nom(n),valeur(l),limiteAffichage(lim){}
     friend class ProgrammeManager;
 public :
     const QString& getValue() const {return valeur;}
     const QString& getName() const {return nom;}
     const QString toString() const;
+    const QString aff() const;
     bool operator== (const Programme& var2){return this->getName() == var2.getName();}
     Programme():nom(""),valeur(""),limiteAffichage(9){}
 };
 
+/**
+ *
+ *
+ */
 class ProgrammeManager{
     QVector<Programme> prog;
 
@@ -63,11 +81,11 @@ class ProgrammeManager{
         };
         static Handler handler;
 public :
-        Programme& addProgramme(QString n, QString l, int lim);
+        Programme& addProgramme(QString n, QString l);
         void removeProgramme(Programme& e);
         bool contains(QString e);
         QVector<Programme>& getList(){return prog;}
-        QString getProgramme(QString name);
+        Programme& getProgramme(QString name);
         static ProgrammeManager& getInstance();
         static void libererInstance();
 };
