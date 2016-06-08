@@ -1,18 +1,36 @@
 #include "controller.h"
 #include <iostream>
 #include <ostream>
+#include <QChar>
 
+/**
+ * \fn  void Pile::pushMod(Litteral& e)
+ * \brief  Rajoute un \class Litteral litteral.h dans le pile et change l'affichage.
+ *
+ * \param  e Litteral a ajouté.
+ */
 void Pile::pushMod(Litteral& e){
     push(e);
     setMessage("Push "+e.toString());
 }
 
+/**
+ * \fn  void Pile::popMod(Litteral& e)
+ * \brief  Enlève un \class Litteral litteral.h de la pile et change l'affichage.
+ *
+ */
 void Pile::popMod(){
     pop();
     setMessage("Pop");
 
 }
 
+/**
+ * \fn  QString Pile::getStackAff()
+ * \brief  Stock le contenu de la pile dans un QString
+ *
+ * \return  Contenu de la pile
+ */
 QString Pile::getStackAff(){
 
     QString res("|| ");
@@ -26,6 +44,13 @@ QString Pile::getStackAff(){
     return res;
 }
 
+/**
+ * \fn  bool Controller::operateurRestant(const QString s)
+ * \brief  Teste les operateurs qui ne prennent pas d'arguments
+ *
+ * \param  s L'entrée à comparer au commandes
+ * \return  booléen si c'est une entrée de ce type
+ */
 bool Controller::operateurRestant(const QString s){
     if (s=="DROP")  return true;
     if (s=="DUP")  return true;
@@ -35,6 +60,13 @@ bool Controller::operateurRestant(const QString s){
     return false;
 }
 
+/**
+ * \fn  bool Controller::estUnOperateurUnaire(const QString s)
+ * \brief  Teste les operateurs qui prennent un argument
+ *
+ * \param  s L'entrée à comparer aux commandes
+ * \return  booléen si c'est une entrée de ce type
+ */
 bool Controller::estUnOperateurUnaire(const QString s){
     if (s=="RE")  return true;
     if (s=="IM")  return true;
@@ -47,6 +79,13 @@ bool Controller::estUnOperateurUnaire(const QString s){
     return false;
 }
 
+/**
+ * \fn  bool Controller::estUnOperateurBinaire(const QString s)
+ * \brief  Teste les operateurs qui prennent deux arguments
+ *
+ * \param  s L'entrée à comparer aux commandes
+ * \return  booléen si c'est une entrée de ce type
+ */
 bool Controller::estUnOperateurBinaire(const QString s){
     if (s=="+") return true;
     if (s=="-") return true;
@@ -65,18 +104,39 @@ bool Controller::estUnOperateurBinaire(const QString s){
     return false;
 }
 
+/**
+ * \fn  bool Controller::estUnEntier(const QString s)
+ * \brief  Teste si l'entrée est un entier
+ *
+ * \param  s L'entrée à déterminer
+ * \return  booléen si c'est une entrée de ce type
+ */
 bool Controller::estUnEntier(const QString s){
    bool ok;
    s.toInt(&ok);
    return ok;
 }
 
+/**
+ * \fn  bool Controller::estUnFloat(const QString s)
+ * \brief  Teste si l'entrée est un float
+ *
+ * \param  s L'entrée à déterminer
+ * \return  booléen si c'est une entrée de ce type
+ */
 bool Controller::estUnFloat(const QString s){
    bool ok;
    s.toFloat(&ok);
    return ok;
 }
 
+/**
+ * \fn  bool Controller::estUnComplexe(const QString s)
+ * \brief  Teste si l'entrée est un complexe
+ *
+ * \param  s L'entrée à déterminer
+ * \return  booléen si c'est une entrée de ce type
+ */
 bool Controller::estUnComplexe(const QString s){
     if (s.contains('$')){
         QStringList part = s.split("$");
@@ -90,16 +150,37 @@ bool Controller::estUnComplexe(const QString s){
     return false;
 }
 
+/**
+ * \fn  bool Controller::estUneExpression(const QString s)
+ * \brief  Teste si l'entrée est une expression
+ *
+ * \param  s L'entrée à déterminer
+ * \return  booléen si c'est une entrée de ce type
+ */
 bool Controller::estUneExpression(const QString s){
-    if(s.size()>0 && s.at(0)=="'" && s.at(s.size() - 1)=="'") return true;
+    if(s.size()>0 && s.at(0)==QChar('\'') && s.at(s.size() - 1)==QChar('\'')) return true;
     return false;
 }
 
+/**
+ * \fn  bool Controller::estUnProgramme(const QString s)
+ * \brief  Teste si l'entrée est un programme
+ *
+ * \param  s L'entrée à déterminer
+ * \return  booléen si c'est une entrée de ce type
+ */
 bool Controller::estUnProgramme(const QString s){
-    if(s.size()>0 && s.at(0)=="[" && s.at(s.size() - 1)=="]") return true;
+    if(s.size()>0 && s.at(0)==QChar('[') && s.at(s.size() - 1)==QChar(']')) return true;
     return false;
 }
 
+/**
+ * \fn  bool Controller::estUnAtomeProgramme(const QString s)
+ * \brief  Teste si l'entrée est un atome de programme
+ *
+ * \param  s L'entrée à déterminer
+ * \return  booléen si c'est une entrée de ce type
+ */
 bool Controller::estUnAtomeProgramme(const QString s){
     if(progM.contains(s)){
         return true;
@@ -107,6 +188,13 @@ bool Controller::estUnAtomeProgramme(const QString s){
     return false;
 }
 
+/**
+ * \fn  bool Controller::estUneVariable(const QString s)
+ * \brief  Teste si l'entrée est une variable
+ *
+ * \param  s L'entrée à déterminer
+ * \return  booléen si c'est une entrée de ce type
+ */
 bool Controller::estUneVariable(const QString s){
     if(varM.contains(s)){
         return true;
@@ -114,6 +202,12 @@ bool Controller::estUneVariable(const QString s){
     return false;
 }
 
+/**
+ * \fn  void Controller::commande(const QString& c)
+ * \brief  Détermine l'action suivant l'entrée et appelle les bonnes méthodes
+ *
+ * \param  c la ligne de commnde à exécuter
+ */
 void Controller::commande(const QString& c){
     if (estUnEntier(c)){
      pile.pushMod(Rationnel(c.toInt()));
@@ -157,9 +251,21 @@ void Controller::commande(const QString& c){
  //                   pile.push(*(Dollar(*v1, *v2).getResult()));
                     op="Complexe";
                 }
+                if(c=="STO"){
+                    if(v1->toString()=="temp"){
+                        progM.removeProgramme(progM.getProgramme(v1->toString()));
+                        progM.addProgramme(v2->toString(), v1->toString());
+                    }
+                    varM.removeVariable(varM.getVariable(v2->toString()));
+                    varM.addVariable(v2->toString(), *v1);
+                }
                 if(c=="IFT") {
 
                 }
+                if(!lastargs.empty())
+                    lastargs.clear();
+                lastargs.append(v2);
+                lastargs.append(v1);
                 lastop = c;
 
                 pile.setMessage(op+v1->toString()+" and "+v2->toString());
@@ -192,9 +298,13 @@ void Controller::commande(const QString& c){
 
                 }
                 if(c=="FORGET") {
+                    if(estUnProgramme(val->toString()))
+                        progM.removeProgramme(progM.getProgramme(val->toString()));
+                    else if(estUneVariable(val->toString()))
                         varM.removeVariable(varM.getVariable(val->toString()));
                 }
                 lastop = c;
+                lastargs.append(val);
             }
 
             else{
@@ -202,11 +312,13 @@ void Controller::commande(const QString& c){
             }
 
     }   else if(estUneExpression(c)){
+
         //Traduire en commande normale puis changeCommande
     }   else if(estUnAtomeProgramme(c)){
-        emit changeCommande(progM.getProgramme(c));
+        changeCommande(progM.getProgramme(c).getName());
     }   else if(estUnProgramme(c)){
-        emit changeCommande(c.left(1).right(1));
+        pile.setMessage("Programme : "+c.mid(1,c.size()-2));
+        progM.addProgramme("temp", c.mid(1,c.size()-2));
     }   else if(estUneVariable(c)){
         pile.pushMod(varM.getVariable(c).getValue());
     }   else if(operateurRestant(c)){
@@ -225,9 +337,13 @@ void Controller::commande(const QString& c){
             pile.pushMod(*v1);
         }
         if(c=="LASTOP") {
-            emit changeCommande(lastop);
+            changeCommande(lastop);
         }
         if(c=="LASTARGS") {
+            while(!lastargs.empty()){
+                pile.pushMod(*lastargs.last());
+                lastargs.pop_back();
+            }
         }
         if(c=="UNDO") {
             load();

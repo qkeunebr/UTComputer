@@ -29,6 +29,7 @@
 #include <QStatusBar>
 #include <QTextStream>
 #include <QDesktopWidget>
+#include <QLabel>
 #include "controller.h"
 #include "litteral.h"
 #include "variable.h"
@@ -49,6 +50,23 @@ Q_OBJECT
     QLineEdit* vuePile;
     QLineEdit* commande;
     QVBoxLayout* couche;
+
+    QVector<QCheckBox*> listVarCheck;
+    QVector<QLineEdit*> listVarName;
+    QVector<QLineEdit*> listVarValue;
+
+    QVector<QCheckBox*> listProgCheck;
+    QVector<QLineEdit*> listProgName;
+    QVector<QLineEdit*> listProgValue;
+
+    QLineEdit *entNomVar ;
+    QLineEdit *entValueVar;
+
+    QLineEdit *entNomProg ;
+    QLineEdit *entValueProg;
+
+    QWidget* createVarView();
+    QWidget* createProgView();
 public slots :
     void checkClavierStateChanged(int state){
         if(state)   calcButton->show();
@@ -108,6 +126,13 @@ public slots :
     void pushBUndo();
     void pushBRedo();
     void pushBClear();
+
+    void pushBCreerVar();
+    void pushBCreerProg();
+    void pushBSupVar();
+    void pushBSupProg();
+    void pushBModVar();
+    void pushBModProg();
 public :
 
     Fenetre();
@@ -136,5 +161,5 @@ private:
 
 };
 
-//
+
 #endif // FENETRE_H
