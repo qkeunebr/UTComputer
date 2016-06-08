@@ -1347,7 +1347,7 @@ void Fenetre::pushBClear(){
 }
 
 void Fenetre::pushBCreerVar(){
-    cont->commande->setText(entValueVar->text()+" '"+entNomVar+"' STO");
+    Fenetre::commande->setText(entValueVar->text().toStdString()+" '"+entNomVar+"' STO");
     getNextCommande();
 
 }
@@ -1357,7 +1357,7 @@ void Fenetre::pushBCreerProg(){
 void Fenetre::pushBSupVar(){
     for(int i=0; i<listVarCheck.size(); i++){
         if(listVarCheck.at(i)->isChecked())
-            cont->commande->setText(listVarName.at(i)->text()+" FORGET ");
+             Fenetre::commande->setText(listVarName.at(i)->text()+" FORGET ");
     }
     getNextCommande();
 }
