@@ -61,6 +61,26 @@ bool Controller::operateurRestant(const QString s){
 }
 
 /**
+ * \fn  bool Controller::estunOperateurLogique(const QString s)
+ * \brief  Teste les operateurs logiques qui prennent deux arguments
+ *
+ * \param  s L'entrée à comparer aux commandes
+ * \return  booléen si c'est une entrée de ce type
+ */
+bool Controller::estunOperateurLogique(const QString s){
+    if (s=="=")  return true;
+    if (s=="!=")  return true;
+    if (s==">=")  return true;
+    if (s=="<=")  return true;
+    if (s=="<")  return true;
+    if (s==">")  return true;
+    if (s=="AND")  return true;
+    if (s=="OR")  return true;
+    return false;
+}
+
+
+/**
  * \fn  bool Controller::estUnOperateurUnaire(const QString s)
  * \brief  Teste les operateurs qui prennent un argument
  *
@@ -248,7 +268,7 @@ void Controller::commande(const QString& c){
                     op="Division";
                 }
                 if(c=="$") {
- //                   pile.push(*(Dollar(*v1, *v2).getResult()));
+                    pile.push(*(Dollar(*v1, *v2).getResult()));
                     op="Complexe";
                 }
                 if(c=="STO"){
@@ -258,6 +278,9 @@ void Controller::commande(const QString& c){
                     }
                     varM.removeVariable(varM.getVariable(v2->toString()));
                     varM.addVariable(v2->toString(), *v1);
+                }
+                if(estUnOperateurLogique(c)){
+                    pile.push(*(OperateurLogique(*v1, *v2, c).getResult()));
                 }
                 if(c=="IFT") {
 
@@ -276,7 +299,7 @@ void Controller::commande(const QString& c){
         else if(estUnOperateurUnaire(c)){
             if (pile.size()>=1) {
                 Litteral* val = pile.top();
-/*                if(c=="RE") {
+               if(c=="RE") {
                     pile.push(*(RE(*val).getResult()));
                 }
                 if(c=="IM") {
@@ -291,11 +314,14 @@ void Controller::commande(const QString& c){
                 if(c=="NUM") {
                     pile.push(*(Num(*val).getResult()));
                 }
-*/              if(c=="EDIT") {
+              if(c=="EDIT") {
 
                 }
                 if(c=="EVAL") {
 
+                }
+                if (c=="NOT"){
+                    pile.push(*(OperateurLogiqueUnaire(*val, c).getResult()));
                 }
                 if(c=="FORGET") {
                     if(estUnProgramme(val->toString()))
