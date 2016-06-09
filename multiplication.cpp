@@ -61,18 +61,18 @@ Litteral* Multiplication::multiplication(const Complexe& c1, const Complexe& c2)
         }
         else if (c2.estReel()) {
             //c2 est aussi composé de réels
-            result = new Complexe(c1.getReReel() * c2.getReReel(), c2.getImReel());
+            result = new Complexe(c1.getReReel() * c2.getReReel(), c2.getImReel() * c1.getReReel());
 
         }
         else  if (c2.estEntier())
             //c2 est composé d'entiers
         {
-             result = new Complexe(c1.getReReel() * (float)c2.getReEntier(), (float)c2.getImEntier());
+             result = new Complexe(c1.getReReel() * (float)c2.getReEntier(), (float)c2.getImEntier() * c1.getReReel());
         }
         else{
         //c2 composé de Rationnels
             result = new Complexe(Rationnel(((int)c1.getReReel()*c2.getReRationnel().getNumerateur()), c2.getReRationnel().getDenominateur()),
-                                  Rationnel((c2.getImRationnel().getNumerateur()), c2.getImRationnel().getDenominateur()));
+                                  Rationnel((c2.getImRationnel().getNumerateur())*(int)c1.getReReel(), c2.getImRationnel().getDenominateur()));
         }
 
     }
@@ -80,20 +80,20 @@ Litteral* Multiplication::multiplication(const Complexe& c1, const Complexe& c2)
             //c1 est composée de réels
             if(!c2.getSymboleDollar()){
                 //c2 est un réel (partie imaginaire nulle)
-                result = new Complexe(c1.getReReel() * c2.getReReel(), c1.getImReel());
+                result = new Complexe(c1.getReReel() * c2.getReReel(), c1.getImReel()*c2.getReReel());
             }
             else if (c2.estReel()) {
                //c2 est aussi composé de réels
-               result = new Complexe(c1.getReReel() * c2.getReReel(), c1.getImReel()*c2.getImReel());
+               result = new Complexe(c1.getReReel() * c2.getReReel() - c1.getImReel()*c2.getImReel(), c2.getImReel()*c1.getReReel() + c1.getImReel()*c2.getReReel());
 
            }
            else  if (c2.estEntier())
                //c2 est composé d'entiers
            {
-                result = new Complexe(c1.getReReel() * (float)c2.getReEntier(), c1.getImReel() * (float)c2.getImEntier());
+                result = new Complexe(c1.getReReel() * (float)c2.getReEntier() - c1.getImReel()*(float)c2.getImEntier(), (float)c2.getImEntier() * c1.getReReel() + c1.getImReel()*(float)c2.getReEntier());
            }
            else{
-           //c2 composé de Rationnels
+           //c2 composé de Rationnel
                result = new Complexe(Rationnel((((int)c1.getReReel()*c2.getReRationnel().getNumerateur())), c2.getReRationnel().getDenominateur()),
                                      Rationnel((((int)c1.getImReel()*c2.getImRationnel().getNumerateur()), c2.getImRationnel().getDenominateur())));
            }
@@ -102,15 +102,15 @@ Litteral* Multiplication::multiplication(const Complexe& c1, const Complexe& c2)
         //c1 est composé d'entiers
             if(!c2.getSymboleDollar()){
                 //c2 est un réel (partie imaginaire nulle)
-                result = new Complexe((float)c1.getReEntier() * c2.getReReel(), (float)c1.getImEntier());
+                result = new Complexe((float)c1.getReEntier() * c2.getReReel(), (float)c1.getImEntier()* c2.getReReel());
             }
             else if(c2.estEntier()){
                 //c2 est composé d'entiers
-                result = new Complexe(c1.getReEntier() * c2.getReEntier(), c1.getImEntier() * c2.getImEntier());
+                result = new Complexe(c1.getReEntier() * c2.getReEntier() - c1.getImEntier()*c2.getImEntier(), c2.getImEntier()*c1.getReEntier() +  c1.getImEntier()*c2.getReEntier());
             }
             else if (c2.estReel()){
                 //c2 est est composé de réels
-                 result = new Complexe((float)c1.getReEntier() * c2.getReReel(), (float)c1.getImEntier() * c2.getImReel());
+                 result = new Complexe((float)c1.getReEntier() * c2.getReReel() - (float)c1.getImEntier()*c2.getImReel(), c2.getImReel()*(float)c1.getReEntier() +  (float)c1.getImEntier()*c2.getReReel());
             }
             else {
                 //c2 est est composé de Rationnels
@@ -150,7 +150,7 @@ Litteral* Multiplication::multiplication(const Complexe& c1, const Complexe& c2)
  * \return Littéral de type Complexe.
  */
 Litteral* Multiplication::multiplication(const Complexe& c1, const Rationnel& r1) const{
-    const Complexe& cTor(r1);
+    const Complexe cTor(r1, Rationnel(0,0));
     return multiplication(c1,cTor);
 }
 

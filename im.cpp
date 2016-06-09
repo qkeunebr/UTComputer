@@ -35,6 +35,7 @@ Litteral*  IM::im(const Complexe& c) const{
         result = new Complexe(Rationnel(1,1),
                         Rationnel(c.getImRationnel().getNumerateur(), c.getImRationnel().getDenominateur()));
     }
+    return result;
 }
 
 

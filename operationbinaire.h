@@ -124,7 +124,6 @@ class OperateurLogique : public OperationBinaire
 {
 public:
     OperateurLogique(Litteral& l1, Litteral& l2);
-    virtual Litteral* getResult() const;
 private:
     Litteral* egal(const Complexe& c1, const Complexe& c2) ;
     Litteral* egal(const Rationnel& r1, const Rationnel& r2) ;

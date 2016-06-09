@@ -10,6 +10,8 @@
  */
 
 #include "complexe.h"
+#include <QTextStream>
+#include <iostream>
 
 /**
  * \fn Complexe::Complexe(float pRe, float pIm)
@@ -36,7 +38,8 @@ Complexe::Complexe(float pRe, float pIm) :ReReel(pRe), ImReel(pIm), ReEntier(), 
  * \param Deux objets de type Rationnel.
  * \return Objet de type Complexe.
  */
-Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationnel(pIm), estunReel(false), estunEntier((pRe.getDenominateur()==1)&&(pIm.getDenominateur()==1)), symboleDollar(true),ReEntier(), ImEntier(),ReReel(), ImReel(){}
+Complexe::Complexe(Rationnel& pRe, Rationnel& pIm):cReRationnel(pRe),cImRationnel(pIm), estunReel(false), estunEntier((pRe.getDenominateur()==1)&&(pIm.getDenominateur()==1)), symboleDollar(true),ReEntier(), ImEntier(),ReReel(), ImReel(){
+}
 
 /**
  * \fn Complexe::Complexe(const Rationnel& pRe, const Rationnel& pIm)
@@ -62,22 +65,22 @@ const QString Complexe::toString() const {
     if (estunReel || estunEntier) {
          string = QString::number(ReReel);
         //Si il y a un dollar pour séparer la partie réelle de la partie imaginaire (partie imaginaire non nulle)
-        if (symboleDollar) {
-            string += "$" + QString::number(ImReel);
+        if (symboleDollar && ImReel !=0.0) {
+            string += " " + QString::number(ImReel) + "i";
         }
     }
     else if (estunEntier){
        string = QString::number(ReEntier);
        //Si il y a un dollar pour séparer la partie réelle de la partie imaginaire (partie imaginaire non nulle)
-       if (symboleDollar) {
-           string += "$" + QString::number(ImEntier);
+       if (symboleDollar && ImEntier!=0) {
+           string += " " + QString::number(ImEntier) + "i";
        }
     }
     else{
         //Le complexe est un rationnel
         string = cReRationnel.toString();
-        if (symboleDollar) {
-            string += "$" + cImRationnel.toString();
+        if (symboleDollar && cImRationnel.getNumerateur()!=0) {
+            string += " " + cImRationnel.toString() + "i";
         }
         }
     return string;

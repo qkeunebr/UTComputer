@@ -9,6 +9,9 @@
  *
  */
 
+#include <QTextStream>
+#include <iostream>
+
 #include "operationbinaire.h"
 
 /**
@@ -73,6 +76,7 @@ Litteral* Addition::addition(const Complexe& c1, const Complexe& c2) const{
         //c2 composé de Rationnels
             result = new Complexe(Rationnel((((int)c1.getReReel()*c2.getReRationnel().getDenominateur())+c2.getReRationnel().getNumerateur()), c2.getReRationnel().getDenominateur()),
                                   Rationnel((c2.getImRationnel().getNumerateur()), c2.getImRationnel().getDenominateur()));
+
         }
 
     }
@@ -150,7 +154,7 @@ Litteral* Addition::addition(const Complexe& c1, const Complexe& c2) const{
  * \return Littéral de type Complexe.
  */
 Litteral* Addition::addition(const Complexe& c1, const Rationnel& r1) const{
-    const Complexe& cTor(r1);
+    const Complexe cTor(r1, Rationnel(0,0));
     return addition(c1,cTor);
 }
 

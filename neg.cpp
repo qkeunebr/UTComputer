@@ -35,6 +35,7 @@ Litteral*  Neg::neg(const Complexe& c) const{
         result = new Complexe(Rationnel(-c.getReRationnel().getNumerateur(), c.getReRationnel().getDenominateur()),
                         Rationnel(-c.getImRationnel().getNumerateur(), c.getImRationnel().getDenominateur()));
     }
+    return result;
 }
 
 /**

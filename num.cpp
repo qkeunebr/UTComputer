@@ -25,6 +25,7 @@ Litteral* Num::num(const Rationnel& r) const{
     else{
         result = new Rationnel(r.getNumerateur(), 1);
     }
+    return result;
 }
 
 /**

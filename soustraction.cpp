@@ -150,7 +150,7 @@ Litteral* Soustraction::soustraction(const Complexe& c1, const Complexe& c2) con
  * \return Littéral de type Complexe.
  */
 Litteral* Soustraction::soustraction(const Complexe& c1, const Rationnel& r1) const{
-    const Complexe& cTor(r1);
+    const Complexe cTor(r1, Rationnel(0,0));
     return soustraction(c1,cTor);
 }
 

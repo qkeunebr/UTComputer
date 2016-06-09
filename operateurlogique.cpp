@@ -1,6 +1,6 @@
 #include "operationbinaire.h"
 
-OperateurLogique::OperateurLogique(Litteral &l1, Litteral &l2):OperationBinaire(l1,l2){}
+OperateurLogique::OperateurLogique(Litteral& l1, Litteral& l2):OperationBinaire(l1,l2){}
 
 Litteral* egal(const Complexe& c1, const Complexe& c2){
     Litteral* result;
@@ -401,3 +401,4 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
          result = new Rationnel(0,0);
      return result;
  }
+

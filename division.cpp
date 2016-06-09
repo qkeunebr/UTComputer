@@ -150,7 +150,7 @@ Litteral* Division::division(const Complexe& c1, const Complexe& c2) const{
  * \return Littéral de type Complexe.
  */
 Litteral* Division::division(const Complexe& c1, const Rationnel& r1) const{
-    const Complexe& cTor(r1);
+    const Complexe cTor(r1, Rationnel(0,0));
     return division(c1,cTor);
 }
 

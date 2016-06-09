@@ -10,6 +10,7 @@
  */
 
 #include "operationbinaire.h"
+#include <QTextStream>
 
 Dollar::Dollar(Litteral& l1, Litteral& l2):OperationBinaire(l1,l2){}
 
@@ -17,7 +18,7 @@ Litteral* Dollar::dollar(const Complexe& c1, const Complexe& c2) const{
     Litteral* result;
     if (c1.estReel() || !(c1.getSymboleDollar())) {
         if(c2.estReel() || !(c2.getSymboleDollar())){
-            result = new Complexe(c1.getReReel(), c2.getImReel());
+            result = new Complexe(c1.getReReel(), c2.getReReel());
         }
         else if (c2.estEntier()){
             result = new Complexe(c1.getReReel(), (float)c2.getImEntier());
@@ -27,6 +28,8 @@ Litteral* Dollar::dollar(const Complexe& c1, const Complexe& c2) const{
         }
     }
     else if (c1.estEntier()){
+
+
         if(c2.estReel() || !(c2.getSymboleDollar())){
             result = new Complexe((float)c1.getReEntier(), c2.getImReel());
         }
@@ -52,6 +55,7 @@ Litteral* Dollar::dollar(const Complexe& c1, const Complexe& c2) const{
                             Rationnel(c2.getImRationnel().getNumerateur(),c2.getImRationnel().getDenominateur()));
         }
     }
+    return result;
 }
 
 Litteral* Dollar::getResult()const {

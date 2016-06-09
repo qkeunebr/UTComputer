@@ -10,8 +10,11 @@
  * \return Objet de type QString représentant un objet de type Rationnel.
  */
 const QString Rationnel::toString() const {
-    QString string = QString::number(numerateur);
-    if (denominateur != 1) {
+    QString string;
+    if(numerateur!=0){
+        string += QString::number(numerateur);
+    }
+    if (denominateur != 1 && denominateur!=0) {
         string += "/" + QString::number(denominateur);
     }
     return string;

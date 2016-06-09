@@ -35,6 +35,7 @@ Litteral*  RE::re(const Complexe& c) const{
         result = new Complexe(Rationnel(c.getReRationnel().getNumerateur(), c.getReRationnel().getDenominateur()),
                         Rationnel(1, 1));
     }
+   return result;
 }
 
 

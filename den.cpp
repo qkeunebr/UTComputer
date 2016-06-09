@@ -1,4 +1,5 @@
 #include "operationunaire.h"
+#include <QTextStream>
 
 /**
  * \fn Den::Den(Litteral& l):unique(l)
@@ -20,11 +21,15 @@ Litteral* Den::den(const Rationnel& r) const{
     Litteral* result;
     if(r.getDenominateur()==1){
         //r est un entier
-        result = new Rationnel(r.getNumerateur(), 1);
+        result = new Rationnel(1, 1);
     }
     else{
+        QTextStream out(stdout);
+                   out << "LA";
+
         result = new  Rationnel(r.getDenominateur(), 1);
     }
+    return result;
 }
 
 /**
