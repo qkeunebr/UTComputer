@@ -425,7 +425,7 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
             if(rationnelfirst!=NULL){
                 Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second);
                 if(rationnelsecond!=NULL){
-                    if(str == "=") return egal(*rationnelfirst, *rationnelsecond);
+                    if(str == "==") return egal(*rationnelfirst, *rationnelsecond);
                     if(str == "!=") return diff(*rationnelfirst, *rationnelsecond);
                     if(str == "<") return inf(*rationnelfirst, *rationnelsecond);
                     if(str == ">") return sup(*rationnelfirst, *rationnelsecond);

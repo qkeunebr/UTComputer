@@ -68,7 +68,7 @@ bool Controller::operateurRestant(const QString s){
  * \return  booléen si c'est une entrée de ce type
  */
 bool Controller::estUnOperateurLogique(const QString s){
-    if (s=="=")  return true;
+    if (s=="==")  return true;
     if (s=="!=")  return true;
     if (s==">=")  return true;
     if (s=="<=")  return true;
@@ -256,23 +256,23 @@ void Controller::commande(const QString& c){
                 pile.pop();
                 QString op;
                 if (c=="+") {
-                    pile.push(*(Addition(*v1, *v2).getResult()));
+                    pile.pushMod(*(Addition(*v1, *v2).getResult()));
                     op="Addition";
                 }
                 if (c=="-") {
-                    pile.push(*(Soustraction(*v1, *v2).getResult()));
+                    pile.pushMod(*(Soustraction(*v1, *v2).getResult()));
                     op="Soustraction";
                 }
                 if (c=="*") {
-                    pile.push(*(Multiplication(*v1, *v2).getResult()));
+                    pile.pushMod(*(Multiplication(*v1, *v2).getResult()));
                     op="Multiplication";
                 }
                 if (c=="/") {
-                    pile.push(*(Division(*v1, *v2).getResult()));
+                    pile.pushMod(*(Division(*v1, *v2).getResult()));
                     op="Division";
                 }
                 if(c=="$") {
-                    pile.push(*(Dollar(*v1, *v2).getResult()));
+                    pile.pushMod(*(Dollar(*v1, *v2).getResult()));
                     op="Complexe";
                 }
                 if(c=="STO"){
@@ -295,7 +295,7 @@ void Controller::commande(const QString& c){
                 lastargs.append(v1);
                 lastop = c;
 
-                pile.setMessage(op+v1->toString()+" and "+v2->toString());
+                //pile.setMessage(op+v1->toString()+" and "+v2->toString());
             }else{
                 pile.setMessage("Erreur : pas assez d'arguments");
             }

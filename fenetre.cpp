@@ -1146,7 +1146,7 @@ void Fenetre::pushBNEg(){
  * \brief  Slot pour le bouton pushBEgSup
  */
 void Fenetre::pushBEgSup(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"=>");
+    Fenetre::commande->setText(Fenetre::commande->text()+">=");
     //Beep(523,250);
 }
 
@@ -1155,7 +1155,7 @@ void Fenetre::pushBEgSup(){
  * \brief  Slot pour le bouton pushBEgInf
  */
 void Fenetre::pushBEgInf(){
-    Fenetre::commande->setText(Fenetre::commande->text()+"=<");
+    Fenetre::commande->setText(Fenetre::commande->text()+"<=");
     //Beep(523,250);
 }
 
