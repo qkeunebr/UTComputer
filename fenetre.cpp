@@ -105,7 +105,9 @@ Fenetre::Fenetre():son(true){
     vLayoutCalc->addWidget(&calcEntry);
 */
     QHBoxLayout *hLayoutPad = new QHBoxLayout;
-    vLayoutCalc->addLayout(hLayoutPad);
+        calcButton = new QWidget();
+    vLayoutCalc->addWidget(calcButton);
+    calcButton->setLayout(hLayoutPad);
 
         // ------------ Systeme
     QVBoxLayout *vLayoutSys = new QVBoxLayout;
