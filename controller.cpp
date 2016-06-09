@@ -346,7 +346,7 @@ void Controller::commande(const QString& c){
             }
 
     }   else if(estUneExpression(c)){
-        pile.push(varM.addVariable(c.mid(1,c.size()-2),NULL));
+        pile.push(varM.addVariable(c.mid(1,c.size()-2)));
 
         //Traduire en commande normale puis changeCommande
     }   else if(estUnAtomeProgramme(c)){
