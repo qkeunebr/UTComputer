@@ -4,7 +4,7 @@ OperateurLogiqueUnaire::OperateurLogiqueUnaire(Litteral &l1, QString c):Operatio
 
 Litteral* OperateurLogiqueUnaire::NOT(const Rationnel &r1) const{
     Litteral* result;
-    if(r1.getDenominateur()==1){
+    if(r1.getDenominateur()==1 && r1.getNumerateur()==1){
         result = new Rationnel(0,0);
     }
     else

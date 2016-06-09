@@ -97,6 +97,7 @@ bool Controller::estUnOperateurUnaire(const QString s){
     if (s=="EDIT")  return true;
     if (s=="EVAL")  return true;
     if (s=="FORGET")  return true;
+    if (s=="NOT")  return true;
     return false;
 }
 
@@ -121,7 +122,6 @@ bool Controller::estUnOperateurBinaire(const QString s){
     if (s==">")  return true;
     if (s=="AND")  return true;
     if (s=="OR")  return true;
-    if (s=="NOT")  return true;
     return false;
 }
 
@@ -284,12 +284,10 @@ void Controller::commande(const QString& c){
                     varM.removeVariable(varM.getVariable(v2->toString()));
                     varM.addVariable(v2->toString(), *v1);
                 }
-                QTextStream out(stdout);
-                   out << "LA";
 
 
                 if(estUnOperateurLogique(c)){
-                     out << "ICI";
+
                     pile.pushMod(*(OperateurLogique(*v1, *v2, c).getResult()));
                 }
                 if(c=="IFT") {

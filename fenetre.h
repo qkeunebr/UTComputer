@@ -101,7 +101,7 @@ public slots :
     void pushBRe();
     void pushBIm();
     void pushBEg();
-    void pushBNEg();
+    void pushBDiff();
     void pushBEgSup();
     void pushBEgInf();
     void pushBSup();

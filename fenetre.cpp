@@ -318,10 +318,10 @@ Fenetre::Fenetre():son(true){
         vLayoutOpLog->addWidget(bEg);
         connect(bEg,SIGNAL(clicked()), this, SLOT(pushBEg()));
 
-        QPushButton* bNEg = new QPushButton("!=");
-        bNEg->show();
-        vLayoutOpLog->addWidget(bNEg);
-        connect(bNEg,SIGNAL(clicked()), this, SLOT(pushBNeg()));
+        QPushButton* bDiff = new QPushButton("!=");
+        bDiff->show();
+        vLayoutOpLog->addWidget(bDiff);
+        connect(bDiff,SIGNAL(clicked()), this, SLOT(pushBDiff()));
 
         QPushButton* bEgSup = new QPushButton(">=");
         bEgSup->show();
@@ -1133,10 +1133,10 @@ void Fenetre::pushBEg(){
 }
 
 /**
- * \fn  void Fenetre::pushBNEg()
- * \brief  Slot pour le bouton pushBNEg
+ * \fn  void Fenetre::pushBDiff()
+ * \brief  Slot pour le bouton pushBDiff
  */
-void Fenetre::pushBNEg(){
+void Fenetre::pushBDiff(){
     Fenetre::commande->setText(Fenetre::commande->text()+"!=");
     //Beep(523,250);
 }

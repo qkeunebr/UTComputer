@@ -1,4 +1,5 @@
 #include "operationbinaire.h"
+#include <QTextStream>
 
 OperateurLogique::OperateurLogique(Litteral& l1, Litteral& l2, QString c):OperationBinaire(l1,l2), str(c){}
 
@@ -20,6 +21,7 @@ Litteral* OperateurLogique::egal(const Complexe& c1, const Complexe& c2)const{
     else if(c1.estReel()){
         //c1 est composé de réels
         if(c2.estReel()){
+
             if((c1.getReReel()==c2.getReReel()) && (c1.getImReel()==c2.getImReel()))
                 result = new Rationnel(1,1);
             else
@@ -408,7 +410,7 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
         if(complexefirst != NULL){
             Complexe* complexesecond = dynamic_cast<Complexe*>(second);
             if(complexesecond != NULL){
-                if(str == "=") return egal(*complexefirst, *complexesecond);
+                if(str == "==") return egal(*complexefirst, *complexesecond);
                 if(str == "!=") return diff(*complexefirst, *complexesecond);
                 if(str == "<") return inf(*complexefirst, *complexesecond);
                 if(str == ">") return sup(*complexefirst, *complexesecond);
