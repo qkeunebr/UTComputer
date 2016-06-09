@@ -26,6 +26,11 @@ Variable& VariableManager::addVariable(QString n, Litteral& l){
     return var.last();
 }
 
+Variable& VariableManager::addVariable(QString n){
+    var.append(Variable(n));
+    return var.last();
+}
+
 void VariableManager::removeVariable(Variable& e){
     var.removeOne(e);
 }
