@@ -67,7 +67,7 @@ bool Controller::operateurRestant(const QString s){
  * \param  s L'entrée à comparer aux commandes
  * \return  booléen si c'est une entrée de ce type
  */
-bool Controller::estunOperateurLogique(const QString s){
+bool Controller::estUnOperateurLogique(const QString s){
     if (s=="=")  return true;
     if (s=="!=")  return true;
     if (s==">=")  return true;
@@ -230,18 +230,22 @@ bool Controller::estUneVariable(const QString s){
  */
 void Controller::commande(const QString& c){
     if (estUnEntier(c)){
-     pile.pushMod(Rationnel(c.toInt()));
+     Litteral * r1 = new Rationnel(c.toInt());
+     pile.pushMod(*r1);
    }
    else if(estUnFloat(c)){
-       pile.pushMod(Complexe(c.toFloat(),0.0));
+        Litteral* c1 = new Complexe(c.toFloat(),0.0);
+       pile.pushMod(*c1);
    }
    else if(estUnComplexe(c)){
         QStringList part = c.split("$");
+        Litteral* c2 = new Complexe(part.first().toInt(), part.last().toInt());
+        Litteral* c3 = new Complexe(part.first().toFloat(), part.last().toFloat());
         if(part.size() == 2){
             if(estUnEntier(part.first()) && estUnEntier(part.last()))
-                pile.pushMod(Complexe(part.first().toInt(), part.last().toInt()));
+                pile.pushMod(*c2);
             if(estUnFloat(part.first()) && estUnFloat(part.last()))
-                pile.pushMod(Complexe(part.first().toFloat(), part.last().toFloat()));
+                pile.pushMod(*c3);
         }
     }
    else  if (estUnOperateurBinaire(c)){
@@ -280,7 +284,7 @@ void Controller::commande(const QString& c){
                     varM.addVariable(v2->toString(), *v1);
                 }
                 if(estUnOperateurLogique(c)){
-                    pile.push(*(OperateurLogique(*v1, *v2, c).getResult()));
+                    pile.pushMod(*(OperateurLogique(*v1, *v2, c).getResult()));
                 }
                 if(c=="IFT") {
 
@@ -300,19 +304,19 @@ void Controller::commande(const QString& c){
             if (pile.size()>=1) {
                 Litteral* val = pile.top();
                if(c=="RE") {
-                    pile.push(*(RE(*val).getResult()));
+                    pile.pushMod(*(RE(*val).getResult()));
                 }
                 if(c=="IM") {
-                    pile.push(*(IM(*val).getResult()));
+                    pile.pushMod(*(IM(*val).getResult()));
                 }
                 if(c=="DEN") {
-                    pile.push(*(Den(*val).getResult()));
+                    pile.pushMod(*(Den(*val).getResult()));
                 }
                 if(c=="NEG") {
-                    pile.push(*(Neg(*val).getResult()));
+                    pile.pushMod(*(Neg(*val).getResult()));
                 }
                 if(c=="NUM") {
-                    pile.push(*(Num(*val).getResult()));
+                    pile.pushMod(*(Num(*val).getResult()));
                 }
               if(c=="EDIT") {
 
@@ -321,7 +325,7 @@ void Controller::commande(const QString& c){
 
                 }
                 if (c=="NOT"){
-                    pile.push(*(OperateurLogiqueUnaire(*val, c).getResult()));
+                    pile.pushMod(*(OperateurLogiqueUnaire(*val, c).getResult()));
                 }
                 if(c=="FORGET") {
                     if(estUnProgramme(val->toString()))

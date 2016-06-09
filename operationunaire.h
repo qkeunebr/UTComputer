@@ -68,7 +68,8 @@ class IM : public OperationUnaire
 class OperateurLogiqueUnaire : public OperationUnaire
 {
 public:
-    OperateurLogiqueUnaire(Litteral& l1);
+    QString str;
+    OperateurLogiqueUnaire(Litteral& l1, QString c);
     virtual Litteral* getResult() const;
 private:
     Litteral* NOT(const Rationnel& r1) const;

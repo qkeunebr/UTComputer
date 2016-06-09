@@ -949,7 +949,7 @@ void Fenetre::getNextCommande()
  */
 void Fenetre::pushB1(){
     Fenetre::commande->setText(Fenetre::commande->text()+"1");
-    Beep(523,250);
+    //Beep(523,250);
 
 }
 
@@ -959,7 +959,7 @@ void Fenetre::pushB1(){
  */
 void Fenetre::pushB2(){
     Fenetre::commande->setText(Fenetre::commande->text()+"2");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -967,7 +967,7 @@ void Fenetre::pushB2(){
  * \brief  Slot pour le bouton pushB3
  */ void Fenetre::pushB3(){
     Fenetre::commande->setText(Fenetre::commande->text()+"3");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -976,7 +976,7 @@ void Fenetre::pushB2(){
  */
 void Fenetre::pushB4(){
     Fenetre::commande->setText(Fenetre::commande->text()+"4");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -985,7 +985,7 @@ void Fenetre::pushB4(){
  */
 void Fenetre::pushB5(){
     Fenetre::commande->setText(Fenetre::commande->text()+"5");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -994,7 +994,7 @@ void Fenetre::pushB5(){
  */
 void Fenetre::pushB6(){
     Fenetre::commande->setText(Fenetre::commande->text()+"6");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -1003,7 +1003,7 @@ void Fenetre::pushB6(){
  */
 void Fenetre::pushB7(){
     Fenetre::commande->setText(Fenetre::commande->text()+"7");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -1012,7 +1012,7 @@ void Fenetre::pushB7(){
  */
 void Fenetre::pushB8(){
     Fenetre::commande->setText(Fenetre::commande->text()+"8");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -1021,7 +1021,7 @@ void Fenetre::pushB8(){
  */
 void Fenetre::pushB9(){
     Fenetre::commande->setText(Fenetre::commande->text()+"9");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -1030,7 +1030,7 @@ void Fenetre::pushB9(){
  */
 void Fenetre::pushB0(){
     Fenetre::commande->setText(Fenetre::commande->text()+"0");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -1039,7 +1039,7 @@ void Fenetre::pushB0(){
  */
 void Fenetre::pushBPlus(){
     Fenetre::commande->setText(Fenetre::commande->text()+"+");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -1048,7 +1048,7 @@ void Fenetre::pushBPlus(){
  */
 void Fenetre::pushBMoins(){
     Fenetre::commande->setText(Fenetre::commande->text()+"-");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -1057,7 +1057,7 @@ void Fenetre::pushBMoins(){
  */
 void Fenetre::pushBFois(){
     Fenetre::commande->setText(Fenetre::commande->text()+"*");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -1066,7 +1066,7 @@ void Fenetre::pushBFois(){
  */
 void Fenetre::pushBDiv(){
     Fenetre::commande->setText(Fenetre::commande->text()+"/");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
  /**
@@ -1075,7 +1075,7 @@ void Fenetre::pushBDiv(){
  */
 void Fenetre::pushBNeg(){
     Fenetre::commande->setText(Fenetre::commande->text()+"NEG");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1084,7 +1084,7 @@ void Fenetre::pushBNeg(){
  */
 void Fenetre::pushBNum(){
     Fenetre::commande->setText(Fenetre::commande->text()+"NUM");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1093,7 +1093,7 @@ void Fenetre::pushBNum(){
  */
 void Fenetre::pushBDen(){
     Fenetre::commande->setText(Fenetre::commande->text()+"DEN");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1102,7 +1102,7 @@ void Fenetre::pushBDen(){
  */
 void Fenetre::pushBCompl(){
     Fenetre::commande->setText(Fenetre::commande->text()+"$");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1111,7 +1111,7 @@ void Fenetre::pushBCompl(){
  */
 void Fenetre::pushBRe(){
     Fenetre::commande->setText(Fenetre::commande->text()+"RE");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1120,7 +1120,7 @@ void Fenetre::pushBRe(){
  */
 void Fenetre::pushBIm(){
     Fenetre::commande->setText(Fenetre::commande->text()+"IM");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1129,7 +1129,7 @@ void Fenetre::pushBIm(){
  */
 void Fenetre::pushBEg(){
     Fenetre::commande->setText(Fenetre::commande->text()+"==");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1138,7 +1138,7 @@ void Fenetre::pushBEg(){
  */
 void Fenetre::pushBNEg(){
     Fenetre::commande->setText(Fenetre::commande->text()+"!=");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1147,7 +1147,7 @@ void Fenetre::pushBNEg(){
  */
 void Fenetre::pushBEgSup(){
     Fenetre::commande->setText(Fenetre::commande->text()+"=>");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1156,7 +1156,7 @@ void Fenetre::pushBEgSup(){
  */
 void Fenetre::pushBEgInf(){
     Fenetre::commande->setText(Fenetre::commande->text()+"=<");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1165,7 +1165,7 @@ void Fenetre::pushBEgInf(){
  */
 void Fenetre::pushBInf(){
     Fenetre::commande->setText(Fenetre::commande->text()+"<");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1174,7 +1174,7 @@ void Fenetre::pushBInf(){
  */
 void Fenetre::pushBSup(){
     Fenetre::commande->setText(Fenetre::commande->text()+">");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1183,7 +1183,7 @@ void Fenetre::pushBSup(){
  */
 void Fenetre::pushBAnd(){
     Fenetre::commande->setText(Fenetre::commande->text()+"AND");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1192,7 +1192,7 @@ void Fenetre::pushBAnd(){
  */
 void Fenetre::pushBOr(){
     Fenetre::commande->setText(Fenetre::commande->text()+"OR");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1201,7 +1201,7 @@ void Fenetre::pushBOr(){
  */
 void Fenetre::pushBNot(){
     Fenetre::commande->setText(Fenetre::commande->text()+"NOT");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1210,7 +1210,7 @@ void Fenetre::pushBNot(){
  */
 void Fenetre::pushBSpace(){
     Fenetre::commande->setText(Fenetre::commande->text()+" ");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1227,7 +1227,7 @@ void Fenetre::pushBEntree(){
  */
 void Fenetre::pushBCorr(){
     Fenetre::commande->setText(Fenetre::commande->text().remove(Fenetre::commande->text().size()-1,1));
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1236,7 +1236,7 @@ void Fenetre::pushBCorr(){
  */
 void Fenetre::pushBEdit(){
     Fenetre::commande->setText(Fenetre::commande->text()+"EDIT");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1245,7 +1245,7 @@ void Fenetre::pushBEdit(){
  */
 void Fenetre::pushBEval(){
     Fenetre::commande->setText(Fenetre::commande->text()+"EVAL");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1254,7 +1254,7 @@ void Fenetre::pushBEval(){
  */
 void Fenetre::pushBForget(){
     Fenetre::commande->setText(Fenetre::commande->text()+"FORGET");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1263,7 +1263,7 @@ void Fenetre::pushBForget(){
  */
 void Fenetre::pushBSto(){
     Fenetre::commande->setText(Fenetre::commande->text()+"STO");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1272,7 +1272,7 @@ void Fenetre::pushBSto(){
  */
 void Fenetre::pushBIft(){
     Fenetre::commande->setText(Fenetre::commande->text()+"IFT");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1281,7 +1281,7 @@ void Fenetre::pushBIft(){
  */
 void Fenetre::pushBDup(){
     Fenetre::commande->setText(Fenetre::commande->text()+"DUP");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1290,7 +1290,7 @@ void Fenetre::pushBDup(){
  */
 void Fenetre::pushBDrop(){
     Fenetre::commande->setText(Fenetre::commande->text()+"DROP");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1299,7 +1299,7 @@ void Fenetre::pushBDrop(){
  */
 void Fenetre::pushBSwap(){
     Fenetre::commande->setText(Fenetre::commande->text()+"SWAP");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1308,7 +1308,7 @@ void Fenetre::pushBSwap(){
  */
 void Fenetre::pushBLastOp(){
     Fenetre::commande->setText(Fenetre::commande->text()+"LASTOP");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1317,7 +1317,7 @@ void Fenetre::pushBLastOp(){
  */
 void Fenetre::pushBLastArgs(){
     Fenetre::commande->setText(Fenetre::commande->text()+"LASTARGS");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1326,7 +1326,7 @@ void Fenetre::pushBLastArgs(){
  */
 void Fenetre::pushBUndo(){
     Fenetre::commande->setText(Fenetre::commande->text()+"UNDO");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**
@@ -1335,7 +1335,7 @@ void Fenetre::pushBUndo(){
  */
 void Fenetre::pushBRedo(){
     Fenetre::commande->setText(Fenetre::commande->text()+"REDO");
-    Beep(523,250);
+    //Beep(523,250);
 }
 
 /**

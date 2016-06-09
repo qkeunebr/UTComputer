@@ -7,6 +7,7 @@
 #include <QVector>
 #include "operationbinaire.h"
 #include "variable.h"
+#include "operationunaire.h"
 
 class Pile : public QObject  {
     Q_OBJECT

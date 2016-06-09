@@ -65,8 +65,8 @@ void ProgrammeManager::libererInstance(){
     handler.instance=nullptr;
 }
 
-Programme& ProgrammeManager::addProgramme(QString n, QString l, int lim){
-    prog.append(Programme(n, l, lim));
+Programme& ProgrammeManager::addProgramme(QString n, QString l){
+    prog.append(Programme(n, l));
     return prog.last();
 }
 
@@ -83,10 +83,10 @@ bool ProgrammeManager::contains(QString name){
     return false;
 }
 
-QString ProgrammeManager::getProgramme(QString name){
+Programme& ProgrammeManager::getProgramme(QString name){
     for(QVector<Programme>::iterator it = prog.begin(); it!=prog.end(); ++it){
         Programme temp = *it;
         if(temp.getName() == name )
-            return temp.getValue();
+            return temp;
     }
 }

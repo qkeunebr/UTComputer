@@ -14,7 +14,7 @@
 #include <QWidget>
 #include <iostream>
 #include <exception>
-#include <windows.h>
+//#include <windows.h>
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QCloseEvent>

@@ -1,6 +1,6 @@
 #include "operationunaire.h"
 
-OperateurLogiqueUnaire::OperateurLogiqueUnaire(Litteral &l1):OperationUnaire(l1){}
+OperateurLogiqueUnaire::OperateurLogiqueUnaire(Litteral &l1, QString c):OperationUnaire(l1), str(c){}
 
 Litteral* OperateurLogiqueUnaire::NOT(const Rationnel &r1) const{
     Litteral* result;

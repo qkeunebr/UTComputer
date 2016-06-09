@@ -1,8 +1,8 @@
 #include "operationbinaire.h"
 
-OperateurLogique::OperateurLogique(Litteral& l1, Litteral& l2):OperationBinaire(l1,l2){}
+OperateurLogique::OperateurLogique(Litteral& l1, Litteral& l2, QString c):OperationBinaire(l1,l2), str(c){}
 
-Litteral* egal(const Complexe& c1, const Complexe& c2){
+Litteral* OperateurLogique::egal(const Complexe& c1, const Complexe& c2)const{
     Litteral* result;
     if(!(c1.getSymboleDollar())){
         //c1 est réel
@@ -55,7 +55,7 @@ Litteral* egal(const Complexe& c1, const Complexe& c2){
     return result;
 }
 
-Litteral* egal(const Rationnel& r1, const Rationnel& r2){
+Litteral* OperateurLogique::egal(const Rationnel& r1, const Rationnel& r2)const{
     Litteral* result;
     if((r1.getNumerateur()==r2.getNumerateur()) && (r1.getDenominateur()==r2.getDenominateur())){
         result = new Rationnel(1,1);
@@ -65,7 +65,7 @@ Litteral* egal(const Rationnel& r1, const Rationnel& r2){
     return result;
 }
 
-Litteral* diff(const Complexe& c1, const Complexe& c2){
+Litteral* OperateurLogique::diff(const Complexe& c1, const Complexe& c2)const{
     Litteral* result;
     if(!(c1.getSymboleDollar())){
         //c1 est réel
@@ -118,7 +118,7 @@ Litteral* diff(const Complexe& c1, const Complexe& c2){
     return result;
 }
 
-Litteral* diff(const Rationnel& r1, const Rationnel& r2){
+Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
     Litteral* result;
     if((r1.getNumerateur()==r2.getNumerateur()) && (r1.getDenominateur()==r2.getDenominateur())){
         result = new Rationnel(0,0);
@@ -128,7 +128,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
     return result;
 }
 
- Litteral* sup(const Complexe& c1, const Complexe& c2){
+ Litteral* OperateurLogique::sup(const Complexe& c1, const Complexe& c2)const{
      Litteral* result;
      if(!(c1.getSymboleDollar())){
          //c1 est réel
@@ -181,7 +181,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
      return result;
  }
 
- Litteral* sup(const Rationnel& r1, const Rationnel& r2){
+ Litteral* OperateurLogique::sup(const Rationnel& r1, const Rationnel& r2)const{
      Litteral* result;
      if((r1.getNumerateur()>r2.getNumerateur()) && (r1.getDenominateur()>r2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -191,7 +191,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
      return result;
  }
 
- Litteral* supeg(const Rationnel& r1, const Rationnel& r2){
+ Litteral* OperateurLogique::supeg(const Rationnel& r1, const Rationnel& r2)const{
      Litteral* result;
      if((r1.getNumerateur()>=r2.getNumerateur()) && (r1.getDenominateur()>=r2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -203,7 +203,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
 
 
 
- Litteral* supeg(const Complexe& c1, const Complexe& c2){
+ Litteral* OperateurLogique::supeg(const Complexe& c1, const Complexe& c2)const{
      Litteral* result;
      if(!(c1.getSymboleDollar())){
          //c1 est réel
@@ -256,7 +256,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
      return result;
  }
 
- Litteral* inf(const Complexe& c1, const Complexe& c2) {
+ Litteral* OperateurLogique::inf(const Complexe& c1, const Complexe& c2) const{
      Litteral* result;
      if(!(c1.getSymboleDollar())){
          //c1 est réel
@@ -309,7 +309,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
      return result;
  }
 
- Litteral* infeg(const Complexe& c1, const Complexe& c2){
+ Litteral* OperateurLogique::infeg(const Complexe& c1, const Complexe& c2)const{
      Litteral* result;
      if(!(c1.getSymboleDollar())){
          //c1 est réel
@@ -363,7 +363,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
  }
 
 
- Litteral* inf(const Rationnel& r1, const Rationnel& r2){
+ Litteral* OperateurLogique::inf(const Rationnel& r1, const Rationnel& r2) const{
      Litteral* result;
      if((r1.getNumerateur()<r2.getNumerateur()) && (r1.getDenominateur()<r2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -373,7 +373,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
      return result;
  }
 
- Litteral* infeg(const Rationnel& r1, const Rationnel& r2){
+ Litteral* OperateurLogique::infeg(const Rationnel& r1, const Rationnel& r2) const{
      Litteral* result;
      if((r1.getNumerateur()<=r2.getNumerateur()) && (r1.getDenominateur()<=r2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -383,7 +383,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
      return result;
  }
 
- Litteral* ET(const Rationnel& c1, const Rationnel& c2){
+ Litteral* OperateurLogique::ET(const Rationnel& c1, const Rationnel& c2)const{
      Litteral* result;
      if(c1.getNumerateur()==c2.getDenominateur() && (c2.getNumerateur()==c2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -392,7 +392,7 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
          result = new Rationnel(0,0);
      return result;
  }
- Litteral* OU(const Rationnel& c1, const Rationnel& c2) {
+ Litteral* OperateurLogique::OU(const Rationnel& c1, const Rationnel& c2)const {
      Litteral* result;
      if(c1.getNumerateur()==c2.getDenominateur() || (c2.getNumerateur()==c2.getDenominateur())){
          result = new Rationnel(1,1);
@@ -401,4 +401,42 @@ Litteral* diff(const Rationnel& r1, const Rationnel& r2){
          result = new Rationnel(0,0);
      return result;
  }
+
+
+ Litteral* OperateurLogique::getResult() const{
+     Complexe* complexefirst = dynamic_cast<Complexe*>(first);
+        if(complexefirst != NULL){
+            Complexe* complexesecond = dynamic_cast<Complexe*>(second);
+            if(complexesecond != NULL){
+                if(str == "=") return egal(*complexefirst, *complexesecond);
+                if(str == "!=") return diff(*complexefirst, *complexesecond);
+                if(str == "<") return inf(*complexefirst, *complexesecond);
+                if(str == ">") return sup(*complexefirst, *complexesecond);
+                if(str == "<=") return infeg(*complexefirst, *complexesecond);
+                if(str == ">=") return supeg(*complexefirst, *complexesecond);
+            }
+            else {
+                throw "Litteral invalide";
+                return new Rationnel(0,0);
+            }
+        }
+      else{
+            Rationnel* rationnelfirst = dynamic_cast<Rationnel*>(first);
+            if(rationnelfirst!=NULL){
+                Rationnel* rationnelsecond = dynamic_cast<Rationnel*>(second);
+                if(rationnelsecond!=NULL){
+                    if(str == "=") return egal(*rationnelfirst, *rationnelsecond);
+                    if(str == "!=") return diff(*rationnelfirst, *rationnelsecond);
+                    if(str == "<") return inf(*rationnelfirst, *rationnelsecond);
+                    if(str == ">") return sup(*rationnelfirst, *rationnelsecond);
+                    if(str == "<=") return infeg(*rationnelfirst, *rationnelsecond);
+                    if(str == ">=") return supeg(*rationnelfirst, *rationnelsecond);
+                }
+            }
+            else {
+                throw "Litteral invalide";
+                return new Rationnel(0,0);
+            }
+         }
+    }
 
