@@ -470,7 +470,7 @@ QWidget* Fenetre::createVarView(){
     QPushButton* BCreer = new QPushButton("Créer");
     BCreer->show();
     vLayoutListVar->addWidget(BCreer);
-    connect(BCreer,SIGNAL(clicked()), this, SLOT(pushBCReerVar()));
+    connect(BCreer,SIGNAL(clicked()), this, SLOT(pushBCreerVar()));
 
     variable->setLayout(vLayoutListVar);
     return variable;
@@ -535,7 +535,7 @@ QWidget* Fenetre::createProgView(){
     QPushButton* BCreer = new QPushButton("Créer");
     BCreer->show();
     vLayoutListProg->addWidget(BCreer);
-    connect(BCreer,SIGNAL(clicked()), this, SLOT(pushBCReerProg()));
+    connect(BCreer,SIGNAL(clicked()), this, SLOT(pushBCreerProg()));
 
     programme->setLayout(vLayoutListProg);
     return programme;
