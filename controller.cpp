@@ -62,7 +62,7 @@ bool Controller::operateurRestant(const QString s){
 }
 
 /**
- * \fn  bool Controller::estunOperateurLogique(const QString s)
+ * \fn  bool Controller::estUnOperateurLogique(const QString s)
  * \brief  Teste les operateurs logiques qui prennent deux arguments
  *
  * \param  s L'entrée à comparer aux commandes
@@ -346,6 +346,7 @@ void Controller::commande(const QString& c){
             }
 
     }   else if(estUneExpression(c)){
+        pile.push(varM.addVariable(c.mid(1,c.size()-2),NULL));
 
         //Traduire en commande normale puis changeCommande
     }   else if(estUnAtomeProgramme(c)){
