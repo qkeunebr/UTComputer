@@ -28,6 +28,7 @@ public :
     const QString toString() const { return QString(nom);}
     bool operator== (const Variable& var2){return this->getName() == var2.getName();}
     Variable():nom(QString("")){}
+    Variable(QString n):nom(n){}
 };
 
 class VariableManager{
