@@ -54,6 +54,7 @@ Litteral* Neg::neg(const Rationnel& r) const{
     else{
         result = new Rationnel(-r.getNumerateur(), r.getDenominateur());
     }
+    return result;
 }
 
 /**

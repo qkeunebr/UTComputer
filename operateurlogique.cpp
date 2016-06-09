@@ -183,7 +183,7 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
 
  Litteral* OperateurLogique::sup(const Rationnel& r1, const Rationnel& r2)const{
      Litteral* result;
-     if((r1.getNumerateur()>r2.getNumerateur()) && (r1.getDenominateur()>r2.getDenominateur())){
+     if((r1.getNumerateur()>r2.getNumerateur()) && (r1.getDenominateur()>=r2.getDenominateur())){
          result = new Rationnel(1,1);
      }
      else
@@ -365,7 +365,7 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
 
  Litteral* OperateurLogique::inf(const Rationnel& r1, const Rationnel& r2) const{
      Litteral* result;
-     if((r1.getNumerateur()<r2.getNumerateur()) && (r1.getDenominateur()<r2.getDenominateur())){
+     if((r1.getNumerateur()<r2.getNumerateur()) && (r1.getDenominateur()<=r2.getDenominateur())){
          result = new Rationnel(1,1);
      }
      else
@@ -385,7 +385,7 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
 
  Litteral* OperateurLogique::ET(const Rationnel& c1, const Rationnel& c2)const{
      Litteral* result;
-     if(c1.getNumerateur()==c2.getDenominateur() && (c2.getNumerateur()==c2.getDenominateur())){
+     if(c1.getNumerateur()==1 && (c2.getNumerateur()==1)){
          result = new Rationnel(1,1);
      }
      else
@@ -394,7 +394,7 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
  }
  Litteral* OperateurLogique::OU(const Rationnel& c1, const Rationnel& c2)const {
      Litteral* result;
-     if(c1.getNumerateur()==c2.getDenominateur() || (c2.getNumerateur()==c2.getDenominateur())){
+     if(c1.getNumerateur()==1 || (c1.getNumerateur()==1)){
          result = new Rationnel(1,1);
      }
      else
@@ -431,6 +431,8 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
                     if(str == ">") return sup(*rationnelfirst, *rationnelsecond);
                     if(str == "<=") return infeg(*rationnelfirst, *rationnelsecond);
                     if(str == ">=") return supeg(*rationnelfirst, *rationnelsecond);
+                    if(str == "AND") return ET(*rationnelfirst, *rationnelsecond);
+                    if(str== "OR") return OU(*rationnelfirst, *rationnelsecond);
                 }
             }
             else {

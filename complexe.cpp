@@ -63,13 +63,15 @@ const QString Complexe::toString() const {
     QString string;
     //Si le complexe est reel
     if (estunReel || estunEntier) {
-         string = QString::number(ReReel);
+         if(ReReel != 0.0)
+            string = QString::number(ReReel);
         //Si il y a un dollar pour séparer la partie réelle de la partie imaginaire (partie imaginaire non nulle)
         if (symboleDollar && ImReel !=0.0) {
             string += " " + QString::number(ImReel) + "i";
         }
     }
     else if (estunEntier){
+       if(ReEntier != 0)
        string = QString::number(ReEntier);
        //Si il y a un dollar pour séparer la partie réelle de la partie imaginaire (partie imaginaire non nulle)
        if (symboleDollar && ImEntier!=0) {
@@ -78,6 +80,7 @@ const QString Complexe::toString() const {
     }
     else{
         //Le complexe est un rationnel
+        if(cReRationnel.getNumerateur()!=0)
         string = cReRationnel.toString();
         if (symboleDollar && cImRationnel.getNumerateur()!=0) {
             string += " " + cImRationnel.toString() + "i";
