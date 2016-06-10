@@ -15,4 +15,5 @@ public:
     const int& getNumerateur() const{return numerateur;}
     const int& getDenominateur() const{return denominateur;}
     const QString toString() const;
+    void ajouterChiffre(int chiffre);
 };

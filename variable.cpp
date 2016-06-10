@@ -95,3 +95,11 @@ Programme& ProgrammeManager::getProgramme(QString name){
             return temp;
     }
 }
+
+void Programme::ajouterChiffre(int chiffre){
+
+}
+
+void Variable::ajouterChiffre(int chiffre){
+
+}

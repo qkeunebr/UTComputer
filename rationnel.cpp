@@ -23,3 +23,7 @@ const QString Rationnel::toString() const {
     }
     return string;
 }
+
+void Rationnel::ajouterChiffre(int chiffre){
+    numerateur += chiffre;
+}

@@ -2,6 +2,7 @@
 #include "operationbinaire.h"
 #include <QStack>
 #include <QTextStream>
+#include "controller.h"
 
 Eval::Eval(Litteral& l) : OperationUnaire(l)
 {
@@ -9,17 +10,17 @@ Eval::Eval(Litteral& l) : OperationUnaire(l)
 
 Litteral* Eval::getResult() const {
     Expression* exp = dynamic_cast<Expression*>(unique);
-    QStack<Litteral*> p;
+    QStack<Litteral* > p;
     if (exp != NULL){
         int i = 0;
         QString s = exp->getExp();
         Litteral * result = 0;
         while(i<s.length()){
            if(s[i] >= '0' && s[i] <= '9'){
-                Litteral* r1 = new Rationnel(0,0);
-                Litteral* r2 = new Rationnel(0,0);
+                Litteral* r1 = new Rationnel(0,1);
+                Litteral* r2 = new Rationnel(0,1);
                 if(result == 0)result = Addition(*r1,*r2).getResult();
-                //result->addChiffre(s[i].toAscii() - '0');
+                result->ajouterChiffre(s[i].digitValue());
             }
             else if(s[i] == '$'){
                 if(result == 0) throw ("$ mal placé");
@@ -31,7 +32,7 @@ Litteral* Eval::getResult() const {
                 }
                 else{
                     if(p.size() < 2) throw ("Pas assez d'opérandes pour /");
-                    Litteral *op2 = p.pop(),  *op1 = p.pop();
+                    Litteral *op2 = p.top(),  *op1 = p.top();
 
                     result = Division(*op1,*op2).getResult();
 
@@ -47,18 +48,31 @@ Litteral* Eval::getResult() const {
                 //result->setVirguleEntree();
             }
             else if(s[i] == '+'){
+
+               QTextStream out(stdout);
+                          out << result->toString();
+
                 if(result!=0){
+                    out << "LA";
                     p.push(result);
+                    out << "LA";
                     result = 0;
                 }
-                if(p.size() < 2) throw ("Pas assez d'opérandes pour +");
-                Litteral *op1 = p.pop();
-                Litteral *op2 = p.pop();
+                out << "ICI";
+                out << p.size();
+                out << "ICIB";
+
+                Litteral *op1 = p.top();
+
+                           out << op1->toString();
+                Litteral *op2 = p.top();
+                           out << op2->toString();
                 result = Addition(*op1,*op2).getResult();
                 delete op1;
                 delete op2;
                 p.push(result);
                 result = 0;
+
             }
             else if(s[i] == '-'){
                 if(result!=0){
@@ -66,7 +80,7 @@ Litteral* Eval::getResult() const {
                     result = 0;
                 }
                 if(p.size() < 2) throw ("Pas assez d'opérandes pour -");
-                Litteral* op2 = p.pop(), * op1 = p.pop();
+                Litteral* op2 = p.top(), * op1 = p.top();
                 result = Soustraction(*op1,*op2).getResult();
                 delete op1;
                 delete op2;
@@ -79,7 +93,7 @@ Litteral* Eval::getResult() const {
                     result = 0;
                 }
                 if(p.size() < 2) throw ("Pas assez d'opérandes pour *");
-                Litteral *op2 = p.pop(),  *op1 = p.pop();
+                Litteral *op2 = p.top(),  *op1 = p.top();
                 result = Multiplication(*op1,*op2).getResult();
                 delete op1;
                 delete op2;

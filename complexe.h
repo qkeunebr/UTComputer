@@ -41,6 +41,7 @@ public:
     const Rationnel& getReRationnel() const { return cReRationnel; }
     const Rationnel& getImRationnel() const { return cImRationnel; }
     const QString toString() const;
+    void ajouterChiffre(int chiffre);
 };
 
 #endif // COMPLEXE_H

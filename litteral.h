@@ -14,6 +14,7 @@ class Litteral
 public:
     virtual ~Litteral() {}
     virtual const QString toString() const =0;
+    virtual void ajouterChiffre(int chiffre) = 0;
 };
 
 #endif // LITTERAL_H

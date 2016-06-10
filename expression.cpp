@@ -3,3 +3,8 @@
 
 
 Expression::Expression(QString e) : exp(e){}
+
+
+void Expression::ajouterChiffre(int chiffre){
+
+}

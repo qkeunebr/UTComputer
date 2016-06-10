@@ -21,5 +21,6 @@ public:
     // Getters
     bool symboleDollar() const{ return false;}
     QString getExp() const {return exp;}
+    void ajouterChiffre(int chiffre);
 
 };

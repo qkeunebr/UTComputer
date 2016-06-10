@@ -29,6 +29,7 @@ public :
     bool operator== (const Variable& var2){return this->getName() == var2.getName();}
     Variable():nom(QString("")){}
     Variable(QString n):nom(n){}
+    void ajouterChiffre(int chiffre);
 };
 
 class VariableManager{
@@ -67,6 +68,7 @@ public :
     const QString aff() const;
     bool operator== (const Programme& var2){return this->getName() == var2.getName();}
     Programme():nom(""),valeur(""),limiteAffichage(9){}
+    void ajouterChiffre(int chiffre);
 };
 
 /**

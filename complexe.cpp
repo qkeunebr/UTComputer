@@ -88,3 +88,7 @@ const QString Complexe::toString() const {
         }
     return string;
 }
+
+void Complexe::ajouterChiffre(int chiffre){
+
+}
