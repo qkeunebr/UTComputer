@@ -58,6 +58,8 @@ bool Controller::operateurRestant(const QString s){
     if (s=="SWAP")  return true;
     if (s=="LASTOP")  return true;
     if (s=="LASTARGS")  return true;
+    if (s=="UNDO")  return true;
+    if (s=="REDO")  return true;
     return false;
 }
 
