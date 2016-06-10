@@ -30,6 +30,10 @@ public :
     Variable():nom(QString("")){}
     Variable(QString n):nom(n){}
     void ajouterChiffre(int chiffre);
+    void setSlashEntre(bool slashEntre = true){
+
+            }
+     void setDollarEntre(bool dollarEntre = true) { }
 };
 
 class VariableManager{
@@ -69,6 +73,10 @@ public :
     bool operator== (const Programme& var2){return this->getName() == var2.getName();}
     Programme():nom(""),valeur(""),limiteAffichage(9){}
     void ajouterChiffre(int chiffre);
+    void setSlashEntre(bool slashEntre = true){
+
+            }
+     void setDollarEntre(bool dollarEntre = true) { }
 };
 
 /**

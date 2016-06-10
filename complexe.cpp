@@ -89,6 +89,48 @@ const QString Complexe::toString() const {
     return string;
 }
 
-void Complexe::ajouterChiffre(int chiffre){
+void Complexe::setSlashEntre(bool slashEntre) {
+    if (!estunReel && !estunEntier) {
+        if (!symboleDollar) {
+            cReRationnel.setSlashEntre(slashEntre);
+        }
+        else {
+            cImRationnel.setSlashEntre(slashEntre);
+        }
+    }
+}
 
+void Complexe::ajouterChiffre(int chiffre){
+    if (estunReel) {
+        if(!symboleDollar){
+                ReReel*=10;
+                ReReel+=chiffre;
+            }
+        else{
+            ReReel*=10;
+            ReReel+=chiffre;
+            ImReel*=10;
+            ImReel+=chiffre;
+         }
+    }
+    else if (estunEntier){
+        if(!symboleDollar){
+                ReEntier*=10;
+                ReEntier+=chiffre;
+            }
+        else{
+            ReEntier*=10;
+            ReEntier+=chiffre;
+            ImEntier*=10;
+            ImEntier+=chiffre;
+         }
+    }
+    else {
+        if (!symboleDollar) {
+            cReRationnel.ajouterChiffre(chiffre);
+        }
+        else {
+            cImRationnel.ajouterChiffre(chiffre);
+        }
+    }
 }

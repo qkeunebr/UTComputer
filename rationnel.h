@@ -16,4 +16,8 @@ public:
     const int& getDenominateur() const{return denominateur;}
     const QString toString() const;
     void ajouterChiffre(int chiffre);
+    void setSlashEntre(bool slashEntre = true){
+
+            }
+     void setDollarEntre(bool dollarEntre = true) { }
 };

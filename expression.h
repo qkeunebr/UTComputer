@@ -21,6 +21,11 @@ public:
     // Getters
     bool symboleDollar() const{ return false;}
     QString getExp() const {return exp;}
-    void ajouterChiffre(int chiffre);
+    virtual void ajouterChiffre(int chiffre){}
+
+    // Setters
+    virtual void setSlashEntre(bool slashEntre = true){}
+    virtual void setDollarEntre(bool dollarEntre = true){}
+    virtual void setVirguleEntree(bool virguleEntree = true){}
 
 };

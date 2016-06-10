@@ -10,7 +10,7 @@ Eval::Eval(Litteral& l) : OperationUnaire(l)
 
 Litteral* Eval::getResult() const {
     Expression* exp = dynamic_cast<Expression*>(unique);
-    QStack<Litteral* > p;
+    Pile p;
     if (exp != NULL){
         int i = 0;
         QString s = exp->getExp();
@@ -39,7 +39,7 @@ Litteral* Eval::getResult() const {
 
                     delete op1;
                     delete op2;
-                    p.push(result);
+                    p.push(*result);
                     result = 0;
                 }
             }
@@ -48,35 +48,25 @@ Litteral* Eval::getResult() const {
                 //result->setVirguleEntree();
             }
             else if(s[i] == '+'){
-
-               QTextStream out(stdout);
-                          out << result->toString();
-
                 if(result!=0){
-                    out << "LA";
-                    p.push(result);
-                    out << "LA";
+                    p.push(*result);
                     result = 0;
                 }
-                out << "ICI";
-                out << p.size();
-                out << "ICIB";
-
+                if(p.size() < 2) throw ("Pas assez d'opérandes pour +");
                 Litteral *op1 = p.top();
-
+                QTextStream out(stdout);
                            out << op1->toString();
                 Litteral *op2 = p.top();
                            out << op2->toString();
                 result = Addition(*op1,*op2).getResult();
                 delete op1;
                 delete op2;
-                p.push(result);
+                p.push(*result);
                 result = 0;
-
             }
             else if(s[i] == '-'){
                 if(result!=0){
-                    p.push(result);
+                    p.push(*result);
                     result = 0;
                 }
                 if(p.size() < 2) throw ("Pas assez d'opérandes pour -");
@@ -84,12 +74,12 @@ Litteral* Eval::getResult() const {
                 result = Soustraction(*op1,*op2).getResult();
                 delete op1;
                 delete op2;
-                p.push(result);
+                p.push(*result);
                 result = 0;
             }
             else if(s[i] == '*'){
                 if(result!=0){
-                    p.push(result);
+                    p.push(*result);
                     result = 0;
                 }
                 if(p.size() < 2) throw ("Pas assez d'opérandes pour *");
@@ -97,7 +87,7 @@ Litteral* Eval::getResult() const {
                 result = Multiplication(*op1,*op2).getResult();
                 delete op1;
                 delete op2;
-                p.push(result);
+                p.push(*result);
                 result = 0;
             }
             else{
@@ -105,7 +95,7 @@ Litteral* Eval::getResult() const {
             }
             i++;
         }
-        if(result!=0)p.push(result);
+        if(result!=0)p.push(*result);
         if(p.size() > 1) throw ("Il manque un opérateur.");
         if(p.size() < 1) throw ("Pile d'évaluation vide.");
         return p.at(0);

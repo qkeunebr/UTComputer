@@ -368,7 +368,7 @@ void Controller::commande(const QString& c){
         }
         if(c=="DUP") {
             Litteral* temp = pile.top();
-            pile.pushMod(temp);
+            pile.pushMod(*temp);
         }
         if(c=="SWAP") {
             Litteral* v2= pile.top();

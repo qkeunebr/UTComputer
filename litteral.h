@@ -15,6 +15,8 @@ public:
     virtual ~Litteral() {}
     virtual const QString toString() const =0;
     virtual void ajouterChiffre(int chiffre) = 0;
+    virtual void setSlashEntre(bool slashEntre = true) = 0;
+        virtual void setDollarEntre(bool dollarEntre = true) = 0;
 };
 
 #endif // LITTERAL_H

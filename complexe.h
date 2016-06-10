@@ -42,6 +42,12 @@ public:
     const Rationnel& getImRationnel() const { return cImRationnel; }
     const QString toString() const;
     void ajouterChiffre(int chiffre);
+    void setSlashEntre(bool slashEntre = true);
+    void setDollarEntre(bool dollarEntre = true) {
+               symboleDollar = dollarEntre;
+
+           }
+
 };
 
 #endif // COMPLEXE_H
