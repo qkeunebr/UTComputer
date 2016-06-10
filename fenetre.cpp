@@ -17,7 +17,7 @@ Fenetre::Fenetre():son(true){
     cont = new Controller;
 
     QWidget *tabWidget = new QWidget;
-    QTabWidget *tab = new QTabWidget(tabWidget);
+    tab = new QTabWidget(tabWidget);
     tab->setFixedSize(620, 480);
 
     QWidget *calc = new QWidget;
