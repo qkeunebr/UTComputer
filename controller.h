@@ -80,6 +80,7 @@ public :
         pile = pileSave;
         varM = varMSave;
         progM = progMSave;
+        pile.modificationEtat();
     }
 
     bool estUnOperateurLogique(const QString s);
