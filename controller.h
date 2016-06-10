@@ -26,9 +26,6 @@ public:
     QString getStackAff();
     Litteral* top(){return stack.last();}
     Litteral* at(int i){return stack.at(i);}
-//    QStack<Litteral*>::Iterator begin(){return sta.begin();}
-//    QStack<Litteral*>::Iterator end(){return sta.end();}
-//    const Litteral* value(int i){return sta.value(i);}
     void setNbItemsToAffiche(unsigned int n) { nbAffiche=n; }
     unsigned int getNbItemsToAffiche() const { return nbAffiche; }
     void setMessage(const QString& m) { message=m; modificationEtat(); }
@@ -98,5 +95,7 @@ public :
     bool estUneVariable(const QString s);
  signals:
     void changeCommande(QString);
+    void changeTab(QString);
+
 };
 #endif // CONTROLLER_H
