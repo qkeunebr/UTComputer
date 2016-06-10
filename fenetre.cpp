@@ -11,18 +11,13 @@ Fenetre::Fenetre():son(true){
     createStatusBar();
 
     readSettings();
-/*
-    QGuiApplication::setFallbackSessionManagementEnabled(false);
-    connect(qApp, &QGuiApplication::commitDataRequest,
-            this, &Fenetre::commitData);
-*/
+
     this->resize(620, 550); //...
 
     cont = new Controller;
 
     QWidget *tabWidget = new QWidget;
     QTabWidget *tab = new QTabWidget(tabWidget);
- //   tabWidget->show();
     tab->setFixedSize(620, 480);
 
     QWidget *calc = new QWidget;
@@ -36,13 +31,11 @@ Fenetre::Fenetre():son(true){
     message = new QLineEdit("");
 
     // ----------------- Pile
-//    vuePile = new QTableWidget();
     vuePile = new QLineEdit();
     commande = new QLineEdit();
     couche = new QVBoxLayout();
 
-    //message non modifiable + couleurs
-//    message->setPlaceholderText("PlaceHolder");
+
     message->setReadOnly(true);
     QPalette palette;
     palette.setColor(QPalette::Base,Qt::blue);
@@ -51,38 +44,9 @@ Fenetre::Fenetre():son(true){
 
     //Pile non modifiable + Aspect
     vuePile->setReadOnly(true);
-//    vuePile->setEditTriggers(QAbstractItemView::NoEditTriggers);
     vuePile->setStyleSheet("background: darkcyan; color: white");
-//    vuePile->verticalHeader()->setVisible(false);
-//    vuePile->verticalHeader()->setStyleSheet("color:black");
-//    vuePile->horizontalHeader()->setVisible(false);
-//    vuePile->horizontalHeader()->setStretchLastSection(true);
 
-    //A changer pour afficher plus de ligne
-//    vuePile->setRowCount(cont->getPile()->getNbItemsToAffiche());
-//    vuePile->setColumnCount(2);
-
-//    QStringList numberList;
-/*    for(unsigned int i = cont->getPile()->getNbItemsToAffiche();i>0;i--)
-    {
-        QString str = QString::number(i);
-        str+=" :";
-//        numberList<<str;
-
-        vuePile->setItem(i-1,0,new QTableWidgetItem(str));
-    }
-
-//    vuePile->setVerticalHeaderLabels(numberList);
-    vuePile->setFixedHeight(30*cont->getPile()->getNbItemsToAffiche()/*vuePile->rowHeight(0)+2);
-*/
     vuePile->setText(cont->getPile()->getStackAff());
-/*
-    vuePile->resizeRowsToContents();
-    int height = (vuePile->model()->rowCount() - 1) + vuePile->horizontalHeader()->height();
-    for(int row = 0; row < vuePile->model()->rowCount(); row++)
-    height = height + vuePile->rowHeight(row);
-    vuePile->setMaximumHeight(height);
-*/
 
     connect(cont->getPile(), SIGNAL(modificationEtat()), this, SLOT(refresh()));
     connect(commande, SIGNAL(returnPressed()), this, SLOT(getNextCommande()));
@@ -101,9 +65,6 @@ Fenetre::Fenetre():son(true){
     vLayoutCalc->addLayout(couche);
     // ---------------------------------------------
 
-/*       QWidget calcEntry;
-    vLayoutCalc->addWidget(&calcEntry);
-*/
     QHBoxLayout *hLayoutPad = new QHBoxLayout;
         calcButton = new QWidget();
     vLayoutCalc->addWidget(calcButton);
@@ -432,7 +393,6 @@ QWidget* Fenetre::createVarView(){
         listVarValue.append(entValue);
 
         select->setChecked(false);
-//        connect(select , SIGNAL(stateChanged(int)),this,SLOT(checkClavierStateChanged(int)));
 
         temp->addWidget(nom);
         temp->addWidget(entNom);
@@ -497,7 +457,6 @@ QWidget* Fenetre::createProgView(){
         listProgValue.append(entValue);
 
         select->setChecked(false);
-//        connect(select , SIGNAL(stateChanged(int)),this,SLOT(checkClavierStateChanged(int)));
 
         temp->addWidget(nom);
         temp->addWidget(entNom);
@@ -756,6 +715,20 @@ void Fenetre::loadFile(const QString &fileName)
 #endif
     commande->setText(in.readLine());
     message->setText(in.readLine());
+    int nbVar = in.readLine().toInt();
+    for(int i=0; i<nbVar ; i++){
+        QString name = in.readLine();
+        QString value = in.readLine();
+        Fenetre::commande->setText(name+" \""+value+"\" STO ");
+        getNextCommande();
+    }
+    int nbProg = in.readLine().toInt();
+    for(int i=0; i<nbProg ; i++){
+        QString name = in.readLine();
+        QString value = in.readLine();
+        Fenetre::commande->setText(name+" \""+value+"\" STO ");
+        getNextCommande();
+    }
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();
 #endif
@@ -782,6 +755,21 @@ bool Fenetre::saveFile(const QString &fileName)
     out << commande->text() ;
     out << "\n";
     out << message->text();
+    VariableManager varM = cont->getVariableManager()->getInstance();
+    out << varM.getList().size();
+    for(QVector<Variable>::iterator it = varM.getList().begin(); it!= varM.getList().end() ; ++it){
+        Variable vTemp = *it;
+        out << vTemp.getName();
+        out << vTemp.getValue().toString();
+    }
+
+    ProgrammeManager progM = cont->getProgrammeManager()->getInstance();
+    out << progM.getList().size();
+    for(QVector<Programme>::iterator it = progM.getList().begin(); it!= progM.getList().end() ; ++it){
+        Programme vTemp = *it;
+        out << vTemp.getName();
+        out << vTemp.getValue();
+    }
 
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();
@@ -843,73 +831,6 @@ void Fenetre::refresh()
     else if (nbRestant == 1) s+= "\n...\n(" + QString::number(nbRestant) + " nombre restant dans la pile)\n";
      vuePile->setText(s);
 
-  //  vuePile->setRowCount(cont->getPile()->getNbItemsToAffiche());
-/*
-    for(unsigned int i = cont->getPile()->getNbItemsToAffiche();i>0;i--)
-    {
-        QString str = QString::number(i);
-        str+=" :";
-        vuePile->setItem(cont->getPile()->getNbItemsToAffiche()-i,0,new QTableWidgetItem(str));
-    }
-
-    unsigned int nbAff = cont->getPile()->getNbItemsToAffiche();
-//    unsigned int nbAff = 0;
-    int indAff, indPile;
-
-/*  -----------------------    Essai avec l'iterator de QStack
-    for(QStack<Litteral*>::Iterator it = cont->getPile()->begin(); it!=cont->getPile()->end() ;++it,nbAff++){
-        if(nbAff < cont->getPile()->getNbItemsToAffiche()){
-            Litteral* temp = *it;
-            vuePile->item(cont->getPile()->getNbItemsToAffiche()-1-nbAff,0)->setText(temp->toString());
-        }
-    }
-
-*//*  ---------------------    Essai 2
-    QString s;
-
-    unsigned int size = cont->getPile()->size();
-            unsigned int aff = cont->getPile()->getNbItemsToAffiche();
-    unsigned int maxtest = std::min<unsigned int>( size, aff);
-    for(unsigned int i = 0 ; i < maxtest ; i++){
-        s = cont->getPile()->at(i)->toString();
-        QTableWidgetItem* temp = new QTableWidgetItem(s);
-        vuePile->setItem(cont->getPile()->getNbItemsToAffiche()-i , 1, temp);
-    }
-  */  /* ---------------------------------- Essai 1
-       unsigned int i=1;
-
-     while(i <= cont->getPile()->getNbItemsToAffiche()) {
-        if ( i <= cont->getPile()->size()) {
-
-            indAff = cont->getPile()->getNbItemsToAffiche()-i;
-            indPile = cont->getPile()->size()-i;
-            if(indPile < cont->getPile()->size() && indPile>=0){
-            Litteral * lit = cont->getPile()->at(indPile);
-            QString stringTemp = lit->toString();
-            QTableWidgetItem* temp = new QTableWidgetItem(stringTemp);
-            vuePile->setItem(indAff , 1, temp);
-            }
-        }
-        i++;
-    }
-    /*        -------------------- Essai de transvaser au fur et à mesure ce que l'on veut afficher dans un autre stack (ne marche ni avec std::stack, ni QStack
-    std::stack<Litteral>* temp = new std::stack<Litteral>();
-    while( nbAff > 0 )
-    {
-        ind = cont->getPile()->size() - nbAff;
-        if (ind >= 0)
-        {
-            vuePile->item(cont->getPile()->getNbItemsToAffiche()-nbAff , 1)->setText((cont->getPile()->top()->toString()));
-            temp->push(*(cont->getPile()->top()));
-            cont->getPile()->pop();
-        }
-        nbAff--;
-    }
-    while(!temp->empty()){
-        cont->getPile()->push((temp->top()));
-        temp->pop();
-    }
-*/
 
 }
 
@@ -951,6 +872,22 @@ void Fenetre::getNextCommande()
         if(com!="") cont->commande(com);
     }while(com!="");
     commande->clear();
+}
+
+/**
+ * \fn  void Fenetre::setActiveTab(QString tabName)
+ * \brief  Change l'onglet actif
+ *
+ * \param  tabName Nom de l'onglet à activer
+ */
+void Fenetre::setActiveTab(QString tabName){
+    int pages = tab->count() ;
+    for ( int i = 0; i < pages; i++ ) {
+     if ( tab->tabText(i) == tabName) {
+      tab->setCurrentIndex( i ) ;
+      break ;
+     }
+    }
 }
 
  /**
@@ -1358,26 +1295,47 @@ void Fenetre::pushBClear(){
 }
 
 void Fenetre::pushBCreerVar(){
-    Fenetre::commande->setText(entValueVar->text()+" '"+entNomVar->text()+"' STO");
+    Fenetre::commande->setText(entValueVar->text()+" \""+entNomVar->text()+"\" STO ");
     getNextCommande();
 
 }
 void Fenetre::pushBCreerProg(){
-
+    Fenetre::commande->setText(entValueProg->text()+" \""+entNomProg->text()+"\" STO ");
+    getNextCommande();
 }
 void Fenetre::pushBSupVar(){
     for(int i=0; i<listVarCheck.size(); i++){
-        if(listVarCheck.at(i)->isChecked())
-             Fenetre::commande->setText(listVarName.at(i)->text()+" FORGET ");
+        if(listVarCheck.at(i)->isChecked()){
+             Fenetre::commande->setText(" \""+listVarName.at(i)->text()+"\" FORGET ");
+             getNextCommande();
+        }
     }
-    getNextCommande();
+
 }
 void Fenetre::pushBSupProg(){
+    for(int i=0; i<listProgCheck.size(); i++){
+        if(listProgCheck.at(i)->isChecked()){
+             Fenetre::commande->setText(" \""+listProgName.at(i)->text()+"\" FORGET ");
+            getNextCommande();
+        }
+    }
 
 }
 void Fenetre::pushBModVar(){
-
+    for(int i=0; i<listVarCheck.size(); i++){
+        if(listVarCheck.at(i)->isChecked()){
+            Fenetre::commande->setText(" \""+listVarName.at(i)->text()+"\" FORGET ");
+            Fenetre::commande->setText(listVarName.at(i)->text()+" \""+listVarValue.at(i)->text()+"\" STO ");
+            getNextCommande();
+        }
+    }
 }
 void Fenetre::pushBModProg(){
-
+    for(int i=0; i<listProgCheck.size(); i++){
+        if(listProgCheck.at(i)->isChecked()){
+            Fenetre::commande->setText(" \""+listProgName.at(i)->text()+"\" FORGET ");
+            Fenetre::commande->setText(listProgName.at(i)->text()+" \""+listProgValue.at(i)->text()+"\" STO ");
+            getNextCommande();
+        }
+    }
 }
