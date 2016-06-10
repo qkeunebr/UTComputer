@@ -122,6 +122,8 @@ bool Controller::estUnOperateurBinaire(const QString s){
     if (s==">")  return true;
     if (s=="AND")  return true;
     if (s=="OR")  return true;
+    if (s=="STO")  return true;
+    if (s=="IFT")  return true;
     return false;
 }
 
@@ -279,12 +281,10 @@ void Controller::commande(const QString& c){
                     op="Complexe";
                 }
                 if(c=="STO"){
-                    if(v1->toString()=="temp"){
-                        progM.removeProgramme(progM.getProgramme(v1->toString()));
+                    if(estUnProgramme(v1->toString()))
                         progM.addProgramme(v2->toString(), v1->toString());
-                    }
-                    varM.removeVariable(varM.getVariable(v2->toString()));
-                    varM.addVariable(v2->toString(), *v1);
+                    else
+                        varM.addVariable(v2->toString(), *v1);
                 }
 
 
@@ -325,7 +325,12 @@ void Controller::commande(const QString& c){
                     pile.pushMod(*(Num(*val).getResult()));
                 }
               if(c=="EDIT") {
-
+                    if(estUneVariable(val->toString())){
+                        changeTab("Variable");
+                    }
+                    if(estUnAtomeProgramme(val->toString())){
+                        changeTab("Programme");
+                    }
                 }
                 if(c=="EVAL") {
                     pile.pushMod(*(Eval(*val).getResult()));
@@ -348,15 +353,13 @@ void Controller::commande(const QString& c){
             }
 
     }   else if(estUneExpression(c)){
-        //pile.pushMod(varM.addVariable(c));
         Expression* exp = new Expression(c.mid(1,c.size()-2));
         pile.pushMod(*exp);
-        //Traduire en commande normale puis changeCommande
     }   else if(estUnAtomeProgramme(c)){
         changeCommande(progM.getProgramme(c).getName());
     }   else if(estUnProgramme(c)){
-        pile.setMessage("Programme : "+c.mid(1,c.size()-2));
-        progM.addProgramme("temp", c.mid(1,c.size()-2));
+        Expression* exp = new Expression(c.mid(1,c.size()-2));
+        pile.pushMod(*exp);
     }   else if(estUneVariable(c)){
         pile.pushMod(varM.getVariable(c).getValue());
     }   else if(operateurRestant(c)){
@@ -364,7 +367,8 @@ void Controller::commande(const QString& c){
             pile.popMod();
         }
         if(c=="DUP") {
-            pile.pushMod(*pile.top());
+            Litteral* temp = pile.top();
+            pile.pushMod(temp);
         }
         if(c=="SWAP") {
             Litteral* v2= pile.top();
