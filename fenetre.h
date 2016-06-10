@@ -15,7 +15,6 @@
 #include <iostream>
 #include <exception>
 //#include <windows.h>
-#include <QTableWidget>
 #include <QHeaderView>
 #include <QCloseEvent>
 #include <QSessionManager>
@@ -44,6 +43,9 @@ Q_OBJECT
     QWidget* calcButton;
     //Attribut bip sonore
     bool son;
+    
+    QTabWidget* tab;
+
 
     QLineEdit* message;
 //    QTableWidget* vuePile;
@@ -79,6 +81,9 @@ public slots :
     void refresh();
     void getNextCommande();
     void setCommande(QString s);
+    
+    void setActiveTab(QString tab);
+
 
     void pushB1();
     void pushB2();
