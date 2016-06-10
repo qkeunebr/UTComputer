@@ -179,8 +179,10 @@ bool Controller::estUnComplexe(const QString s){
  * \return  booléen si c'est une entrée de ce type
  */
 bool Controller::estUneExpression(const QString s){
-    if(s.size()>0 && s.at(0)==QChar('\'') && s.at(s.size() - 1)==QChar('\'')) return true;
-    return false;
+    bool result = false;
+    if(s.size()>0 && s.at(0)==QChar('\"') && s.at(s.size() - 1)==QChar('\"'))
+        result = true;
+    return result;
 }
 
 /**
@@ -326,7 +328,7 @@ void Controller::commande(const QString& c){
 
                 }
                 if(c=="EVAL") {
-
+                    pile.pushMod(*(Eval(*val).getResult()));
                 }
                 if (c=="NOT"){
                     pile.pushMod(*(OperateurLogiqueUnaire(*val, c).getResult()));
@@ -346,8 +348,9 @@ void Controller::commande(const QString& c){
             }
 
     }   else if(estUneExpression(c)){
-        pile.push(varM.addVariable(c.mid(1,c.size()-2)));
-
+        //pile.pushMod(varM.addVariable(c));
+        Expression* exp = new Expression(c.mid(1,c.size()-2));
+        pile.pushMod(*exp);
         //Traduire en commande normale puis changeCommande
     }   else if(estUnAtomeProgramme(c)){
         changeCommande(progM.getProgramme(c).getName());

@@ -6,13 +6,17 @@
 #include "litteral.h"
 #include <QString>
 
+/**
+ * Classe représentant une Littérale Expression, héritant de la classe Litteral.
+ */
+
 class Expression : public Litteral
 {
 private:
     QString exp;
 public:
     Expression(QString exp = "");
-    const QString toString() const{ return "\'" + exp + "\'"; }
+    const QString toString() const{ return "\"" + exp + "\""; }
 
     // Getters
     bool symboleDollar() const{ return false;}

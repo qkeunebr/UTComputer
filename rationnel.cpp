@@ -17,5 +17,9 @@ const QString Rationnel::toString() const {
     if (denominateur != 1 && denominateur!=0) {
         string += "/" + QString::number(denominateur);
     }
+    if(numerateur==0 || denominateur==0){
+        string += QString::number(denominateur);
+
+    }
     return string;
 }

@@ -830,13 +830,21 @@ QString Fenetre::strippedName(const QString &fullFileName)
  */
 void Fenetre::refresh()
 {
-
     //Display pile
     message->setText(cont->getPile()->getMessage());
     vuePile->setText(cont->getPile()->getStackAff());
-/*
-    vuePile->setRowCount(cont->getPile()->getNbItemsToAffiche());
 
+    QString s;
+    unsigned int maxAffichage = 7;
+    int lim = std::min(cont->getPile()->size(), maxAffichage);
+    for(int i=0;i<lim;i++) s+=cont->getPile()->at(i)->toString()+"\n";
+    int nbRestant = cont->getPile()->size() - lim;
+    if (nbRestant > 1) s+= "\n...\n(" + QString::number(nbRestant) + " nombres restants dans la pile)\n";
+    else if (nbRestant == 1) s+= "\n...\n(" + QString::number(nbRestant) + " nombre restant dans la pile)\n";
+     vuePile->setText(s);
+
+  //  vuePile->setRowCount(cont->getPile()->getNbItemsToAffiche());
+/*
     for(unsigned int i = cont->getPile()->getNbItemsToAffiche();i>0;i--)
     {
         QString str = QString::number(i);
@@ -1346,6 +1354,7 @@ void Fenetre::pushBRedo(){
  */
 void Fenetre::pushBClear(){
     cont->getPile()->clear();
+    Fenetre::refresh();
 }
 
 void Fenetre::pushBCreerVar(){

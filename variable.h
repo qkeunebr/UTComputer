@@ -43,6 +43,7 @@ class VariableManager{
         static Handler handler;
 public :
         Variable& addVariable(QString n, Litteral& l);
+        Variable& addVariable(QString n);
         void removeVariable(Variable& e);
         bool contains(Variable& e);
         bool contains(QString e);
@@ -50,6 +51,7 @@ public :
         Variable& getVariable(QString name);
         static VariableManager& getInstance();
         static void libererInstance();
+
 };
 
 class Programme : public Litteral {

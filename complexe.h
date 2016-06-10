@@ -7,6 +7,10 @@
 
 #include <QString>
 
+/**
+ * Classe représentant une Littérale Complexe, héritant de la classe Litteral.Un Complexe peut être composé de réels, d'entiers et de rationnels. Un réel est un Complexe sans partie imaginaire.
+ */
+
 class Complexe: public Litteral
 {
 private:
