@@ -1,8 +1,22 @@
 #include "operationbinaire.h"
 #include <QTextStream>
 
+/**
+ * \fn OperateurLogique::OperateurLogique(Litteral& l1, Litteral& l2, QString c)
+ * \brief Fonction de construction de l'objet OperateurLogique.
+ *
+ * \param Deux objets de type littérale et une variable de type QString.
+ * \return Opération Logique composée de deux littérales.
+ */
 OperateurLogique::OperateurLogique(Litteral& l1, Litteral& l2, QString c):OperationBinaire(l1,l2), str(c){}
 
+/**
+ * \fn Litteral* OperateurLogique::egal(const Complexe& c1, const Complexe& c2)const
+ * \brief Fonction pour appliquer l'opérateur egal entre deux objets de types Complexe.
+ *
+ * \param Deux objets de type Complexe.
+ * \return Littéral de type Complexe.
+ */
 Litteral* OperateurLogique::egal(const Complexe& c1, const Complexe& c2)const{
     Litteral* result;
     if(!(c1.getSymboleDollar())){
@@ -57,6 +71,13 @@ Litteral* OperateurLogique::egal(const Complexe& c1, const Complexe& c2)const{
     return result;
 }
 
+/**
+ * \fn Litteral* OperateurLogique::egal(const Rationnel& r1, const Rationnel& r2)const
+ * \brief Fonction pour appliquer l'opérateur egal entre deux objets de types Rationnel.
+ *
+ * \param Deux objets de type Rationnel.
+ * \return Littéral de type Rationnel.
+ */
 Litteral* OperateurLogique::egal(const Rationnel& r1, const Rationnel& r2)const{
     Litteral* result;
     if((r1.getNumerateur()==r2.getNumerateur()) && (r1.getDenominateur()==r2.getDenominateur())){
@@ -67,6 +88,13 @@ Litteral* OperateurLogique::egal(const Rationnel& r1, const Rationnel& r2)const{
     return result;
 }
 
+/**
+ * \fn Litteral* OperateurLogique::diff(const Complexe& c1, const Complexe& c2)const
+ * \brief Fonction pour appliquer l'opérateur diff entre deux objets de types Complexe.
+ *
+ * \param Deux objets de type Complexe.
+ * \return Littéral de type Complexe.
+ */
 Litteral* OperateurLogique::diff(const Complexe& c1, const Complexe& c2)const{
     Litteral* result;
     if(!(c1.getSymboleDollar())){
@@ -120,6 +148,13 @@ Litteral* OperateurLogique::diff(const Complexe& c1, const Complexe& c2)const{
     return result;
 }
 
+/**
+ * \fn Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const
+ * \brief Fonction pour appliquer l'opérateur diff entre deux objets de types Rationnel.
+ *
+ * \param Deux objets de type Rationnel.
+ * \return Littéral de type Rationnel.
+ */
 Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
     Litteral* result;
     if((r1.getNumerateur()==r2.getNumerateur()) && (r1.getDenominateur()==r2.getDenominateur())){
@@ -130,6 +165,13 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
     return result;
 }
 
+/**
+ * \fn Litteral* OperateurLogique::sup(const Complexe& c1, const Complexe& c2)const
+ * \brief Fonction pour appliquer l'opérateur sup entre deux objets de types Complexe.
+ *
+ * \param Deux objets de type Complexe.
+ * \return Littéral de type Complexe.
+ */
  Litteral* OperateurLogique::sup(const Complexe& c1, const Complexe& c2)const{
      Litteral* result;
      if(!(c1.getSymboleDollar())){
@@ -183,6 +225,13 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
      return result;
  }
 
+ /**
+  * \fn Litteral* OperateurLogique::sup(const Rationnel& r1, const Rationnel& r2)const
+  * \brief Fonction pour appliquer l'opérateur sup entre deux objets de types Rationnel.
+  *
+  * \param Deux objets de type Rationnel.
+  * \return Littéral de type Rationnel.
+  */
  Litteral* OperateurLogique::sup(const Rationnel& r1, const Rationnel& r2)const{
      Litteral* result;
      if((r1.getNumerateur()>r2.getNumerateur()) && (r1.getDenominateur()>=r2.getDenominateur())){
@@ -193,6 +242,13 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
      return result;
  }
 
+ /**
+  * \fn Litteral* OperateurLogique::supeg(const Rationnel& r1, const Rationnel& r2)const
+  * \brief Fonction pour appliquer l'opérateur supeg entre deux objets de types Rationnel.
+  *
+  * \param Deux objets de type Rationnel.
+  * \return Littéral de type Rationnel.
+  */
  Litteral* OperateurLogique::supeg(const Rationnel& r1, const Rationnel& r2)const{
      Litteral* result;
      if((r1.getNumerateur()>=r2.getNumerateur()) && (r1.getDenominateur()>=r2.getDenominateur())){
@@ -204,7 +260,13 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
  }
 
 
-
+ /**
+  * \fn Litteral* OperateurLogique::supeg(const Complexe& c1, const Complexe& c2)const
+  * \brief Fonction pour appliquer l'opérateur supeg entre deux objets de types Complexe.
+  *
+  * \param Deux objets de type Complexe.
+  * \return Littéral de type Complexe.
+  */
  Litteral* OperateurLogique::supeg(const Complexe& c1, const Complexe& c2)const{
      Litteral* result;
      if(!(c1.getSymboleDollar())){
@@ -258,6 +320,13 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
      return result;
  }
 
+ /**
+  * \fn Litteral* OperateurLogique::inf(const Complexe& c1, const Complexe& c2)const
+  * \brief Fonction pour appliquer l'opérateur inf entre deux objets de types Complexe.
+  *
+  * \param Deux objets de type Complexe.
+  * \return Littéral de type Complexe.
+  */
  Litteral* OperateurLogique::inf(const Complexe& c1, const Complexe& c2) const{
      Litteral* result;
      if(!(c1.getSymboleDollar())){
@@ -311,6 +380,13 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
      return result;
  }
 
+ /**
+  * \fn Litteral* OperateurLogique::infeg(const Complexe& c1, const Complexe& c2)const
+  * \brief Fonction pour appliquer l'opérateur infeg entre deux objets de types Complexe.
+  *
+  * \param Deux objets de type Complexe.
+  * \return Littéral de type Complexe.
+  */
  Litteral* OperateurLogique::infeg(const Complexe& c1, const Complexe& c2)const{
      Litteral* result;
      if(!(c1.getSymboleDollar())){
@@ -364,7 +440,13 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
      return result;
  }
 
-
+ /**
+  * \fn Litteral* OperateurLogique::inf(const Rationnel& r1, const Rationnel& r2)const
+  * \brief Fonction pour appliquer l'opérateur inf entre deux objets de types Rationnel.
+  *
+  * \param Deux objets de type Rationnel.
+  * \return Littéral de type Rationnel.
+  */
  Litteral* OperateurLogique::inf(const Rationnel& r1, const Rationnel& r2) const{
      Litteral* result;
      if((r1.getNumerateur()<r2.getNumerateur()) && (r1.getDenominateur()<=r2.getDenominateur())){
@@ -375,6 +457,13 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
      return result;
  }
 
+ /**
+  * \fn Litteral* OperateurLogique::infeg(const Rationnel& r1, const Rationnel& r2)const
+  * \brief Fonction pour appliquer l'opérateur infeg entre deux objets de types Rationnel.
+  *
+  * \param Deux objets de type Rationnel.
+  * \return Littéral de type Rationnel.
+  */
  Litteral* OperateurLogique::infeg(const Rationnel& r1, const Rationnel& r2) const{
      Litteral* result;
      if((r1.getNumerateur()<=r2.getNumerateur()) && (r1.getDenominateur()<=r2.getDenominateur())){
@@ -385,6 +474,13 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
      return result;
  }
 
+ /**
+  * \fn Litteral* OperateurLogique::ET(const Rationnel& r1, const Rationnel& r2)const
+  * \brief Fonction pour appliquer l'opérateur ET entre deux objets de types Rationnel.
+  *
+  * \param Deux objets de type Rationnel.
+  * \return Littéral de type Rationnel.
+  */
  Litteral* OperateurLogique::ET(const Rationnel& c1, const Rationnel& c2)const{
      Litteral* result;
      if(c1.getNumerateur()==1 && (c2.getNumerateur()==1)){
@@ -394,6 +490,14 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
          result = new Rationnel(0,0);
      return result;
  }
+
+ /**
+  * \fn Litteral* OperateurLogique::OU(const Rationnel& r1, const Rationnel& r2)const
+  * \brief Fonction pour appliquer l'opérateur OU entre deux objets de types Rationnel.
+  *
+  * \param Deux objets de type Rationnel.
+  * \return Littéral de type Rationnel.
+  */
  Litteral* OperateurLogique::OU(const Rationnel& c1, const Rationnel& c2)const {
      Litteral* result;
      if(c1.getNumerateur()==1 || (c1.getNumerateur()==1)){
@@ -404,7 +508,13 @@ Litteral* OperateurLogique::diff(const Rationnel& r1, const Rationnel& r2)const{
      return result;
  }
 
-
+ /**
+  * \fn Litteral* OperateurLogique::getResult() const
+  * \brief Fonction qui appelle les opérateurs logiques selon le type de Littérale
+  *
+  *
+  * \return Objet de type littéral.
+  */
  Litteral* OperateurLogique::getResult() const{
      Complexe* complexefirst = dynamic_cast<Complexe*>(first);
         if(complexefirst != NULL){

@@ -5,6 +5,10 @@
 
 #include "litteral.h"
 
+/**
+ * Classe représentant une Littérale Rationnel, héritant de la classe Litteral.Un Rationnel peut être composé d'entiers uniquement. Un entier est un Rationnel dont le dénominateur vaut 1.
+ */
+
 class Rationnel : public Litteral
 {
 private:

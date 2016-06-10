@@ -3,6 +3,13 @@
 
 #include "complexe.h"
 
+
+/**
+ * Classe representant une OperationUnaire generique et les elements communs des opérations de l'application
+ *
+ */
+
+
 class OperationUnaire
 {
     protected:

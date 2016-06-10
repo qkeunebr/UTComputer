@@ -89,6 +89,14 @@ const QString Complexe::toString() const {
     return string;
 }
 
+
+/**
+ * \fn void Complexe::setSlashEntre(bool slashEntre)
+ * \brief Surcharge de la méthode setSlashEntre(bool slashEntre) pour la classe Complexe.
+ *
+ * \param Variable de type booléenne.
+ * \return
+ */
 void Complexe::setSlashEntre(bool slashEntre) {
     if (!estunReel && !estunEntier) {
         if (!symboleDollar) {
@@ -100,6 +108,13 @@ void Complexe::setSlashEntre(bool slashEntre) {
     }
 }
 
+/**
+ * \fn void Complexe::ajouterChiffre(int chiffre)
+ * \brief Surcharge de la méthode ajouterChiffre(int chiffre) pour la classe Complexe.
+ *
+ * \param Variable de type integer.
+ * \return
+ */
 void Complexe::ajouterChiffre(int chiffre){
     if (estunReel) {
         if(!symboleDollar){

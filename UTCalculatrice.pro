@@ -9,7 +9,6 @@ HEADERS += \
     litteral.h \
     operationunaire.h \
     operationbinaire.h \
-    litteralfactory.h\
     controller.h \
     variable.h
 
@@ -26,7 +25,6 @@ SOURCES += \
     soustraction.cpp \
     multiplication.cpp \
     eval.cpp \
-    litteralfactory.cpp\
     controller.cpp\
     division.cpp\
     dollar.cpp\

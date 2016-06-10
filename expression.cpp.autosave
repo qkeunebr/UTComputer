@@ -1,0 +1,12 @@
+#include "expression.h"
+#include <QString>
+
+/**
+ * \fn Expression::Expression(QString e) : exp(e)
+ * \brief Fonction de construction de l'objet Expression.
+ *
+ * \param Un objet de type QString.
+ * \return Littérale Expression.
+ */
+Expression::Expression(QString e) : exp(e){}
+

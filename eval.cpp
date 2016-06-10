@@ -4,10 +4,24 @@
 #include <QTextStream>
 #include "controller.h"
 
+/**
+ * \fn Eval::Eval(Litteral& l)
+ * \brief Fonction de construction de l'objet Eval.
+ *
+ * \param Un objet de type littérale.
+ * \return Opération unaire composée d'une littérale.
+ */
 Eval::Eval(Litteral& l) : OperationUnaire(l)
 {
 }
 
+/**
+ * \fn Litteral* Eval::getResult() const
+ * \brief Fonction qui évalue une littérale Expression
+ *
+ *
+ * \return Objet de type littéral.
+ */
 Litteral* Eval::getResult() const {
     Expression* exp = dynamic_cast<Expression*>(unique);
     Pile p;
@@ -52,17 +66,14 @@ Litteral* Eval::getResult() const {
                     p.push(*result);
                     result = 0;
                 }
-                if(p.size() < 2) throw ("Pas assez d'opérandes pour +");
+                if(p.size() >= 2){
                 Litteral *op1 = p.top();
-                QTextStream out(stdout);
-                           out << op1->toString();
                 Litteral *op2 = p.top();
-                           out << op2->toString();
                 result = Addition(*op1,*op2).getResult();
                 delete op1;
                 delete op2;
                 p.push(*result);
-                result = 0;
+                result = 0;}
             }
             else if(s[i] == '-'){
                 if(result!=0){

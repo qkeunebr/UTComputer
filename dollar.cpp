@@ -10,10 +10,24 @@
  */
 
 #include "operationbinaire.h"
-#include <QTextStream>
 
+
+/**
+ * \fn Dollar::Dollar(Litteral& l1, Litteral& l2)
+ * \brief Fonction de construction de l'objet Dollar.
+ *
+ * \param Deux objets de type littérale.
+ * \return Opération binaire composée de deux littérales.
+ */
 Dollar::Dollar(Litteral& l1, Litteral& l2):OperationBinaire(l1,l2){}
 
+/**
+ * \fn Litteral* Dollar::dollar(const Complexe& c1, const Complexe& c2) const
+ * \brief Fonction pour appliquer l'opérateur dollar et former une Litterale complexe à partir de deux Complexes (littérales réelles).
+ *
+ * \param Deux objets de type Complexe.
+ * \return Littéral de type Complexe.
+ */
 Litteral* Dollar::dollar(const Complexe& c1, const Complexe& c2) const{
     Litteral* result;
     if (c1.estReel() || !(c1.getSymboleDollar())) {
@@ -58,6 +72,13 @@ Litteral* Dollar::dollar(const Complexe& c1, const Complexe& c2) const{
     return result;
 }
 
+/**
+ * \fn Litteral* Dollar::getResult()const
+ * \brief Fonction qui appelle la méthode dollar si la littérale est Complexe
+ *
+ *
+ * \return Objet de type littéral.
+ */
 Litteral* Dollar::getResult()const {
      Complexe* complexefirst = dynamic_cast<Complexe*>(first);
          if (complexefirst != NULL) {

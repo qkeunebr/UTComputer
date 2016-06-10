@@ -1,0 +1,10 @@
+#include "operationbinaire.h"
+
+/**
+ * \fn OperationBinaire::OperationBinaire(Litteral& l1, Litteral& l2)
+ * \brief Fonction de construction de l'objet OperateurBinaire.
+ *
+ * \param Deux objets de type littérale.
+ * \return Opération Binaire composée de deux littérales.
+ */
+OperationBinaire::OperationBinaire(Litteral& l1, Litteral& l2):first(&l1), second(&l2){}
