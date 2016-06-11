@@ -53,8 +53,7 @@ class Controller : public QObject{
     VariableManager varM;
     ProgrammeManager progM;
     Pile pileSave;
-    VariableManager varMSave;
-    ProgrammeManager progMSave;
+
     QString lastop;
     QVector<Litteral*> lastargs;
 public :
@@ -73,13 +72,13 @@ public :
 
     void save(){
         pileSave = pile;
-        varMSave = varM;
-        progMSave = progM;
+
     }
     void load(){
+        Pile temp = pile;
         pile = pileSave;
-        varM = varMSave;
-        progM = progMSave;
+        pileSave = temp;
+
         pile.modificationEtat();
     }
 
