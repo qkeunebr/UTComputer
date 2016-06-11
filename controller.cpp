@@ -58,8 +58,8 @@ bool Controller::operateurRestant(const QString s){
     if (s=="SWAP")  return true;
     if (s=="LASTOP")  return true;
     if (s=="LASTARGS")  return true;
-    if (s=="UNDO")  return true;
-    if (s=="REDO")  return true;
+ //   if (s=="UNDO")  return true;
+//    if (s=="REDO")  return true;
     return false;
 }
 
@@ -235,7 +235,12 @@ bool Controller::estUneVariable(const QString s){
  *
  * \param  c la ligne de commnde à exécuter
  */
-void Controller::commande(const QString& c){
+void Controller::commande(const QString& c){/*
+    if(c=="UNDO" || c=="REDO"){
+        load();
+    }
+    else{
+    save();*/
     if (estUnEntier(c)){
      Litteral * r1 = new Rationnel(c.toInt());
      pile.pushMod(*r1);
@@ -389,15 +394,9 @@ void Controller::commande(const QString& c){
                 lastargs.pop_back();
             }
         }
-        if(c=="UNDO") {
-            load();
-        }
-        if(c=="REDO") {
-
-        }
         lastop = c;
     }
     else pile.setMessage("Erreur : commande inconnue");
-    save();
+//    }
 
 }
